@@ -9,14 +9,11 @@ wp-content/upgrade/
 wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
-
 /.htaccess
 /license.txt
 /readme.html
 /sitemap.xml
 /sitemap.xml.gz
-
-wp-config.php
 /nbproject/private/
 /nbproject
 wp-content/uploads
@@ -24,8 +21,6 @@ wp-content/debug.log
 .DS_Store
 .idea/workspace.xml
 .idea/
-
-wp-content/plugins/webmapp/
 wp-content/plugins/webmapp
 wp-content/plugins/advanced-custom-fields-pro
 wp-content/plugins/better-wp-security
