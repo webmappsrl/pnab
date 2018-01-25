@@ -22,12 +22,12 @@ get_header();
 					        'relation' => 'AND',
 					        [
 						        'key'     => 'username',
-						        'value'   => 'luca',
+						        'value'   =>  $_COOKIE['brenta_user'],
 						        'compare' => '=',
 					        ],
 					        [
 						        'key'     => 'password',
-						        'value'   => '123',
+						        'value'   => $_COOKIE['brenta_password'],
 						        'compare' => '=',
 					        ],
 				        ],
@@ -38,7 +38,7 @@ get_header();
 
 				        while ( $the_query->have_posts() ) {
 					        $the_query->the_post();
-					        $id = get_the_ID();
+
 					        acf_form( [
 						        'post_id'         => get_the_ID(),
 						        'new_post'        => [
@@ -59,22 +59,23 @@ get_header();
 						        'updated_message' => 'Modifiche inviate',
 						        'submit_value'    => 'Modifica',
 					        ] );
+
 				        }
 				        /* Restore original Post Data */
 				        wp_reset_postdata();
 			        } else {
-				        echo 'nessuna impresa trovata';
+				        echo '<p>nessuna impresa trovata</p>';
 			        }
 
 		        } else { ?>
 			        <?php the_content(); ?>
 
-                    <form action="#" method="post" name="login">
-                        User: <input id="user" type="text" name="user"/>
-                        Password: <input id="password" type="password"
-                                         name="password"/>
-                        <input type="submit" value="Login">
+                    <form id="brenta_login" action="#" method="post" name="brenta_login">
+                        <input id="user" type="text" placeholder="username" name="user"/>
+                        <input id="password" placeholder="password" type="password" name="password"/>
+                        <input id="login" type="submit" value="Login">
                     </form>
+                    <img id="brenta_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/img/loader.gif">
 		        <?php }
 		        ?>
 

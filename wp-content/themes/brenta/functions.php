@@ -9,6 +9,8 @@ function Divi_parent_theme_enqueue_styles() {
         array( 'Divi-style' )
     );
 
+	wp_enqueue_script('brenta_functions', get_stylesheet_directory_uri() . '/js/functions.js', array('jquery'), '.1' , true);
+	wp_localize_script( 'brenta_functions', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 }
 
 function DS_Custom_Modules(){
@@ -473,4 +475,61 @@ function my_save_post( $post_id ) {
 	// send email
 	wp_mail($to, $subject, $body, $headers );
 
+}
+
+add_action( 'wp_ajax_brenta_login_action', 'brenta_login_action' );
+add_action( 'wp_ajax_nopriv_brenta_login_action', 'brenta_login_action' );
+
+function brenta_login_action(){
+
+	$user = $_POST['user'];
+	$password = $_POST['password'];
+
+	$args = [
+		'numberposts'	=> 1,
+		'post_status' => array('pending', 'publish'),
+		'post_type'		=> 'imprese',
+		'meta_query'     => [
+			'relation' => 'AND',
+			[
+				'key'     => 'username',
+				'value'   => $user,
+				'compare' => '=',
+			],
+			[
+				'key'     => 'password',
+				'value'   => $password,
+				'compare' => '=',
+			],
+		],
+	];
+	$the_query = new WP_Query( $args );
+
+	if ( $the_query->have_posts() ) {
+		setcookie('brenta_user', $user, time() + (86400 * 30), "/"); // 86400 = 1 day
+		setcookie('brenta_password', $password, time() + (86400 * 30), "/"); // 86400 = 1 day
+		$response = 'true';
+	} else {
+		$response = 'le credenziali inserite non corrispondono a nessuna impresa';
+	}
+
+	echo $response;
+	wp_die();
+
+}
+
+add_filter('acf/validate_value/name=ripeti_password', 'my_acf_validate_value', 10, 4);
+
+function my_acf_validate_value( $valid, $value, $field, $input ){
+
+	if (!$valid) {
+		return $valid;
+	}
+	// field key of the field you want to validate against
+	$password_field = 'field_5a5890a00d63a';
+	if ($value != $_POST['acf'][$password_field]) {
+		$valid = 'La password non coincide';
+	}
+	return $valid;
+	
 }

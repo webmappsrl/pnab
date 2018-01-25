@@ -1073,6 +1073,34 @@ body #page-container .booking-button.et_pb_button_0:hover, body #page-container 
   font-size: 14px;
 }
 
+#brenta_login input {
+  width: 38%;
+  height: 40px;
+  padding: 16px;
+  margin-right: 2%;
+  display: inline-block;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  color: #999;
+  background-color: #eee;
+  font-size: 14px;
+}
+
+#brenta_login input[type=password]{
+
+}
+
+#brenta_login input[type=submit] {
+  cursor: pointer;
+  padding: 0;
+  background: #333;
+  color: #fff;
+  border-radius: 20px;
+  width: 15%;
+}
+
 .wpcf7 input[type=submit] {
   cursor: pointer;
 }
@@ -1140,4 +1168,17 @@ body #page-container .booking-button.et_pb_button_0:hover, body #page-container 
 
 #breadcrumbs {
   margin-bottom: 18px;
+}
+
+img#brenta_loader {
+  display: none;
+  margin: 40px auto;
+}
+
+form#brenta_login {
+  margin: 40px 0;
+}
+
+.acf-form > div {
+  margin-top: 40px;
 }
