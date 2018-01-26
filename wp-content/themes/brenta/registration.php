@@ -141,6 +141,7 @@ get_header();
                         <span class="acf-spinner"></span>
 
                     </div>
+                </form>
             </div>
         </div>
     </div>

@@ -425,56 +425,51 @@ function my_cache_lifetime( $seconds ) {
 }
 add_filter( 'facetwp_cache_lifetime', 'my_cache_lifetime' );
 
-add_action('acf/save_post', 'my_save_post');
+add_action('acf/save_post', 'register_impresa');
 
-function my_save_post( $post_id ) {
+function register_impresa( $post_id ) {
 
-	// bail early if not a contact_form post
-	$post_type = get_post_type($post_id);
+	$b = 0;
 
 	if( get_post_type($post_id) !== 'imprese' ) {
-
-		//return;
-
-	}
-
-
-	// bail early if editing in admin
-	if( is_admin() ) {
-
 		return;
-
 	}
 
+	if( is_admin() ) {
+		return;
+	}
 
 	// vars
-	$impresa = get_field('impresa', $post_id);
-	$name = get_field('nome', $post_id);
-	$lastname = get_field('cognome', $post_id);
-	$pec = get_field('email_certificata_pec', $post_id);
-	$username = get_field('username', $post_id);
-	$password = get_field('password', $post_id);
-	//$email = get_field('email_alternativa_non_pec', $post_id);
+	$impresa = $_POST['acf']['field_5a58832d56687'];
+	$name = $_POST['acf']['field_5a5882e44a26d'];
+	$lastname = $_POST['acf']['field_5a5882ee4a26e'];
+	$pec = $_POST['acf']['field_5a5883ee56693'];
+	$username = $_POST['acf']['field_5a5890970d639'];
+	$password = $_POST['acf']['field_5a5890a00d63a'];
 
 	$update_impresa = array(
 		'ID'           => $post_id,
 		'post_title'   => $impresa
 	);
+
 	wp_update_post( $update_impresa );
 
 	setcookie('brenta_user', $username, time() + (86400 * 30), "/"); // 86400 = 1 day
 	setcookie('brenta_password', $password, time() + (86400 * 30), "/"); // 86400 = 1 day
 
 	// email data
-	$to = 'baroncini@netseven.it';
+	$to = get_option('admin_email');
 	$headers = 'From: ' . $name . ' ' . $lastname . ' <' . $pec . '>' . "\r\n";
 	$subject = 'Iscrizone impresa: '. $impresa;
-	$body = 'Test';
+	$body = 'L\'impresa ' . $impresa . ' è stata registrata da ' . $name . ' ' . $lastname . '- email: ' . $pec;
 
 
 	// send email
 	wp_mail($to, $subject, $body, $headers );
 
+	$url = get_home_url(null, 'impresa');
+	wp_redirect( get_home_url() );
+	exit;
 }
 
 add_action( 'wp_ajax_brenta_login_action', 'brenta_login_action' );
@@ -531,5 +526,5 @@ function my_acf_validate_value( $valid, $value, $field, $input ){
 		$valid = 'La password non coincide';
 	}
 	return $valid;
-	
+
 }
