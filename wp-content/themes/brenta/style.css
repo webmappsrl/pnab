@@ -651,6 +651,10 @@ footer#main-footer {
   padding-bottom: 0px!important;
 }
 
+.back-green  a {
+  color: #4db5cf;
+}
+
 .back-green .single-left {
   width: 68.6%;
   height: auto;
