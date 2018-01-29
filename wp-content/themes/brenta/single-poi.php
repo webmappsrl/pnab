@@ -4,13 +4,25 @@ get_header();
     <div id="main-content">
 
         <div id="content-area" class="clearfix">
-			<?php while ( have_posts() ) : the_post(); ?>
+			<?php while ( have_posts() ) : the_post();
+    				$terms = get_the_terms(the_ID(), 'webmapp_category');
+			?>
+
                 <article
                     id="post-<?php the_ID(); ?>" <?php post_class( 'et_pb_post' . $additional_class ); ?>>
                     <div class="container">
                         <div class="et_post_meta_wrapper">
-                            <h1 class="entry-title"><i class="fa fa-map-marker green"
-                                                       aria-hidden="true"></i> <?php the_title(); ?>
+                            <h1 class="entry-title">
+                                <?php if(empty($terms)): ?>
+                                <i class="fa fa-map-marker green" aria-hidden="true"></i>
+                                <?php else:
+                                 foreach($terms as $term){
+                                    $icon_class = get_field('wm_taxonomy_icon', 'webmapp_category_'.$term->term_id);
+                                    echo '<span class="green ' . $icon_class . '"></span>';
+                                 }
+                                endif;?>
+
+                                <?php the_title(); ?>
 								<?php if ( get_field( 'addr:city' ) ): ?>
                                 - <?php the_field( 'addr:city' ); ?></h1>
 							<?php else : ?>
