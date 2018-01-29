@@ -198,14 +198,29 @@ body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_i
 
 body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 {
   height: 398px;
+  font-size: 40px;
 }
 
 body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 a {
+  display: block;
+  width: auto;
+  align-items: baseline;
+  align-self: flex-end;
+  padding: 30px 25px;
+  margin: 20px 10px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 2px;
+  line-height: 1;
   color: #fff;
-  font-size: 40px;
-  height: 398px;
-  text-align: right;
-  padding-top: 330px;
+  height: auto;
+}
+
+body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 {
+  position: static!important;
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 body #custom-portfolio .custom_grid_item img {
@@ -957,27 +972,28 @@ body.single-project h1.entry-title {
     height: 130px;
   }
 
-  body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item h2 a {
-    padding-top: 20px;
+  body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 {
+    height: 130px;
+    margin-top: 0;
+    font-size: 26px;
   }
 
   body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 a {
+    background: transparent;
     color: transparent;
-    font-size: 18px;
-    text-align: center;
-    display: block;
-    width: 100%;
     height: 130px;
-    padding-top: 20px;
+    margin: 0;
+    padding: 20px 20px 10px;
   }
 
-  body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 {
-    height: 130px;
-  }
-
-  body #custom-portfolio .facetwp-template > .custom_grid_item:first-child > h2 a:hover {
+  body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item:first-child > h2 a:hover {
     background: rgba(0,0,0,0.6);
     color: #fff;
+
+  }
+
+  body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item h2 a {
+    padding-top: 20px;
   }
 
   .single-route .single-right, .single-track .single-right,
@@ -1028,6 +1044,10 @@ body.single-project h1.entry-title {
 
   body .et_pb_fullwidth_portfolio .et_pb_portfolio_image h3 {
     font-size: 17px;
+  }
+
+  .et_pb_portfolio_item h2, .et_pb_post h2, .et_pb_title_container h1 {
+    font-size: 18px!important;
   }
 }
 
