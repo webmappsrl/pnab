@@ -1,5 +1,7 @@
 <?php
 
+include_once "include/highlights.php";
+
 add_action( 'wp_enqueue_scripts', 'Divi_parent_theme_enqueue_styles' );
 
 function Divi_parent_theme_enqueue_styles() {
