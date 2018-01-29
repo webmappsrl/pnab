@@ -777,6 +777,8 @@ class ET_Builder_Module_Custom_Filterable_Portfolio extends ET_Builder_Module {
 			'posts_number'       => '10',
 			'include_categories' => '',
 			'fullwidth'          => 'on',
+            'orderby'           => 'rand',
+            'order'             => 'ASC',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -801,6 +803,7 @@ class ET_Builder_Module_Custom_Filterable_Portfolio extends ET_Builder_Module {
 		$default_query_args = array(
 			'post_type'   => 'project',
 			'post_status' => 'publish',
+            'orderby'     => 'rand',
 		);
 
 		$query_args = wp_parse_args( $query_args, $default_query_args );

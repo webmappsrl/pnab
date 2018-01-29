@@ -76,7 +76,7 @@ header#main-header.et-fixed-header {
 body.et_header_style_left #et-top-navigation {
   padding-left: 30px !important;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   padding-right: 30px;
   width: 80%;
   background: rgba(254, 254, 254, 0.9);
@@ -97,6 +97,7 @@ body.et_header_style_left #et-top-navigation {
 #main-header .nav li ul {
   background: rgba(254, 254, 254, 0.9)!important;
 }
+
 body.et_header_style_left #et-top-navigation nav > ul > li > a {
   padding-bottom: 20px;
 }
