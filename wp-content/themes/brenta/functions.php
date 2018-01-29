@@ -3,11 +3,8 @@
 add_action( 'wp_enqueue_scripts', 'Divi_parent_theme_enqueue_styles' );
 
 function Divi_parent_theme_enqueue_styles() {
-	wp_enqueue_style( 'Divi-style', get_template_directory_uri() . '/style.css' );
-	wp_enqueue_style( 'brenta-style',
-		get_stylesheet_directory_uri() . '/style.css',
-		[ 'Divi-style' ]
-	);
+	wp_enqueue_style( 'divi-style', get_template_directory_uri() . '/style.css' );
+	wp_enqueue_style( 'brenta-style', get_stylesheet_directory_uri() . '/style.css', [ 'divi-style' ], '.1' );
 
 	wp_enqueue_script( 'brenta_functions', get_stylesheet_directory_uri() . '/js/functions.js', [ 'jquery' ], '.1', TRUE );
 	wp_localize_script( 'brenta_functions', 'ajax_object', [ 'ajax_url' => admin_url( 'admin-ajax.php' ) ] );
