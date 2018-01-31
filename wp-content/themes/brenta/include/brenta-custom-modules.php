@@ -454,7 +454,11 @@ class Brenta_Fullwidth_Highlights extends ET_Builder_Module {
                             <img src="<?php echo esc_url( $thumb_src ); ?>"
                                  alt="<?php echo esc_attr( get_the_title() ); ?>"/>
                             <div class="meta">
-                                <a href="<?php esc_url( the_permalink() ); ?>">
+                                <?php if ( $type == 'highlights' && !empty($related_item) ) : ?>
+                                    <a href="<?php echo get_permalink( $related_item[0]->ID ); ?>">
+                                <?php else : ?>
+                                    <a href="<?php esc_url( the_permalink() ); ?>">
+                                <?php endif; ?>
 									<?php
 									$data_icon = '' !== $hover_icon
 										? sprintf(
@@ -484,8 +488,13 @@ class Brenta_Fullwidth_Highlights extends ET_Builder_Module {
 										}
 										if ( $type == 'highlights' && !empty($related_item) ){
 										    $related_type = $related_item[0]->post_type;
-										    if ( $related_type == 'post' ){
-											    $related_type = 'news';
+										    switch ($related_type) {
+                                                case 'post':
+	                                                $related_type = 'news';
+	                                                break;
+                                                case 'project':
+	                                                $related_type = 'proposta';
+	                                                break;
                                             }
 										    echo $related_type;
                                         }
