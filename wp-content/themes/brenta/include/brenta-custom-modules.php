@@ -1,9 +1,9 @@
 <?php
 
-class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
+class Brenta_Fullwidth_Highlights extends ET_Builder_Module {
 	function init() {
-		$this->name       = esc_html__( 'Fullwidth Blog', 'et_builder' );
-		$this->slug       = 'et_pb_fullwidth_blog';
+		$this->name       = esc_html__( 'Brenta Fullwidth Highlights', 'et_builder' );
+		$this->slug       = 'et_pb_brenta_fullwidth_highlights';
 		$this->fb_support = TRUE;
 		$this->fullwidth  = TRUE;
 
@@ -13,6 +13,7 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 		$this->whitelisted_fields = array(
 			'title',
 			'fullwidth',
+			'type',
 			'include_categories',
 			'posts_number',
 			'show_title',
@@ -86,9 +87,9 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 		);
 
 		$this->fields_defaults = array(
-			'fullwidth'         => array( 'on' ),
+			'fullwidth'         => array( 'off' ),
 			'show_title'        => array( 'on' ),
-			'show_date'         => array( 'on' ),
+			'show_date'         => array( 'off' ),
 			'background_layout' => array( 'light' ),
 			'auto'              => array( 'off' ),
 			'auto_speed'        => array( '7000' ),
@@ -96,6 +97,11 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 	}
 
 	function get_fields() {
+	    $types = array();
+		foreach ( get_post_types( array('public' => true ), 'names' ) as $post_type ) {
+			$types[$post_type] = $post_type;
+		}
+
 		$fields = array(
 			'title'               => array(
 				'label'           => esc_html__( 'Blog Title', 'et_builder' ),
@@ -103,6 +109,14 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 				'option_category' => 'basic_option',
 				'description'     => esc_html__( 'Title displayed above the blog.', 'et_builder' ),
 			),
+			'type'  => array(
+				'label'           => esc_html__( 'Post type', 'et_builder' ),
+				'type'            => 'select',
+				'option_category' => 'basic_option',
+				'options'         => $types,
+				'description'     => esc_html__( 'Post type dysplayed', 'et_builder' ),
+
+            ),
 			'fullwidth'           => array(
 				'label'           => esc_html__( 'Layout', 'et_builder' ),
 				'type'            => 'select',
@@ -241,7 +255,7 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 			'__projects'          => array(
 				'type'                => 'computed',
 				'computed_callback'   => array(
-					'ET_Builder_Module_Fullwidth_Blog',
+					'Brenta_Fullwidth_Highlights',
 					'get_portfolio_item'
 				),
 				'computed_depends_on' => array(
@@ -272,9 +286,15 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 		$args = wp_parse_args( $args, $defaults );
 
 		$query_args = array(
-			'post_type'   => 'post',
+		    'post_type' => $args['post_type'],
 			'post_status' => 'publish',
 		);
+
+		if ( $args['post_type'] == 'highlights') {
+			$query_args['meta_key'] = 'ordine';
+			$query_args['orderby'] = 'meta_value';
+			$query_args['order'] = 'ASC';
+        }
 
 		if ( is_numeric( $args['posts_number'] ) && $args['posts_number'] > 0 ) {
 			$query_args['posts_per_page'] = $args['posts_number'];
@@ -335,6 +355,7 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 
 	function shortcode_callback( $atts, $content = NULL, $function_name ) {
 		$title               = $this->shortcode_atts['title'];
+		$type                = $atts['type'];
 		$module_id           = $this->shortcode_atts['module_id'];
 		$module_class        = $this->shortcode_atts['module_class'];
 		$fullwidth           = $this->shortcode_atts['fullwidth'];
@@ -373,6 +394,8 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 		}
 
 		$args = array();
+
+
 		if ( is_numeric( $posts_number ) && $posts_number > 0 ) {
 			$args['posts_per_page'] = $posts_number;
 		} else {
@@ -390,7 +413,11 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 			);
 		}
 
+		if (empty($type)){
+		    $type = 'post';
+        }
 		$projects = self::get_portfolio_item( array(
+			'post_type'         => $type,
 			'posts_number'       => $posts_number,
 			'include_categories' => $include_categories,
 		) );
@@ -411,11 +438,14 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 					$height = 382;
 					$height = (int) apply_filters( 'et_pb_portfolio_image_height', $height );
 
-					list( $thumb_src, $thumb_width, $thumb_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), array(
-						$width,
-						$height
-					) );
 
+
+					if ( $type == 'highlights' ){
+						$related_item = get_field('contenuto_collegato');
+						list( $thumb_src, $thumb_width, $thumb_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( $related_item[0]->ID ), array( $width, $height )  );
+					} else {
+						list( $thumb_src, $thumb_width, $thumb_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), array( $width, $height ) );
+                    }
 					$orientation = ( $thumb_height > $thumb_width ) ? 'portrait' : 'landscape';
 
 					if ( '' !== $thumb_src ) : ?>
@@ -438,9 +468,12 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 										$data_icon
 									);
 									?>
-									<?php if ( 'on' === $show_title ) : ?>
+									<?php if ( 'on' === $show_title ) :
+                                        if ( $type == 'highlights' && !empty($related_item) ) : ?>
+                                            <h3><?php echo $related_item[0]->post_title; ?></h3>
+                                       <?php else : ?>
                                         <h3><?php the_title(); ?></h3>
-									<?php endif; ?>
+									<?php endif; endif; ?>
 
 
                                     <p class="post-meta">
@@ -449,6 +482,13 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 										if ( ! empty( $post_terms ) ) {
 											echo implode( ' / ', $post_terms );
 										}
+										if ( $type == 'highlights' && !empty($related_item) ){
+										    $related_type = $related_item[0]->post_type;
+										    if ( $related_type == 'post' ){
+											    $related_type = 'news';
+                                            }
+										    echo $related_type;
+                                        }
 										?>
                                     </p>
 
@@ -491,7 +531,7 @@ class ET_Builder_Module_Fullwidth_Blog extends ET_Builder_Module {
 	}
 }
 
-new ET_Builder_Module_Fullwidth_Blog;
+new Brenta_Fullwidth_Highlights;
 
 
 class ET_Builder_Module_Custom_Filterable_Portfolio extends ET_Builder_Module {

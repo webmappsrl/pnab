@@ -14,8 +14,8 @@ function Divi_parent_theme_enqueue_styles() {
 
 function DS_Custom_Modules() {
 	if ( class_exists( "ET_Builder_Module" ) ) {
-		include( "ds-custom-modules.php" );
-		include( "brenta-custom-portfolio.php" );
+		include( "include/brenta-custom-modules.php" );
+		include( "include/brenta-custom-portfolio.php" );
 	}
 }
 

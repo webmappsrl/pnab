@@ -73,6 +73,11 @@ header#main-header.et-fixed-header {
   height: auto;
 }
 
+.et-fixed-header .logo_container {
+  max-height: 100%!important;
+  display: flex;
+}
+
 body.et_header_style_left #et-top-navigation {
   padding-left: 30px !important;
   padding-top: 20px;
@@ -83,6 +88,11 @@ body.et_header_style_left #et-top-navigation {
   border-radius: 2px;
   margin-top: 26px;
   margin-bottom: 26px;
+}
+
+#top-menu > li {
+  max-width: 155px;
+  text-align: center;
 }
 
 #top-menu, .fullwidth-menu, nav#top-menu-nav, nav.fullwidth-menu-nav {
@@ -507,6 +517,7 @@ body.single-project .facetwp-facet {
 
 .et_pb_fullwidth_portfolio .et_pb_portfolio_item {
   width: 33%!important;
+  max-width: 33%!important;
   height: 320px!important
 }
 

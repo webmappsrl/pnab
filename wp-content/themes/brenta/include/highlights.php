@@ -108,6 +108,27 @@ if( function_exists('acf_add_local_field_group') ):
 				'max' => 1,
 				'return_format' => 'object',
 			),
+			array(
+				'key' => 'field_5a71e189538bf',
+				'label' => 'Ordine',
+				'name' => 'ordine',
+				'type' => 'number',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '20',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 0,
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'min' => '',
+				'max' => '',
+				'step' => '',
+			),
 		),
 		'location' => array(
 			array(
