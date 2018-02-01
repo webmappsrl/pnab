@@ -492,8 +492,7 @@ function register_impresa( $post_id ) {
 
 	brenta_create_pdf( $post_id );
 
-	$url = get_home_url( NULL, 'impresa' );
-	wp_redirect( get_home_url() );
+	wp_redirect( get_home_url(null, '/impresa') );
 	exit;
 }
 
@@ -556,39 +555,83 @@ function my_acf_validate_value( $valid, $value, $field, $input ) {
 }
 
 function brenta_create_pdf( $impresa_id ) {
-	$a = ABSPATH . 'wp-content/plugins/tcpdf/tcpdf.php';
 
 	require_once( ABSPATH . 'wp-content/plugins/tcpdf/tcpdf.php' );
-	$data = get_fields( $impresa_id );
+	$data = get_field_objects( $impresa_id );
+
+	$file = ABSPATH . 'wp-content/uploads/pdf-imprese/'.$impresa_id.'_'.$data['impresa']['value'].'.pdf';
+	if (file_exists($file)){
+		unlink($file);
+	}
 
 	$html = '';
 
-	foreach ( $data as $key => $value ) {
-		if ( ! empty( $value ) || $value != FALSE || $key != '_validate_email' || $key != 'ripeti_password' || $key != 'firma' ) {
+	foreach ( $data as $key => $item ) {
+		$a = 0;
+		if ( empty( $item['value'] ) || $item['value'] == FALSE || $key == '_validate_email' || $key == 'ripeti_password' || $key == 'firma' ) {
+			continue;
+		}
+		else if ( $item['type'] == 'true_false' && $item['value'] !== false ){
 
-			$key = ucfirst( str_replace( '_', ' ', $key ) );
-
-			$html .= "<p><label>' . $key . ': </label>' . $value . '</p>";
+			$html .= '<p><strong>' . $key . '</strong> <input type="checkbox" name="'.$item['label'].'"  value="1" checked="checked"  /><br/>';
+		}
+		else if ( $item['type'] == 'select' && $item['value'] !== false ){
+			$html .= "<strong>" . $item['label'] . ": </strong>" . $item['choices'][$item['value']] . "</p>";
+		}
+		else {
+			$html .= "<p><strong>" . $item['label'] . ": </strong>" . $item['value'] . "</p>";
 
 		}
+
 	}
 
 
+	$divi_option = get_option('et_divi');
 	$pdf = new TCPDF( PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, TRUE, 'UTF-8', FALSE );
 	// set document information
-
+	$pdf->SetCreator(PDF_CREATOR);
 	$pdf->SetAuthor( 'PNAB' );
-	$pdf->SetTitle( 'TCPDF Example 006' );
-	$pdf->SetSubject( 'TCPDF Tutorial' );
-	$pdf->SetKeywords( 'TCPDF, PDF, example, test, guide' );
+	$pdf->SetTitle( $impresa_id.'_'.$data['impresa']['value'] );
+	$pdf->SetSubject( 'Dati impresa' );
+	$pdf->SetKeywords( 'PDF, impresa' );
+
+	// set default header data
+	$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $impresa_id.'_'.$data['impresa']['value'], 'www.pnab.it');
+
+	// set header and footer fonts
+	$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+	$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+	// set default monospaced font
+	$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+	// set margins
+	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+	$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+	$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+	// set auto page breaks
+	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+	// set image scale factor
+	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+	// ---------------------------------------------------------
+
+	// IMPORTANT: disable font subsetting to allow users editing the document
+	$pdf->setFontSubsetting(false);
+
+	// set font
+	$pdf->SetFont('helvetica', '', 10, '', false);
 
 	// add a page
 	$pdf->AddPage();
-	$pdf->writeHTMLCell( 0, 0, '', '', $html, 0, 1, 0, TRUE, '', TRUE );
+	$pdf->writeHTML($html, true, 0, true, 0);
 	// reset pointer to the last page
 	$pdf->lastPage();
 
-	$pdf->Output( ABSPATH . 'wp-content/uploads/example_006.pdf', 'F' );
+
+	$pdf->Output( $file, 'F' );
 
 }
 

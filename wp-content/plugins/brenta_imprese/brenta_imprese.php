@@ -4087,7 +4087,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'label' => 'Firma',
 				'name' => 'firma',
 				'type' => 'file',
-				'instructions' => 'Carica il pdf inviato via mail con i dati relativi alla tua impresa, firmato.',
+				'instructions' => 'Carica il pdf firmato.',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
@@ -4099,7 +4099,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'library' => 'all',
 				'min_size' => '',
 				'max_size' => '',
-				'mime_types' => 'pdf',
+				'mime_types' => 'p7m',
 			),
 		),
 		'location' => array(

@@ -37,13 +37,37 @@ get_header();
 					if ( $the_query->have_posts() ) {
 
 						while ( $the_query->have_posts() ) {
-							$the_query->the_post(); ?>
+							$the_query->the_post();
 
+                            $impresa = get_field('impresa');
+							$file_url = get_home_url().'/wp-content/uploads/pdf-imprese/'.get_the_ID().'_'.$impresa.'.pdf';
+							?>
+
+                            <p>Scarica il documento: <a href="<?php echo $file_url; ?>" title="<?php echo $impresa; ?>"><?php echo $impresa; ?></a></p>
                             <form id="post" class="acf-form" action=""
                                   method="post">
                             <input id="impresa-update" type="hidden" name="impresa-update" value="update">
-
+                            <div id="field-group-0">
+                                <h4>Carica documento firmato</h4>
+								<?php
+								acf_form( [
+									'post_id'         => get_the_ID(),
+									'new_post'        => [
+										'post_type'   => 'imprese',
+										'post_status' => 'pending',
+									],
+									'field_groups'    => [
+										'group_5a69f69ab22b8',
+									],
+									'post_content'    => FALSE,
+									'post_title'      => FALSE,
+									'updated_message' => 'Dati impresa inviati',
+									'form'            => FALSE,
+								] );
+								?>
+                            </div>
                             <div id="field-group-1">
+                                Se modifichi i dati qui sotto ricordati di scaricare di nuovo il pdf e ricaricarlo firmato.
                                 <h4>Dati del Legale rappresentante
                                     dell'impresa:</h4>
 								<?php
@@ -168,25 +192,6 @@ get_header();
 									],
 									'field_groups'    => [
 										'group_5a5890680290a',
-									],
-									'post_content'    => FALSE,
-									'post_title'      => FALSE,
-									'updated_message' => 'Dati impresa inviati',
-									'form'            => FALSE,
-								] );
-								?>
-                            </div>
-                            <div id="field-group-&">
-                                <h4>Carica PDF</h4>
-								<?php
-								acf_form( [
-									'post_id'         => get_the_ID(),
-									'new_post'        => [
-										'post_type'   => 'imprese',
-										'post_status' => 'pending',
-									],
-									'field_groups'    => [
-										'group_5a69f69ab22b8',
 									],
 									'post_content'    => FALSE,
 									'post_title'      => FALSE,
