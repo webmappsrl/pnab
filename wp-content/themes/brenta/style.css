@@ -101,7 +101,11 @@ body.et_header_style_left #et-top-navigation {
 
 #et_top_search {
   width: 5%;
-  margin: 0;
+  margin: 5px 0 0;
+}
+
+span.et_close_search_field {
+  right: 20px;
 }
 
 #main-header .nav li ul {
@@ -648,6 +652,7 @@ footer#main-footer {
   z-index: 999;
   left: -1px;
   bottom: 9px;
+  max-height: 100%;
 }
 
 .et_pb_row.banner_footer {
@@ -1081,6 +1086,7 @@ body.single-project h1.entry-title {
 
   .et_pb_fullwidth_portfolio .et_pb_portfolio_item {
     width: 50%!important;
+    max-width: 50%!important;
     height: 250px!important;
   }
 
@@ -1101,16 +1107,18 @@ body.single-project h1.entry-title {
 
   body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item {
     width: 50%!important;
-    height: 80px!important;
+    height: 130px!important;
     float: left;
+    margin-bottom: 0!important;
   }
 
   body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item h2,  body #custom-portfolio .et_pb_portfolio_items .facetwp-template > .custom_grid_item h2 a {
-    height: 80px;
+    height: 130px;
   }
 
   .et_pb_fullwidth_portfolio .et_pb_portfolio_item {
     width: 100%!important;
+    max-width: 100%!important;
     height: 350px!important;
   }
 }
