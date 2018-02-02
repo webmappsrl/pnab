@@ -554,6 +554,36 @@ function my_acf_validate_value( $valid, $value, $field, $input ) {
 
 }
 
+add_filter( 'acf/validate_value/name=username', 'my_acf_validate_username', 10, 4 );
+
+function my_acf_validate_username( $valid, $value, $field, $input ) {
+
+	if ( ! $valid ) {
+		return $valid;
+	}
+	// field key of the field you want to validate against
+
+	global $post;
+	$args = array(
+		'post_type' => 'imprese',  // or your post
+		'post__not_in' => array($post->ID), // do not check this post
+		'meta_query' => array(
+			array(
+				'key' => 'username',
+				'value' => $value
+			)
+		)
+	);
+	$query = new WP_Query($args);
+	if (count($query->posts)) {
+		$valid = 'Questo username risulta già utilizzato';
+	}
+
+	return $valid;
+
+}
+
+
 function brenta_create_pdf( $impresa_id ) {
 
 	require_once( ABSPATH . 'wp-content/plugins/tcpdf/tcpdf.php' );
@@ -568,15 +598,17 @@ function brenta_create_pdf( $impresa_id ) {
 
 	foreach ( $data as $key => $item ) {
 		$a = 0;
-		if ( empty( $item['value'] ) || $item['value'] == FALSE || $key == '_validate_email' || $key == 'ripeti_password' || $key == 'firma' ) {
+		if ( empty( $item['value'] ) || $item['value'] == FALSE || $key == '_validate_email' || $key == 'ripeti_password' || $key == 'firma' || $item['type'] == 'select' ) {
 			continue;
 		}
 		else if ( $item['type'] == 'true_false' && $item['value'] !== false ){
 
 			$html .= '<p><strong>' . $key . '</strong> <input type="checkbox" name="'.$item['label'].'"  value="1" checked="checked"  /><br/>';
-		}
-		else if ( $item['type'] == 'select' && $item['value'] !== false ){
-			$html .= "<strong>" . $item['label'] . ": </strong>" . $item['choices'][$item['value']] . "</p>";
+			if( isset($data[$item['name'].'_cat']) ) {
+				$cat = $data[$item['name'].'_cat'];
+				$value = $cat['choices'][$cat['value']];
+				$html .= "<strong>" . $cat['label'] . ": </strong>" . $value . "</p>";
+			}
 		}
 		else {
 			$html .= "<p><strong>" . $item['label'] . ": </strong>" . $item['value'] . "</p>";
@@ -596,7 +628,7 @@ function brenta_create_pdf( $impresa_id ) {
 	$pdf->SetKeywords( 'PDF, impresa' );
 
 	// set default header data
-	$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $impresa_id.'_'.$data['impresa']['value'], 'www.pnab.it');
+	$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $data['impresa']['value'], 'www.pnab.it');
 
 	// set header and footer fonts
 	$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));

@@ -43,7 +43,7 @@ get_header();
 							$file_url = get_home_url().'/wp-content/uploads/pdf-imprese/'.get_the_ID().'_'.$impresa.'.pdf';
 							?>
 
-                            <p>Scarica il documento: <a href="<?php echo $file_url; ?>" title="<?php echo $impresa; ?>"><?php echo $impresa; ?></a></p>
+                            <p><h4>Scarica il documento: <a href="<?php echo $file_url; ?>" title="<?php echo $impresa; ?>"><?php echo $impresa.'.pdf'; ?></a></h4></p>
                             <form id="post" class="acf-form" action=""
                                   method="post">
                             <input id="impresa-update" type="hidden" name="impresa-update" value="update">

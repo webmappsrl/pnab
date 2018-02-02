@@ -34,5 +34,10 @@ jQuery(document).ready(function( $ ) {
   });
 
 
+  if ( $('#impresa-update').length ){
+    $('#acf-field_5a5890970d639').prop('readonly', true);
+    $('#acf-field_5a5890970d639').attr('name', '');
+
+  }
   
 });
