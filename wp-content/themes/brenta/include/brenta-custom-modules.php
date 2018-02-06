@@ -992,9 +992,10 @@ class ET_Builder_Module_Custom_Filterable_Portfolio extends ET_Builder_Module {
 		ob_start();
 		$c = 1; ?>
 		<?php
-        echo '<div class="brenta-facet categories"><span class="line"></span><span>'. __('Target', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'categories' ) . '</div>';
-        echo '<div class="brenta-facet types"><span class="line"></span><span>'. __('Tema', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'activity' ) . '</div>';
-        echo '<div class="brenta-facet seasons"><span class="line"></span><span>'. __('Stagione', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'seasons' ) . '</div>';
+        echo '<div class="brenta-facet categories"><span class="line"></span><span>'. __('Chi', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'categories' ) . '</div>';
+        echo '<div class="brenta-facet types"><span class="line"></span><span>'. __('Cosa', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'activity' ) . '</div>';
+        echo '<div class="brenta-facet seasons"><span class="line"></span><span>'. __('Dove', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'location' ) . '</div>';
+        echo '<div class="brenta-facet seasons"><span class="line"></span><span>'. __('Quando', 'brenta') .'</span><span class="line"></span>' . facetwp_display( 'facet', 'seasons' ) . '</div>';
 		?>
         <div class="facetwp-template">
 			<?php

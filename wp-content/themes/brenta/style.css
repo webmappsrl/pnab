@@ -323,25 +323,11 @@ body.single-project .facetwp-radio .facetwp-counter
   text-align: center;
 }
 
-.brenta-facet.types {
-  width: 50%;
-}
-
-body.home .brenta-facet.types .facetwp-radio,
-body.single-project .brenta-facet.types .facetwp-radio
-{
-  width: 16.5%;
-}
-
 body.single-project .facetwp-facet {
   width: 35%;
   display: inline-block;
   vertical-align: middle;
   text-align: center;
-}
-
-.brenta-facet.types > span.line {
-  width: 32%;
 }
 
 .brenta-facet > span.line {
@@ -356,6 +342,53 @@ body.single-project .facetwp-facet {
   padding-right: 6%;
 }
 
+.facetwp-radio[data-value="rendena"], .facetwp-radio.checked[data-value="rendena"] {
+  background: url("img/icone/pioggia.png") no-repeat top center;
+  color: #47b5d1;
+}
+.facetwp-radio[data-value="rendena"]:hover{
+  color: #47b5d1;
+}
+.facetwp-radio.checked[data-value="rendena"]:before{
+  border: 2px dotted #47b5d1;
+}
+
+.facetwp-radio[data-value="altopiano-paganella"], .facetwp-radio.checked[data-value="altopiano-paganella"] {
+  padding-top: 27px!important;
+  background: url("img/icone/pioggia.png") no-repeat top center;
+  color: #47b5d1;
+}
+.facetwp-radio[data-value="altopiano-paganella"]:hover{
+  color: #47b5d1;
+}
+.facetwp-radio.checked[data-value="altopiano-paganella"]:before{
+  border: 2px dotted #47b5d1;
+  margin-top: -42px!important;
+}
+
+.facetwp-radio[data-value="giudicarie"], .facetwp-radio.checked[data-value="giudicarie"] {
+  background: url("img/icone/pioggia.png") no-repeat top center;
+  color: #47b5d1;
+}
+.facetwp-radio[data-value="giudicarie"]:hover{
+  color: #47b5d1;
+}
+.facetwp-radio.checked[data-value="giudicarie"]:before{
+  border: 2px dotted #47b5d1;
+}
+
+.facetwp-radio[data-value="val-di-non-e-val-di-sole"], .facetwp-radio.checked[data-value="val-di-non-e-val-di-sole"] {
+  padding-top: 27px!important;
+  background: url("img/icone/pioggia.png") no-repeat top center;
+  color: #47b5d1;
+}
+.facetwp-radio[data-value="val-di-non-e-val-di-sole"]:hover{
+  color: #47b5d1;
+}
+.facetwp-radio.checked[data-value="val-di-non-e-val-di-sole"]:before{
+  border: 2px dotted #47b5d1;
+  margin-top: -42px!important;
+}
 
 .facetwp-radio[data-value="adulti"], .facetwp-radio.checked[data-value="adulti"] {
   background: url("img/icone/adulti.png") no-repeat top center;

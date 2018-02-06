@@ -143,6 +143,51 @@ if ( ! function_exists( 'season_taxonomy' ) ) {
 
 }
 
+if ( ! function_exists( 'location_taxonomy' ) ) {
+
+	// Register Custom Taxonomy
+	function location_taxonomy() {
+
+		$labels = [
+			'name'                       => _x( 'Location', 'Taxonomy General Name', 'brenta' ),
+			'singular_name'              => _x( 'Location', 'Taxonomy Singular Name', 'brenta' ),
+			'menu_name'                  => __( 'Location', 'brenta' ),
+			'all_items'                  => __( 'All Locations', 'brenta' ),
+			'parent_item'                => __( 'Parent Location', 'brenta' ),
+			'parent_item_colon'          => __( 'Parent Location:', 'brenta' ),
+			'new_item_name'              => __( 'New Location Name', 'brenta' ),
+			'add_new_item'               => __( 'Add New Location', 'brenta' ),
+			'edit_item'                  => __( 'Edit Location', 'brenta' ),
+			'update_item'                => __( 'Update Location', 'brenta' ),
+			'view_item'                  => __( 'View Location', 'brenta' ),
+			'separate_items_with_commas' => __( 'Separate Locations with commas', 'brenta' ),
+			'add_or_remove_items'        => __( 'Add or remove Locations', 'brenta' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'brenta' ),
+			'popular_items'              => __( 'Popular Locations', 'brenta' ),
+			'search_items'               => __( 'Search Locations', 'brenta' ),
+			'not_found'                  => __( 'Not Found', 'brenta' ),
+			'no_terms'                   => __( 'No Locations', 'brenta' ),
+			'items_list'                 => __( 'Locations list', 'brenta' ),
+			'items_list_navigation'      => __( 'Locations list navigation', 'brenta' ),
+		];
+		$args   = [
+			'labels'            => $labels,
+			'hierarchical'      => TRUE,
+			'public'            => TRUE,
+			'show_ui'           => TRUE,
+			'show_admin_column' => TRUE,
+			'show_in_nav_menus' => TRUE,
+			'show_tagcloud'     => FALSE,
+			'show_in_rest'      => TRUE,
+		];
+		register_taxonomy( 'location', [ 'project' ], $args );
+
+	}
+
+	add_action( 'init', 'location_taxonomy', 0 );
+
+}
+
 add_filter( 'facetwp_facet_orderby', function ( $orderby, $facet ) {
 	if ( 'seasons' == $facet['name'] ) {
 		// to sort by raw value, use "f.facet_value" instead
@@ -156,7 +201,7 @@ add_filter( 'facetwp_facet_orderby', function ( $orderby, $facet ) {
 
 	if ( 'activity' == $facet['name'] ) {
 		// to sort by raw value, use "f.facet_value" instead
-		$orderby = 'FIELD(f.facet_display_value, "flora", "fauna", "geologia", "paesaggio", "trekking", "bike")';
+		$orderby = 'FIELD(f.facet_display_value, "flora", "fauna", "geologia", "paesaggio", "trekking")';
 	}
 
 	return $orderby;
