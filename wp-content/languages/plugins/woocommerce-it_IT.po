@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-03 12:17:42+0000\n"
+"PO-Revision-Date: 2018-01-12 19:01:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -211,6 +211,10 @@ msgstr "Non testato con la versione attiva di WooCommerce"
 msgid "Plugin"
 msgstr "Plugin"
 
+#: includes/admin/settings/class-wc-settings-general.php:82
+msgid "Country / State"
+msgstr "Stato"
+
 #: includes/admin/meta-boxes/views/html-order-items.php:219
 msgid "Add shipping"
 msgstr "Aggiungi spedizione"
@@ -258,6 +262,14 @@ msgstr "Ora sei pronto per aggiungere il tuo primo prodotto."
 msgid "Create your first product"
 msgstr "Crea il tuo primo prodotto"
 
+#: includes/admin/class-wc-admin-setup-wizard.php:1520
+msgid "Product promotion"
+msgstr "Promozione del prodotto"
+
+#: includes/admin/class-wc-admin-setup-wizard.php:1512
+msgid "Store monitoring"
+msgstr "Monitoraggio del negozio"
+
 #: includes/admin/class-wc-admin-setup-wizard.php:1499
 msgid "Protect your store from unauthorized access."
 msgstr "Proteggi il tuo negozio da accessi non autorizzati."
@@ -277,6 +289,14 @@ msgstr "Connetti il tuo negozio con Jetpack"
 #: includes/admin/class-wc-admin-setup-wizard.php:1448
 msgid "Sorry, We couldn't connect your store to Jetpack"
 msgstr "Non possiamo connettere il tuo negozio con Jetpack"
+
+#: includes/admin/class-wc-admin-setup-wizard.php:1504
+msgid "Store stats"
+msgstr "Statistiche del negozio"
+
+#: includes/admin/class-wc-admin-setup-wizard.php:1492
+msgid "Bonus reasons you'll love Jetpack"
+msgstr "Altri motivi per cui amerai Jetpack"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:1308
 msgid "Storefront Theme"
