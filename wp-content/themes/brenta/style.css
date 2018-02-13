@@ -1311,3 +1311,8 @@ form#brenta_login {
 .ccpages_excerpt, .ccpages_more {
   font-size: 95%;
 }
+
+#content-area article {
+  color: #1f8656;
+  font-weight: 600;
+}
