@@ -13,14 +13,20 @@ get_header();
                     <div class="container">
                         <div class="et_post_meta_wrapper">
                             <h1 class="entry-title">
-                                <?php if(empty($terms)): ?>
-                                <i class="fa fa-map-marker green" aria-hidden="true"></i>
-                                <?php else:
-                                 foreach($terms as $term){
-                                    $icon_class = get_field('wm_taxonomy_icon', 'webmapp_category_'.$term->term_id);
-                                    echo '<span class="green ' . $icon_class . '"></span>';
-                                 }
-                                endif;?>
+                                <?php
+                                $custom_image_icon = get_field( 'custom_image_icon' );
+                                if ( ! empty( $custom_image_icon ) ): ?>
+                                    <img src="<?php echo $custom_image_icon; ?>"
+                                         width="40" height="40"/>
+                                <?php elseif ( empty( $terms ) && empty( $custom_image_icon ) ): ?>
+                                    <i class="fa fa-map-marker green"
+                                       aria-hidden="true"></i>
+                                <?php else :
+	                                foreach ( $terms as $term ) {
+		                                $icon_class = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $term->term_id );
+		                                echo '<span class="green ' . $icon_class . '"></span>';
+	                                }
+                                endif; ?>
 
                                 <?php the_title(); ?>
 								<?php if ( get_field( 'addr:city' ) ): ?>
@@ -68,8 +74,31 @@ get_header();
                                 </p>
                                 <hr />
                                 <?php endif; ?>
+	                            <?php if(get_field('contact_poi_fax')): ?>
+                                    <p><span class="title-acqua"><i class="fa fa-fax"
+                                                                    aria-hidden="true"></i> <?php echo __( 'Fax', 'brenta' ) ?></span>  <?php the_field('contact_poi_fax');  ?>
+                                    </p>
+                                    <hr />
+	                            <?php endif; ?>
 	                            <?php if(get_field('contact:email')): ?>
                                     <p><span class="title-acqua"><i class="fa fa-envelope" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></i> <?php echo __( 'Mail', 'brenta' ) ?></span>  <?php the_field('contact:email');  ?>
+                                    </p>
+                                    <hr />
+	                            <?php endif; ?>
+	                            <?php if(get_field('contact_poi_pec')): ?>
+                                    <p><span class="title-acqua"><i class="fa fa-envelope" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></i> <?php echo __( 'PEC', 'brenta' ) ?></span>  <?php the_field('contact_poi_pec');  ?>
+                                    </p>
+                                    <hr />
+	                            <?php endif; ?>
+	                            <?php if(get_field('n7webmap_rpt_related_url')): ?>
+                                    <p><span class="title-acqua"><i class="fa fa-globe" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></i> <?php echo __( 'Siti WEB', 'brenta' ) ?></span>
+                                    <hr />
+		                            <?php while( have_rows('n7webmap_rpt_related_url') ): the_row();
+		                            $url = get_sub_field('net7webmap_related_url'); ?>
+                                        <p class="web">
+                                            <a href="<?php echo $url; ?>" target="_blank"><?php echo $url;  ?></a>
+                                        </p>
+		                            <?php endwhile; ?>
                                     </p>
                                     <hr />
 	                            <?php endif; ?>

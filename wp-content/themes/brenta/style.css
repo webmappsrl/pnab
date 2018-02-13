@@ -736,7 +736,11 @@ footer#main-footer {
 }
 
 .back-green  a {
-  color: #4db5cf;
+  color: #4db5cf!important;
+}
+
+.back-green .web a{
+  color: #fff!important;
 }
 
 .back-green .single-left {
@@ -1319,4 +1323,8 @@ form#brenta_login {
 
 .widget_document_attachments .attachment li {
   word-break: break-all;
+}
+
+.iframe .open-poi-map, .iframe .open-track-map {
+  color: #fff!important;
 }

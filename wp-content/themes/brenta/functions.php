@@ -485,6 +485,117 @@ if ( function_exists( 'acf_add_local_field_group' ) ):
 		'description'           => '',
 	] );
 
+	acf_add_local_field_group(array(
+		'key' => 'group_5a83049783a15',
+		'title' => 'POI Brenta',
+		'fields' => array(
+			array(
+				'key' => 'field_5a8304a89d802',
+				'label' => 'Immagine icona custom',
+				'name' => 'custom_image_icon',
+				'type' => 'image',
+				'instructions' => 'Inserisci un file png, o a limite jpg su sfondo bianco, largo min 30 x 30px, max 150 x 150px.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'return_format' => 'url',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+				'min_width' => 30,
+				'min_height' => '',
+				'min_size' => '',
+				'max_width' => 150,
+				'max_height' => '',
+				'max_size' => '',
+				'mime_types' => 'png, jpg',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'poi',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'acf_after_title',
+		'style' => 'seamless',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
+
+	acf_add_local_field_group(array(
+		'key' => 'group_5a830af6d6904',
+		'title' => 'Brenta POI fields',
+		'fields' => array(
+			array(
+				'key' => 'field_5a830b0c1f6a6',
+				'label' => 'Fax',
+				'name' => 'contact_poi_fax',
+				'type' => 'number',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'min' => '',
+				'max' => '',
+				'step' => '',
+			),
+			array(
+				'key' => 'field_5a830b1a1f6a7',
+				'label' => 'PEC',
+				'name' => 'contact_poi_pec',
+				'type' => 'email',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'poi',
+				),
+			),
+		),
+		'menu_order' => -1,
+		'position' => 'normal',
+		'style' => 'seamless',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
+
 endif;
 
 function my_cache_lifetime( $seconds ) {
