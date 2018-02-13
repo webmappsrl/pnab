@@ -1300,8 +1300,8 @@ form#brenta_login {
 }
 
 .ccchildpage {
-  margin: 1em 1%;
-  padding: 0 1%;
+  margin: 3em 1% 3em 0;
+  padding: 0;
 }
 
 .ccchildpage:nth-child(3n){
