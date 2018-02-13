@@ -90,15 +90,7 @@ class Attachment_Widget extends WP_Widget {
 		endif;
 			
 		// build list of mime types as a string to use within the db query
-		$mime_type_str = implode(", ", $mime_type_array);		
-		
-		if(isset($showresults)):
-			$quick_check = count($showresults);	
-				if(!$quick_check ==0){
-					echo $before_widget;
-				}
-		endif;
-		
+		$mime_type_str = implode(", ", $mime_type_array);
 		
 		if($limit == 0):
 			$limit=1;
@@ -113,14 +105,15 @@ class Attachment_Widget extends WP_Widget {
 				// Query the post table to find all attachment items related to the post parent ID 			
 				$showresults = $wpdb->get_results("SELECT * FROM `{$wpdb->prefix}posts` WHERE post_type = 'attachment' AND post_mime_type IN ($mime_type_str) AND post_parent = $post_id LIMIT $limit");				
 			endif;
-			
+
 			
 			
 			// check to see if there are any attachment documents found in the database.
 			if(isset($showresults)):
-							
-				$quick_check = count($showresults);	
+
+				$quick_check = count($showresults);
 				if(!$quick_check ==0){
+					echo $before_widget;
 					if(isset($args['id'])) :
 						if (isset($opt_hide_sidebar)):						
 							if($opt_hide_sidebar == '0'):
