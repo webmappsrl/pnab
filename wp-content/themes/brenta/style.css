@@ -1316,3 +1316,7 @@ form#brenta_login {
   color: #1f8656;
   font-weight: 600;
 }
+
+.widget_document_attachments .attachment li {
+  word-break: break-all;
+}

@@ -8,7 +8,7 @@
 
 function getfilesize($file_url, $opt_size) {
 	// get the file path of the attachment
-	$file_path = preg_replace(get_bloginfo('url'), $_SERVER['DOCUMENT_ROOT'], $file_url);
+	$file_path = str_replace(get_bloginfo('url'), $_SERVER['DOCUMENT_ROOT'], $file_url);
 	
 	// Format the file size
 	$size = filesize($file_path) / 1024; 
