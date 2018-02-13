@@ -943,7 +943,7 @@ class ET_Builder_Module_POI_list extends ET_Builder_Module {
 		$orderby             = $this->shortcode_atts['orderby'];
 
 		if ( empty( $order ) ) {
-			$order = 'DESC';
+			$order = 'ASC';
 		}
 		if ( empty( $orderby ) ) {
 			$orderby = 'title';
