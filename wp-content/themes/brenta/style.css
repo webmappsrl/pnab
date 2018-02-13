@@ -1316,7 +1316,7 @@ form#brenta_login {
   font-size: 95%;
 }
 
-#content-area article a {
+#content-area article .entry-content a, #main-content article .entry-content a {
   color: #1f8656;
   font-weight: 600;
 }

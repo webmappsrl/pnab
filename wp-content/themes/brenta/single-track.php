@@ -16,6 +16,7 @@ get_header();
                         <div class="et_post_meta_wrapper">
                             <h1 class="entry-title"><?php the_title(); ?></h1>
 							<?php
+                            $pois      = get_field('n7webmap_related_poi');
 							$thumb     = '';
 							$width     = (int) apply_filters( 'et_pb_index_blog_image_width', 1080 );
 							$height    = (int) apply_filters( 'et_pb_index_blog_image_height', 675 );
@@ -50,7 +51,7 @@ get_header();
                             </div>
                             <div class="single-right">
                               <?php
-                              $pois = get_field('n7webmap_related_poi');
+
                               if ( $pois ):
                                 $c = 1;?>
                                   <ul>
