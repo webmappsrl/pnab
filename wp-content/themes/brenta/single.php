@@ -65,6 +65,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
                         ]);
                         ?>
                       </div>
+                      <?php get_sidebar(); ?>
                       <div class="et_post_meta_wrapper">
                         <?php if (et_get_option('divi_integration_single_bottom') <> '' && et_get_option('divi_integrate_singlebottom_enable') == 'on') {
                           echo(et_get_option('divi_integration_single_bottom'));

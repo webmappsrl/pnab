@@ -769,6 +769,16 @@ footer#main-footer {
   margin-bottom: 30px!important;
 }
 
+.single-post .single-left {
+  float: left;
+  width: 76.5%;
+  margin-right: 2.5%;
+}
+
+.single-post #sidebar {
+  padding-top: 35px;
+}
+
 .single-left {
   width: 64.5%;
   margin-right: 0.5%;
