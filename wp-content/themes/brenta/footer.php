@@ -2,7 +2,7 @@
 if ( $post->post_type == 'poi' ) {
 	$terms = get_the_terms( $post->ID, 'webmapp_category' );
 }
-if ( empty( $terms ) || ! containsTerm( $terms, 'strutture-qp' ) ): ?>
+if ( empty( $terms ) || ! containsTerm( $terms, 'marchio-qualita-parco' ) ): ?>
     <div
         class="footer-banner et_pb_section  et_pb_section_4 et_pb_with_background et_section_regular">
         <div

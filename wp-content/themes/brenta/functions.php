@@ -333,7 +333,7 @@ if ( function_exists( 'acf_add_local_field_group' ) ):
 				[
 					'param'    => 'post_taxonomy',
 					'operator' => '==',
-					'value'    => 'webmapp_category:strutture-qp',
+					'value'    => 'webmapp_category:marchio-qualita-parco',
 				],
 			],
 		],
