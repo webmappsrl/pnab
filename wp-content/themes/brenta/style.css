@@ -1135,6 +1135,7 @@ body.single-project h1.entry-title {
     width: 50%!important;
     max-width: 50%!important;
     height: 250px!important;
+    margin: 1px!important;
   }
 
   body .et_pb_fullwidth_portfolio .et_pb_portfolio_image h3 {
