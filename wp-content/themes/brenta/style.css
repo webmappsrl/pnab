@@ -555,7 +555,8 @@ body.single-project .facetwp-facet {
 .et_pb_fullwidth_portfolio .et_pb_portfolio_item {
   width: 33%!important;
   max-width: 33%!important;
-  height: 320px!important
+  height: 320px!important;
+  margin: 1px!important;
 }
 
 /* END HIGHLITS */
@@ -1168,6 +1169,7 @@ body.single-project h1.entry-title {
     width: 100%!important;
     max-width: 100%!important;
     height: 350px!important;
+    margin: 1px!important;
   }
 }
 
