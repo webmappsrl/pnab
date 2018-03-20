@@ -21,7 +21,7 @@ if ( empty( $terms ) || ! containsTerm( $terms, 'marchio-qualita-parco' ) ): ?>
 							[
 								'taxonomy' => 'webmapp_category',
 								'field'    => 'slug',
-								'terms'    => 'strutture-qp',
+								'terms'    => 'marchio-qualita-parco',
 							],
 						],
 					];
