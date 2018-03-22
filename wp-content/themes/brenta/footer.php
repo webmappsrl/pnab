@@ -17,13 +17,8 @@ if ( empty( $terms ) || ! containsTerm( $terms, 'marchio-qualita-parco' ) ): ?>
 						'post_status'    => [ 'publish' ],
 						'posts_per_page' => '1',
 						'orderby'        => 'rand',
-						'tax_query'      => [
-							[
-								'taxonomy' => 'webmapp_category',
-								'field'    => 'slug',
-								'terms'    => 'marchio-qualita-parco',
-							],
-						],
+						'meta_key'      => 'mostra_in_banner',
+                        'meta_value'    => true,
 					];
 
 					// The Query

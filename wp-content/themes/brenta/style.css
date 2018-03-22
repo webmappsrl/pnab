@@ -701,6 +701,7 @@ footer#main-footer {
   position: absolute;
   left: 25%;
   color: #fff;
+  z-index: 999;
 }
 
 .footer-banner .et_pb_module.et-waypoint.et_pb_image h1 {
