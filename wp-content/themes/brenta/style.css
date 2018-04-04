@@ -1347,7 +1347,7 @@ ul.attachment {
   color: #333;
   border: 1px solid #333;
   border-radius: 14px;
-  padding: 10px 17px;
+  padding: 10px 17px!important;
   background: #f4f4f4;
 }
 
