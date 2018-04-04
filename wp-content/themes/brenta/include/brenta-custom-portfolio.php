@@ -1122,7 +1122,9 @@ if ( ! function_exists( 'et_builder_include_webmapp_categories_option' ) ) :
 		}
 
 		foreach ( $cats_array as $category ) {
-			//$link = get_term_link($category->term_id, $category->taxonomy);
+
+			$term = get_term($category->term_id, $category->taxonomy);
+			$termParent = ($term->parent == 0) ? $term : get_term($term->parent, $category->taxonomy);
 			$contains = sprintf(
 				'<%%= _.contains( et_pb_include_categories_temp, "%1$s" ) ? checked="checked" : "" %%>',
 				esc_html( $category->term_id )
@@ -1133,7 +1135,7 @@ if ( ! function_exists( 'et_builder_include_webmapp_categories_option' ) ) :
 				esc_html( $category->name ),
 				$contains,
 				"\n\t\t\t\t\t",
-				esc_html( $category->slug )
+				esc_html( $termParent )
 			);
 		}
 

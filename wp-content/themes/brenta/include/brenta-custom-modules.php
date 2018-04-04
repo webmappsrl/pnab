@@ -428,7 +428,7 @@ class Brenta_Fullwidth_Highlights extends ET_Builder_Module {
 				$projects->the_post();
 				?>
                 <div
-                    id="post-<?php the_ID(); ?>" <?php post_class( 'et_pb_portfolio_item et_pb_grid_item ' ); ?>>
+                    id="post-<?php get_the_ID(); ?>" <?php post_class( 'et_pb_portfolio_item et_pb_grid_item ' ); ?>>
 					<?php
 					$thumb = '';
 
