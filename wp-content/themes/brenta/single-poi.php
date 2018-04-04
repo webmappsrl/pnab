@@ -11,6 +11,11 @@ get_header();
                 <article
                     id="post-<?php the_ID(); ?>" <?php post_class( 'et_pb_post' . $additional_class ); ?>>
                     <div class="container">
+	                    <?php
+	                    if (function_exists('yoast_breadcrumb')) {
+		                    yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
+	                    }
+	                    ?>
                         <div class="et_post_meta_wrapper">
                             <h1 class="entry-title">
                                 <?php
