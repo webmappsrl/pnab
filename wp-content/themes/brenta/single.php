@@ -34,7 +34,7 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
                           <div class="single-left text">
                             <h1 class="entry-title"><?php the_title(); ?> </h1>
                           </div>
-                          <div class="single-right">
+                          <div class="single-right" style="padding-top: 0">
                               <span class="entry-date"><?php echo get_the_date('d.m.Y'); ?></span>
                           </div>
                           <?php if(get_field('subtitle')) { ?>
@@ -51,7 +51,9 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
                 $thumbnail = get_thumbnail( $width, $height, $classtext, $titletext, $titletext, FALSE, 'Blogimage' );
                 $thumb     = $thumbnail["thumb"];
                 ?>
-                  <div class="brenta-thumb" style="background-image: url('<?php print $thumb; ?>');"></div>
+                    <?php if ( !empty($thumb) ): ?>
+                        <div class="brenta-thumb" style="background-image: url('<?php print $thumb; ?>');"></div>
+                    <?php endif; ?>
                   <div class="container the_content">
                       <div class="single-left text">
                         <?php

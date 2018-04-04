@@ -869,6 +869,7 @@ footer#main-footer {
 h3.subtitle {
   font-size: 20px;
   color: #007757;
+  clear: left;
 }
 
 span.entry-date {

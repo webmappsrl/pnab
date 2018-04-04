@@ -428,7 +428,7 @@ class Brenta_Fullwidth_Highlights extends ET_Builder_Module {
 				$projects->the_post();
 				?>
                 <div
-                    id="post-<?php get_the_ID(); ?>" <?php post_class( 'et_pb_portfolio_item et_pb_grid_item ' ); ?>>
+                    id="post-<?php the_ID(); ?>" <?php post_class( 'et_pb_portfolio_item et_pb_grid_item ' ); ?>>
 					<?php
 					$thumb = '';
 
@@ -451,7 +451,12 @@ class Brenta_Fullwidth_Highlights extends ET_Builder_Module {
 					if ( '' !== $thumb_src ) : ?>
                         <div
                             class="et_pb_portfolio_image <?php echo esc_attr( $orientation ); ?>">
-                            <img src="<?php echo esc_url( $thumb_src ); ?>"
+	                        <?php if( !empty($thumb_src) ) {
+		                        $thumb = $thumb_src;
+	                        } else {
+		                        $thumb = get_stylesheet_directory_uri() . '/img/logo_placeholder.png';
+	                        } ?>
+                            <img src="<?php echo esc_url( $thumb ); ?>"
                                  alt="<?php echo esc_attr( get_the_title() ); ?>"/>
                             <div class="meta">
                                 <?php if ( $type == 'highlights' && !empty($related_item) ) : ?>

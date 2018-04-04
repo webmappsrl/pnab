@@ -793,7 +793,7 @@ function brenta_create_pdf( $impresa_id ) {
 	}
 
 
-	$divi_option = get_option('et_divi');
+
 	$pdf = new TCPDF( PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, TRUE, 'UTF-8', FALSE );
 	// set document information
 	$pdf->SetCreator(PDF_CREATOR);
