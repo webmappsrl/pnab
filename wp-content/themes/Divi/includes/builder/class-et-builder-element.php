@@ -264,6 +264,13 @@ class ET_Builder_Element {
 		$resource_owner = $unified_styles ? 'core' : 'builder';
 		$resource_slug  = $unified_styles ? 'unified' : 'module-design';
 
+		// If the post is password protected and a password has not been provided yet,
+		// no content (including any custom style) will be printed.
+		// When static css file option is enabled this will result in missing styles.
+		if ( ! $forced_inline && post_password_required() ) {
+			$forced_inline = true;
+		}
+
 		if ( $is_preview ) {
 			// Don't let previews cause existing saved static css files to be modified.
 			$resource_slug .= '-preview';
@@ -485,7 +492,7 @@ class ET_Builder_Element {
 		$need_html_entities_decode = is_admin() && ! user_can_richedit();
 
 		$shortcode_attributes = array();
-		$font_icon_options = array( 'font_icon', 'button_icon', 'button_one_icon', 'button_two_icon' );
+		$font_icon_options = array( 'font_icon', 'button_icon', 'button_one_icon', 'button_two_icon', 'hover_icon' );
 
 		foreach ( $this->shortcode_atts as $attribute_key => $attribute_value ) {
 			// decode HTML entities and remove trailing and leading quote if needed
@@ -4810,7 +4817,7 @@ class ET_Builder_Element {
 			$default_value = '' === $default_value ? '||||||||' : $default_value;
 		}
 
-		$font_icon_options = array( 'et_pb_font_icon', 'et_pb_button_icon', 'et_pb_button_one_icon', 'et_pb_button_two_icon' );
+		$font_icon_options = array( 'et_pb_font_icon', 'et_pb_button_icon', 'et_pb_button_one_icon', 'et_pb_button_two_icon', 'et_pb_hover_icon' );
 
 		if ( in_array( $field_name, $font_icon_options ) ) {
 			$field_value = esc_attr( $field_name );
@@ -4911,6 +4918,7 @@ class ET_Builder_Element {
 				);
 
 				break;
+			case 'codemirror':
 			case 'textarea':
 			case 'custom_css':
 			case 'options_list':
@@ -5053,14 +5061,14 @@ class ET_Builder_Element {
 					$group_label = isset( $field['group_label'] ) ? $field['group_label'] : '';
 					$select = $this->render_font_select( $field_name, $field['id'], $group_label );
 				} else if ( 'multiple_buttons' === $field['type'] ) {
-					if ( $field['toggleable'] ) {
+					if ( isset( $field['toggleable'] ) && $field['toggleable'] ) {
 						$attributes .= ' data-toggleable="yes"';
 					}
-					if ( $field['multi_selection'] ) {
+					if ( isset( $field['multi_selection'] ) && $field['multi_selection'] ) {
 						$attributes .= ' data-multi="yes"';
 					}
-					
-					$select = $this->render_multiple_buttons( $field_name, $field['options'], $field['id'], $field['class'], $attributes, $value, $default_value );					
+
+					$select = $this->render_multiple_buttons( $field_name, $field['options'], $field['id'], $field['class'], $attributes, $value, $default_value );
 				} else {
 					$select = $this->render_select( $field_name, $field['options'], $field['id'], $field['class'], $attributes, $field['type'], $button_options, $select_default, $only_options );
 				}
@@ -6929,7 +6937,13 @@ class ET_Builder_Element {
 		}
 
 		// Do not add overflow:hidden for some modules.
-		$overflow = ! in_array( $function_name, array( 'et_pb_social_media_follow', 'et_pb_social_media_follow_network' ) );
+		$overflow = ! in_array( $function_name,
+			array(
+				'et_pb_social_media_follow',
+				'et_pb_social_media_follow_network',
+				'et_pb_fullwidth_menu',
+			)
+		);
 		self::set_style( $function_name, array(
 			'selector'    => self::$data_utils->array_get( $border_options, 'css.main.border_radii', $this->main_css_element ),
 			'declaration' => $border_field->get_radii_style( $this->shortcode_atts, $this->advanced_options, '', $overflow ),
@@ -7358,8 +7372,7 @@ class ET_Builder_Element {
 				$is_default_button_icon = $this->_is_field_default( 'button_icon', $button_icon );
 				$is_default_hover_placement = $is_default_button_on_hover && $is_default_button_icon_placement;
 
-				$button_text_size = '' === $button_text_size || 'px' === $button_text_size ? '20px' : $button_text_size;
-				$button_text_size = '' !== $button_text_size && false === strpos( $button_text_size, 'px' ) ? $button_text_size . 'px' : $button_text_size;
+				$button_text_size_processed = $is_default_button_text_size ? '20px' : et_builder_process_range_value( $button_text_size );
 				$button_border_radius_processed = '' !== $button_border_radius && 'px' !== $button_border_radius ? et_builder_process_range_value( $button_border_radius ) : '';
 				$button_border_radius_hover_processed = '' !== $button_border_radius_hover && 'px' !== $button_border_radius_hover ? et_builder_process_range_value( $button_border_radius_hover ) : '';
 				$button_use_icon = '' === $button_use_icon ? 'on' : $button_use_icon;
@@ -7398,7 +7411,7 @@ class ET_Builder_Element {
 					'' !== $button_border_color ? sprintf( 'border-color:%1$s;', $button_border_color ) : '',
 					'' !== $button_border_radius_processed ? sprintf( 'border-radius:%1$s;', $button_border_radius_processed ) : '',
 					'' !== $button_letter_spacing && 'px' !== $button_letter_spacing ? sprintf( 'letter-spacing:%1$s;', et_builder_process_range_value( $button_letter_spacing ) ) : '',
-					! $is_default_button_text_size && '' !== $button_text_size && 'px' !== $button_text_size ? sprintf( 'font-size:%1$s;', et_builder_process_range_value( $button_text_size ) ) : '',
+					! $is_default_button_text_size  ? sprintf( 'font-size:%1$s;', $button_text_size_processed ) : '',
 					'' !== $button_font ? et_builder_set_element_font( $button_font, true ) : '',
 					'off' === $button_on_hover ?
 						sprintf( 'padding-left:%1$s%3$s; padding-right: %2$s%3$s;',
@@ -7458,9 +7471,8 @@ class ET_Builder_Element {
 					) );
 				} else {
 					$button_icon_code = '' !== $button_icon ? str_replace( ';', '', str_replace( '&#x', '', html_entity_decode( et_pb_process_font_icon( $button_icon ) ) ) ) : '';
-					$int_font_size = intval( str_replace( 'px', '', $button_text_size ) );
-					if ( '' !== $button_text_size ) {
-						$button_icon_size = '35' !== $button_icon_code ? $button_text_size : ( $int_font_size * 1.6 ) . 'px';
+					if ( '' !== $button_text_size_processed ) {
+						$button_icon_size = '35' !== $button_icon_code ? '1em' : '1.6em';
 					}
 
 					$main_element_styles_after = sprintf(
@@ -7540,8 +7552,8 @@ class ET_Builder_Element {
 					}
 
 					if ( '' === $button_icon && ! $is_default_button_text_size ) {
-						$default_icons_size = $int_font_size * 1.6 . 'px';
-						$custom_icon_size = $button_text_size;
+						$default_icons_size = '1.6em';
+						$custom_icon_size = $button_text_size_processed;
 
 						self::set_style( $function_name, array(
 							'selector'    => $css_element_processed . $button_icon_pseudo_selector,
@@ -8693,7 +8705,7 @@ class ET_Builder_Element {
 		}
 
 		return do_shortcode( sprintf( '
-			<video loop="loop"%3$s%4$s>
+			<video loop="loop" autoplay playsinline muted %3$s%4$s>
 				%1$s
 				%2$s
 			</video>',
@@ -9029,12 +9041,12 @@ class ET_Builder_Element {
 			$selectors_prepared = explode( ',', et_intentionally_unescaped( $selectors, 'fixed_string' ) );
 		}
 
+		$additional_classes = '';
+
 		// If we don't have a target selector, get out now
 		if ( ! $selectors_prepared ) {
 			return $additional_classes;
 		}
-
-		$additional_classes = '';
 
 		// Blend Mode
 		$mix_blend_mode = self::$data_utils->array_get( $this->shortcode_atts, "{$prefix}mix_blend_mode", '' );
