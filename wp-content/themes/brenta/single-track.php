@@ -38,7 +38,18 @@ get_header();
                         <div class="iframe">
 		                    <?php $geojson = get_field('n7webmap_geojson');
 		                    if(!empty($geojson)):?>
-                                <div id="custom-track-map" data-geojson='<?php echo json_encode($geojson); ?>'></div>
+                                <div id="custom-track-map" data-geojson='<?php echo json_encode($geojson); ?>'>
+                                    <?php
+                                    if (!empty($pois)):
+                                        foreach( $pois as $poi):
+                                            $indirizzo = get_field('n7webmap_coord', $poi->ID);
+                                            ?>
+                                            <div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
+                                        <?php
+                                        endforeach;
+                                    endif;
+                                    ?>
+                                </div>
 		                    <?php endif; ?>
                         </div>
                         <!-- <div class="mappa" style="background: url('/wp-content/themes/brenta/img/mappa.jpg')"> -->

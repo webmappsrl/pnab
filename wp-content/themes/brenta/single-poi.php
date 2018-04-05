@@ -9,7 +9,7 @@ get_header();
 			?>
 
                 <article
-                    id="post-<?php get_the_ID(); ?>" <?php post_class( 'et_pb_post' . $additional_class ); ?>>
+                    id="post-<?php the_ID(); ?>" <?php post_class( 'et_pb_post' . $additional_class ); ?>>
                     <div class="container">
 	                    <?php
 	                    if (function_exists('yoast_breadcrumb')) {
