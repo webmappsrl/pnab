@@ -44,7 +44,7 @@ get_header();
                                         foreach( $pois as $poi):
                                             $indirizzo = get_field('n7webmap_coord', $poi->ID);
                                             ?>
-                                            <div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
+                                            <div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-title="<?php echo $poi->post_title; ?>" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
                                         <?php
                                         endforeach;
                                     endif;
