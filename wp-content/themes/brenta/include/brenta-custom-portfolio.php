@@ -113,6 +113,7 @@ class ET_Builder_Brenta_Module_Portfolio extends ET_Builder_Module {
 			'include_categories'  => [
 				'label'            => esc_html__( 'Include Categories', 'et_builder' ),
 				'renderer'         => 'et_builder_include_webmapp_categories_option',
+				//'renderer'         => 'et_builder_include_categories_option',
 				'option_category'  => 'basic_option',
 				'description'      => esc_html__( 'Select the categories that you would like to include in the feed.', 'et_builder' ),
 				'computed_affects' => [
@@ -682,6 +683,7 @@ class ET_Builder_Module_POI_list extends ET_Builder_Module {
 			'include_categories'  => [
 				'label'            => esc_html__( 'Include Categories', 'et_builder' ),
 				'renderer'         => 'et_builder_include_webmapp_categories_option',
+				//'renderer'         => 'et_builder_include_categories_option',
 				'option_category'  => 'basic_option',
 				'description'      => esc_html__( 'Select the categories that you would like to include in the feed.', 'et_builder' ),
 				'computed_affects' => [
@@ -1027,7 +1029,7 @@ class ET_Builder_Module_POI_list extends ET_Builder_Module {
                             } else {
 	                            $thumb = get_stylesheet_directory_uri() . '/img/logo_placeholder.png';
                             } ?>
-                            <img src="<?php echo esc_url( $thumb ); ?>"
+                            <img src="<?php echo esc_url( $thumb_src ); ?>"
                                  alt="<?php echo esc_attr( get_the_title() ); ?>"/>
                             <div class="meta">
                                 <a href="<?php esc_url( the_permalink() ); ?>">
@@ -1104,7 +1106,7 @@ class ET_Builder_Module_POI_list extends ET_Builder_Module {
 
 new ET_Builder_Module_POI_list;
 
-
+/*
 if ( ! function_exists( 'et_builder_include_webmapp_categories_option' ) ) :
 	function et_builder_include_webmapp_categories_option( $args = [] ) {
 		$defaults = apply_filters( 'et_builder_include_categories_defaults', [
@@ -1134,18 +1136,12 @@ if ( ! function_exists( 'et_builder_include_webmapp_categories_option' ) ) :
 				'<%%= _.contains( et_pb_include_categories_temp, "%1$s" ) ? checked="checked" : "" %%>',
 				esc_html( $category->term_id )
 			);
-			$output   .= sprintf(
-				'%4$s<label><input type="checkbox" name="et_pb_include_categories" value="%1$s"%3$s> %2$s - (%5$s)</label><br/>',
-				esc_attr( $category->term_id ),
-				esc_html( $category->name ),
-				$contains,
-				"\n\t\t\t\t\t",
-				esc_html( $termParent )
-			);
+
+			$output   .= '<label><input type="checkbox" name="et_pb_include_categories" value="'.esc_attr( $category->term_id ).'" > '.esc_html( $category->name ).' - '.esc_html( $termParent).'</label><br/>';
 		}
 
 		$output = '<div id="et_pb_include_categories">' . $output . '</div>';
 
 		return apply_filters( 'et_builder_include_brenta_categories_option_html', $output );
 	}
-endif;
+endif;*/
