@@ -969,6 +969,8 @@ span.entry-date {
 }
 
 .cont-track {
+  display: flex;
+  align-items: center;
   width: 100%;
   margin-left: 2%;
   margin-bottom: 20px;
@@ -982,10 +984,11 @@ span.entry-date {
   */
 }
 
-.single-project .cont-track {
-  width: 100%;
+.cont-track a{
+  color: #007757;
 }
 
+/*
 .counter {
   width: 5%;
   color: #083a46;
@@ -994,7 +997,7 @@ span.entry-date {
   margin-right: 2%;
   position: relative;
   bottom: 28px;
-}
+}*/
 
 .exe-track {
   margin-left: 3%;
