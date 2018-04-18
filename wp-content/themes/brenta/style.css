@@ -913,7 +913,6 @@ span.entry-date {
 }
 
 .single-route .text,
-.single-track .text,
 .single-project .text
 {
   line-height: 1.8;
@@ -948,13 +947,17 @@ span.entry-date {
   overflow: hidden;
 }
 
+.single-track article.et_pb_post {
+  margin-bottom: 0;
+}
+
 .brenta-content > .container {
   padding-top: 0px!important;
 }
 
 .brenta-content > .container .single-left {
-  width: 42.5%!important;
-  padding-right: 20px;
+  width: 43.5%!important;
+  margin-right: 0;
 }
 
 .brenta-content > .container .right-left {
@@ -966,14 +969,17 @@ span.entry-date {
 }
 
 .cont-track {
-  width: 90%;
+  width: 100%;
   margin-left: 2%;
   margin-bottom: 20px;
   padding-bottom: 20px;
+  background: #e4e4e4;
+  /*
   border-bottom: 1px solid #e5e5e5;
   -webkit-box-shadow: -12px 0px 27px -7px rgba(125,125,125,0.87);
   -moz-box-shadow: -12px 0px 27px -7px rgba(125,125,125,0.87);
   box-shadow: -12px 0px 27px -7px rgba(125,125,125,0.87);
+  */
 }
 
 .single-project .cont-track {
@@ -991,7 +997,6 @@ span.entry-date {
 }
 
 .exe-track {
-  width: 72%;
   margin-left: 3%;
   padding: 10px 0;
 }
@@ -1010,9 +1015,17 @@ span.entry-date {
 }
 
 .thumb-track {
-  width: 20%;
+  max-width: 20%;
   float: left;
   margin: 30px 0 0 4%;
+}
+
+.thumb-track > span {
+  display: block;
+  width: 100%;
+  color: #007757;
+  font-size: 40px;
+  text-align: center;
 }
 
 body.single-project h1.entry-title {

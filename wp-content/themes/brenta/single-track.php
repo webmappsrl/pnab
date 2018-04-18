@@ -43,9 +43,10 @@ get_header();
                                     if (!empty($pois)):
                                         foreach( $pois as $poi):
                                             $indirizzo = get_field('n7webmap_coord', $poi->ID);
-                                            ?>
+                                            if (!empty($indirizzo)) :
+                                    ?>
                                             <div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-title="<?php echo $poi->post_title; ?>" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
-                                        <?php
+                                        <?php endif;
                                         endforeach;
                                     endif;
                                     ?>
@@ -55,16 +56,14 @@ get_header();
                         <!-- <div class="mappa" style="background: url('/wp-content/themes/brenta/img/mappa.jpg')"> -->
                         </div>
                     </div>
-                    <div class="brenta-content">
+                    <div class="brenta-content back-green">
                         <div class="container">
                             <div class="single-left text">
 				                <?php the_content(); ?>
                             </div>
                             <div class="single-right">
                               <?php
-
-                              if ( $pois ):
-                                $c = 1;?>
+                              if ( $pois ): ?>
                                   <ul>
                                     <?php foreach( $pois as $poi): // variable must be called $post (IMPORTANT) ?>
                                       <?php
@@ -72,12 +71,15 @@ get_header();
                                       $post = $poi;
                                       setup_postdata($post); ?>
                                         <li>
-                                            <span class="counter"><?php echo $c; ?></span>
                                             <div class="cont-track">
                                                 <div class="thumb-track">
                                                 <?php if ( has_post_thumbnail() ) {
                                                   the_post_thumbnail('thumbnail');
-                                                } ?>
+                                                } else {
+	                                                $terms = get_the_terms(get_the_ID(), 'webmapp_category');
+                                                    $icon = get_field('wm_taxonomy_icon', $terms[0]->taxonomy . '_' . $terms[0]->term_id);
+	                                                echo '<span class="' . $icon .'"></span>';
+                                                }?>
                                                 </div>
                                                 <div class="exe-track">
                                                     <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
@@ -85,9 +87,8 @@ get_header();
                                                 </div>
                                             </div>
                                         </li>
-                                    <?php $c++; endforeach; ?>
+                                    <?php endforeach; ?>
                                   </ul>
-
                               <?php
                                 wp_reset_postdata();
                               endif;
