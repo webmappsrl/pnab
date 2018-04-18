@@ -57,7 +57,7 @@ get_header();
                         </div>
                     </div>
                     <div class="brenta-content back-green">
-                        <div class="container">
+                        <div class="container clearfix">
                             <div class="single-left text">
 				                <?php the_content(); ?>
                             </div>
