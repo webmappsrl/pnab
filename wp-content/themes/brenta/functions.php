@@ -53,28 +53,28 @@ Prep_DS_Custom_Modules();
 
 add_image_size( 'portfolio-size', 800, 400, TRUE );
 
-if ( ! function_exists( 'activity_taxonomy' ) ) {
+if ( ! function_exists( 'attivita_taxonomy' ) ) {
 
 	// Register Custom Taxonomy
-	function activity_taxonomy() {
+	function attivita_taxonomy() {
 
 		$labels = [
-			'name'                       => _x( 'Activities', 'Taxonomy General Name', 'brenta' ),
-			'singular_name'              => _x( 'Activity', 'Taxonomy Singular Name', 'brenta' ),
-			'menu_name'                  => __( 'Activity', 'brenta' ),
-			'all_items'                  => __( 'All Activities', 'brenta' ),
-			'parent_item'                => __( 'Parent Activity', 'brenta' ),
-			'parent_item_colon'          => __( 'Parent Activity:', 'brenta' ),
-			'new_item_name'              => __( 'New Activity Name', 'brenta' ),
-			'add_new_item'               => __( 'Add New Activity', 'brenta' ),
-			'edit_item'                  => __( 'Edit Activity', 'brenta' ),
-			'update_item'                => __( 'Update Activity', 'brenta' ),
-			'view_item'                  => __( 'View Activity', 'brenta' ),
-			'separate_items_with_commas' => __( 'Separate activities with commas', 'brenta' ),
-			'add_or_remove_items'        => __( 'Add or remove activities', 'brenta' ),
+			'name'                       => _x( 'attivita', 'Taxonomy General Name', 'brenta' ),
+			'singular_name'              => _x( 'attivita', 'Taxonomy Singular Name', 'brenta' ),
+			'menu_name'                  => __( 'attivita', 'brenta' ),
+			'all_items'                  => __( 'All attivita', 'brenta' ),
+			'parent_item'                => __( 'Parent attivita', 'brenta' ),
+			'parent_item_colon'          => __( 'Parent attivita:', 'brenta' ),
+			'new_item_name'              => __( 'New attivita Name', 'brenta' ),
+			'add_new_item'               => __( 'Add New attivita', 'brenta' ),
+			'edit_item'                  => __( 'Edit attivita', 'brenta' ),
+			'update_item'                => __( 'Update attivita', 'brenta' ),
+			'view_item'                  => __( 'View attivita', 'brenta' ),
+			'separate_items_with_commas' => __( 'Separate attivita with commas', 'brenta' ),
+			'add_or_remove_items'        => __( 'Add or remove attivita', 'brenta' ),
 			'choose_from_most_used'      => __( 'Choose from the most used', 'brenta' ),
-			'popular_items'              => __( 'Popular activities', 'brenta' ),
-			'search_items'               => __( 'Search activities', 'brenta' ),
+			'popular_items'              => __( 'Popular attivita', 'brenta' ),
+			'search_items'               => __( 'Search attivita', 'brenta' ),
 			'not_found'                  => __( 'Not Found', 'brenta' ),
 			'no_terms'                   => __( 'No Types', 'brenta' ),
 			'items_list'                 => __( 'Types list', 'brenta' ),
@@ -90,11 +90,11 @@ if ( ! function_exists( 'activity_taxonomy' ) ) {
 			'show_tagcloud'     => FALSE,
 			'show_in_rest'      => TRUE,
 		];
-		register_taxonomy( 'activity', [ 'project' ], $args );
+		register_taxonomy( 'attivita', [ 'project' ], $args );
 
 	}
 
-	add_action( 'init', 'activity_taxonomy', 0 );
+	add_action( 'init', 'attivita_taxonomy', 0 );
 
 }
 
