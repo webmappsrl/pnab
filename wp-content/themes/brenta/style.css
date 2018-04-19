@@ -825,26 +825,26 @@ footer#main-footer {
   clear: left;
 }
 
-.poi-template-default .title-acqua {
+.single .title-acqua {
   color: #4db5cf;
   margin-right: 5px;
 }
 
-.poi-template-default .title-acqua i {
+.single .title-acqua i {
   font-size: 20px;
   vertical-align: middle;
   margin-right: 5px;
 }
 
-.poi-template-default .green {
+.single .green {
   color: #007757;
 }
 
-.poi-template-default hr {
+.single hr {
   border-color: #4db5cf;
 }
 
-.poi-template-default .entry-content {
+.single .entry-content {
   padding-top: 0;
   line-height: 1.6;
 }
@@ -971,7 +971,8 @@ span.entry-date {
 .cont-track {
   display: flex;
   align-items: center;
-  margin-left: 2%;
+  margin-left: 0;
+  margin-top: 25px;
   margin-bottom: 20px;
   padding-bottom: 20px;
   padding-right: 30px;

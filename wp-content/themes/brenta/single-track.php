@@ -62,6 +62,47 @@ get_header();
 				                <?php the_content(); ?>
                             </div>
                             <div class="single-right">
+	                            <?php if(get_field('wm_track_ascent')): ?>
+                                    <p><span class="title-acqua"><span class="wm-icon-ascent" aria-hidden="true"></span> <?php echo __( 'D+', 'brenta' ) ?></span>  <?php the_field('wm_track_ascent');  ?>mt
+                                    </p>
+                                    <hr />
+	                            <?php endif; ?>
+	                            <?php if(get_field('wm_track_descent')): ?>
+                                    <p><span class="title-acqua"><span class="wm-icon-descent" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></span> <?php echo __( 'Dislivello-', 'brenta' ) ?></span>  <?php the_field('wm_track_descent');  ?>mt
+                                    </p>
+                                    <hr />
+	                            <?php endif; ?>
+	                            <?php if(get_field('wm_track_duration:forward')): ?>
+                                    <p><span class="title-acqua"><span class="wm-icon-ios7-timer-outline" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></span> <?php echo __( 'Durata andata', 'brenta' ) ?></span>  <?php the_field('wm_track_duration:forward');  ?>
+                                    </p>
+                                    <hr />
+                                <?php
+                                endif;
+                                if(get_field('wm_track_duration_backword')): ?>
+                                    <p>
+                                    <span class="title-acqua"><span class="wm-icon-ios7-timer-outline" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></span> <?php echo __( 'Durata ritorno', 'brenta' ) ?></span>  <?php the_field('wm_track_duration_backword');  ?>
+                                    </p><hr />
+	                            <?php endif; ?>
+	                            <?php if(get_field('wm_track_distance')): ?>
+                                    <p><span class="title-acqua"><span class="wm-icon-distance" aria-hidden="true" style="font-size:16px;vertical-align: baseline;"></span> <?php echo __( 'Distanza', 'brenta' ) ?></span>  <?php the_field('wm_track_distance');  ?>mt
+                                    </p>
+                                    <hr />
+	                            <?php endif; ?>
+	                            <?php if(get_field('wm_track_cai_scale')): ?>
+                                    <p><span class="title-acqua"> <?php echo __( 'Difficoltà', 'brenta' ) ?></span>  <?php the_field('wm_track_cai_scale');  ?>
+                                    </p>
+                                    <hr />
+	                            <?php endif;
+                                $terms = get_the_terms(get_the_ID(), 'activity');
+                                if (!empty($terms)){
+                                    foreach($terms as $term){
+                                        $icon = get_field('wm_taxonomy_icon', $term->taxonomy . '_' . $term->term_id);
+                                        if (!empty($icon)){
+                                            echo '<span class="' . $icon .'" style="font-size: 40px"></span>';
+                                        }
+                                    }
+                                }
+                                ?>
                               <?php
                               if ( $pois ): ?>
                                   <ul>
