@@ -1029,7 +1029,7 @@ class ET_Builder_Module_POI_list extends ET_Builder_Module {
                             } else {
 	                            $thumb = get_stylesheet_directory_uri() . '/img/logo_placeholder.png';
                             } ?>
-                            <img src="<?php echo esc_url( $thumb_src ); ?>"
+                            <img src="<?php echo esc_url( $thumb ); ?>"
                                  alt="<?php echo esc_attr( get_the_title() ); ?>"/>
                             <div class="meta">
                                 <a href="<?php esc_url( the_permalink() ); ?>">
