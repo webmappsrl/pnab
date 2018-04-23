@@ -63,7 +63,7 @@ get_header();
                         <div class="iframe">
                             <?php $indirizzo = get_field('n7webmap_coord');
                             if(!empty($indirizzo)):?>
-                                <div id="custom-poi-map" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng']; ?>"></div>
+                                <div id="custom-poi-map" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng']; ?>" data-id="<?php echo get_the_ID(); ?>"></div>
                             <?php endif; ?>
                         </div>
                     </div>
