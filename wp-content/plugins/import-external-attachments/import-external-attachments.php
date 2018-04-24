@@ -128,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 		foreach ( $external_images as $external_image ) {
 
-			if( in_array( strtolower(pathinfo($external_image, PATHINFO_EXTENSION)), array( 'pdf', 'doc', 'docx', 'ods', 'xls' ) ) ) {
+			if( in_array( strtolower(pathinfo($external_image, PATHINFO_EXTENSION)), array( 'pdf', 'doc', 'docx', 'ods', 'xls', 'odt' ) ) ) {
 				$cutlen = strlen( $external_image ) < 40  ? strlen( $external_image ) : -40;
 
 				$documents .= '<li><small>...' . substr( $external_image, $cutlen) . '</small></li>';
@@ -156,7 +156,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 	function is_external_file( $file ) {
 
-		$allowed = array( 'jpeg' , 'png', 'bmp' , 'gif',  'pdf', 'jpg', 'doc', 'docx', 'ods', 'xls' );
+		$allowed = array( 'jpeg' , 'png', 'bmp' , 'gif',  'pdf', 'jpg', 'doc', 'docx', 'ods', 'xls', 'odt' );
 
 		$ext = pathinfo($file, PATHINFO_EXTENSION);
 
@@ -236,7 +236,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 			// Set variables for storage
 			// fix file filename for query strings
-			preg_match('/[^\?]+\.(jpg|jpeg|gif|png|pdf|doc|docx|ods|xls)/i', $file, $matches);
+			preg_match('/[^\?]+\.(jpg|jpeg|gif|png|pdf|doc|docx|ods|xls|odt)/i', $file, $matches);
 			$file_array['name'] = basename($matches[0]);
 			$file_array['tmp_name'] = $tmp;
 
@@ -295,6 +295,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				case 'application/vnd.oasis.opendocument.spreadsheet':
 					return '.ods';
 					break;
+				case 'application/vnd.oasis.opendocument.text':
+					return '.odt';
+					break;
 				case 'application/msword':
 					return '.doc';
 					break;
@@ -346,7 +349,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				//make sure it's external
 				if ( $s != substr( $uri , 0 , strlen( $s ) ) && ( !isset( $mapped ) || $mapped != substr( $uri , 0 , strlen( $mapped ) ) ) ) {
 					$path_parts['extension'] = (isset($path_parts['extension'])) ? strtolower($path_parts['extension']) : false;
-					if ( in_array( $path_parts['extension'], array( 'gif', 'jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx', 'ods', 'xls' ) ) )
+					if ( in_array( $path_parts['extension'], array( 'gif', 'jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx', 'ods', 'xls', 'odt' ) ) )
 						$result[] = $uri;
 				}
 			}
