@@ -1418,3 +1418,9 @@ h3.ccpage_linked_title {
 .twocol .ccchildpage {
   width: 47%!important;
 }
+
+.mv-content .cat-title > a {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
