@@ -423,14 +423,14 @@ body.single-project .facetwp-facet {
   border: 2px dotted #00769b;
 }
 
-.facetwp-radio[data-value="pioggia"], .facetwp-radio.checked[data-value="pioggia"] {
+.facetwp-radio[data-value="gruppi"], .facetwp-radio.checked[data-value="gruppi"] {
   background: url("img/icone/chi_gruppi.png") no-repeat top center;
   color: #7fbdcc;
 }
-.facetwp-radio[data-value="pioggia"]:hover {
+.facetwp-radio[data-value="gruppi"]:hover {
   color: #7fbdcc;
 }
-.facetwp-radio[data-value="pioggia"]:before {
+.facetwp-radio[data-value="gruppi"]:before {
   border: 2px dotted #7fbdcc;
 }
 
@@ -457,14 +457,14 @@ body.single-project .facetwp-facet {
   border: 2px dotted #0eb56d;
 }
 
-.facetwp-radio[data-value="geologia"], .facetwp-radio.checked[data-value="geologia"] {
+.facetwp-radio[data-value="natura"], .facetwp-radio.checked[data-value="natura"] {
   background: url("img/icone/cosa_natura.png") no-repeat top center;
   color: #269c54;
 }
-.facetwp-radio[data-value="geologia"]:hover {
+.facetwp-radio[data-value="natura"]:hover {
   color: #269c54;
 }
-.facetwp-radio[data-value="geologia"]:before {
+.facetwp-radio[data-value="natura"]:before {
   border: 2px dotted #269c54;
 }
 
