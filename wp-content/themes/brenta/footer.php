@@ -65,10 +65,10 @@ if ( empty( $terms ) || ! containsTerm( $terms, 'marchio-qualita-parco' ) ): ?>
                                 </h2>
 							<?php } ?>
 
-                            <a href="/marchio-di-qualita/ospitalita-qualita-parco/"
+                            <a href="/principale/marchio-di-qualita/"
                                class="logo_banner">
                                 <img
-                                    src="/wp-content/themes/brenta/img/banner-label.png"
+                                    src="/wp-content/themes/brenta/img/club_QP.png"
                                     alt="logo qualità parco">
                             </a>
 
