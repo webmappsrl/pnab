@@ -30,24 +30,27 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
 						?>
                         <div class="et_post_meta_wrapper">
                             <h1 class="entry-title"><?php the_title(); ?></h1>
-                            <div
-                                class="categories facetwp-facet facetwp-facet-activity facetwp-type-radio">
-								<?php
-								$args       = [];
-								$activities = wp_get_post_terms( get_the_ID(), 'activity', $args );
-								$seasons    = wp_get_post_terms( get_the_ID(), 'season', $args );
-								$categories = wp_get_post_terms( get_the_ID(), 'project_category', $args );
+                            <div class="categories facetwp-facet facetwp-facet-activity facetwp-type-radio">
+		                        <?php
+		                        $args       = [];
+		                        $activities = wp_get_post_terms( get_the_ID(), 'attivita', $args );
+		                        $seasons    = wp_get_post_terms( get_the_ID(), 'season', $args );
+		                        $locations    = wp_get_post_terms( get_the_ID(), 'location', $args );
+		                        $categories = wp_get_post_terms( get_the_ID(), 'project_category', $args );
 
-								foreach ( $activities as $activity ) {
-									echo '<div class="facetwp-radio checked" data-value="' . $activity->name . '">' . $activity->name . '</div>';
-								}
-								foreach ( $seasons as $season ) {
-									echo '<div class="facetwp-radio checked" data-value="' . $season->name . '">' . $season->name . '</div>';
-								}
-								foreach ( $categories as $category ) {
-									echo '<div class="facetwp-radio checked" data-value="' . $category->name . '">' . $category->name . '</div>';
-								}
-								?>
+		                        foreach ( $activities as $activity ) {
+			                        echo '<div class="facetwp-radio checked" data-value="' . $activity->slug . '">' . $activity->name . '</div>';
+		                        }
+		                        foreach ( $locations as $location ) {
+			                        echo '<div class="facetwp-radio checked" data-value="' . $location->slug . '">' . $location->name . '</div>';
+		                        }
+		                        foreach ( $seasons as $season ) {
+			                        echo '<div class="facetwp-radio checked" data-value="' . $season->slug . '">' . $season->name . '</div>';
+		                        }
+		                        foreach ( $categories as $category ) {
+			                        echo '<div class="facetwp-radio checked" data-value="' . $category->slug . '">' . $category->name . '</div>';
+		                        }
+		                        ?>
                             </div>
 							<?php if ( get_field( 'subtitle' ) ) { ?>
                                 <h3 class="subtitle"><?php the_field( 'subtitle' ); ?></h3>

@@ -279,13 +279,25 @@ div#full-blog {
   margin: 0 auto;
 }
 
-body.home .facetwp-radio,
-body.single-project .facetwp-radio
+body.home .facetwp-radio
 {
   width: 25%;
   height: 60px;
   padding-left: 0;
   padding-top: 46px;
+  display: inline-block;
+  background-position: top center;
+  color: #fff;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+body.single-project .facetwp-radio {
+  min-width: 90px;
+  height: 60px;
+  padding-left: 0;
+  padding-top: 46px;
+  text-align: center;
   display: inline-block;
   background-position: top center;
   color: #fff;
@@ -324,10 +336,11 @@ body.single-project .facetwp-radio .facetwp-counter
 }
 
 body.single-project .facetwp-facet {
-  width: 35%;
-  display: inline-block;
+  width: 100%;
+  display: block;
   vertical-align: middle;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 25px!important;
 }
 
 .brenta-facet > span.line {
@@ -916,6 +929,10 @@ span.entry-date {
   text-transform: uppercase;
 }
 
+.single-project .et_post_meta_wrapper {
+  margin-bottom: 0!important;
+}
+
 .entry-content.green {
   color: #007757;
   font-size: 20px;
@@ -1044,8 +1061,9 @@ span.entry-date {
 }
 
 body.single-project h1.entry-title {
-  width: 64%;
+  width: 100%;
   display: inline-block;
+  margin-bottom: 0;
 }
 
 /* END SINGLE ROUTE & TRACK */
