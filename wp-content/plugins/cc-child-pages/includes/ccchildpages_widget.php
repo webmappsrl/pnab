@@ -41,7 +41,7 @@ class ccchildpages_widget extends WP_Widget {
 			$parent_id = wp_get_post_parent_id(get_the_ID());
 			
 			// Add current page id to exclude tree list ...
-			$exclude_tree .= get_the_ID();
+			//$exclude_tree .= get_the_ID();
 		}
 		else if ( $showall != 'off' ) {
 			$parent_id = 0;
