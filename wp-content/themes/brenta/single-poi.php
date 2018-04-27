@@ -146,7 +146,7 @@ get_header();
 	                            if ($prenotable){ ?>
                                     <a class="booking-button et_pb_button et_pb_custom_button_icon  et_pb_button_0 et_pb_module et_pb_bg_layout_light" data-icon="5" href="#">
                                         Richiedi una prenotazione</a>
-	                            <?php echo '<div id="modal-form"><i class="fa fa-times booking-close-button" aria-hidden="true"></i>' . do_shortcode('[contact-form-7 id="1244" title="Prenotazione"]') . '</div>'; ?>
+	                            <?php echo '<div id="modal-form"><i class="fa fa-times booking-close-button" aria-hidden="true"></i><div class="container">' . do_shortcode('[contact-form-7 id="1244" title="Prenotazione"]') . '</div></div>'; ?>
                                     <script>
                                       (function($) {
 
