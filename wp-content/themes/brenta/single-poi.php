@@ -73,6 +73,10 @@ get_header();
 				                <?php the_content(); ?>
                             </div>
                             <div class="single-right">
+                                <?php if(get_field('testo_colonna_destra')) :
+                                    the_field('testo_colonna_destra'); ?>
+                                    <hr />
+                                <?php endif; ?>
                                 <?php if(get_field('contact:phone')): ?>
                                 <p><span class="title-acqua"><i class="fa fa-phone"
                                       aria-hidden="true"></i> <?php echo __( 'Tel', 'brenta' ) ?></span>  <?php the_field('contact:phone');  ?>

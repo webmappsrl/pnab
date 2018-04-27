@@ -615,6 +615,49 @@ if ( function_exists( 'acf_add_local_field_group' ) ):
 		'description' => '',
 	));
 
+	acf_add_local_field_group(array(
+		'key' => 'group_5ae2fcb2317b7',
+		'title' => 'Colonna destra',
+		'fields' => array(
+			array(
+				'key' => 'field_5ae2fcbd3e4b9',
+				'label' => 'Testo colonna destra',
+				'name' => 'testo_colonna_destra',
+				'type' => 'wysiwyg',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => 0,
+				'delay' => 0,
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'poi',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
+
 endif;
 
 function my_cache_lifetime( $seconds ) {
