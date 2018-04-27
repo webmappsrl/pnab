@@ -48,7 +48,7 @@ class ccchildpages {
 			'posts_per_page' => -1,
 			'limit'			=> -1,
 			'page' 			=> -1,
-			'cols'			=> '',
+			'cols'			=> '2',
 			'depth'			=> '1',
 			'exclude'		=> '',
 			'exclude_tree'	=> '',
@@ -56,7 +56,7 @@ class ccchildpages {
 			'class'			=> '',
 			'orderby'		=> 'menu_order',
 			'order'			=> 'ASC',
-			'link_titles'	=> 'false',
+			'link_titles'	=> 'true',
 			'title_link_class' => 'ccpage_title_link',
 			'hide_more'		=> 'false',
 			'hide_excerpt'	=> 'false',
@@ -65,7 +65,7 @@ class ccchildpages {
 			'list'			=> 'false',
 			'link_thumbs'	=> 'false',
 			'thumbs'		=> 'false',
-			'more'			=> __('Read more ...', 'cc-child-pages'),
+			'more'			=> __('Leggi tutto ...', 'cc-child-pages'),
 			'link'			=> '',
 			'siblings'		=> 'false',
 			'show_current_page' => 'false',
@@ -78,7 +78,7 @@ class ccchildpages {
 			'use_custom_thumbs'	=> '',
 			'ignore_sticky_posts' => 'true',
 			'offset'		=> 0,
-			'words'			=> 55,
+			'words'			=> 12,
 			'subpage_title'	=> '',
 			'link_target'	=> '',
 			'show_author'	=> 'false',
@@ -325,7 +325,7 @@ class ccchildpages {
 		$outer_template = str_replace( '{{class}}', $class, apply_filters('ccchildpages_outer_template','<div id="ccchildpages-' . $cc_uid . '" class="ccchildpages {{class}} {{skin}} ccclearfix">{{ccchildpages}}</div>', $a) );
 		$outer_template = str_replace( '{{skin}}', $skin, $outer_template );
 		
-		$inner_template = apply_filters('ccchildpages_inner_template','<div class="ccchildpage {{page_class}}"><h3{{title_class}}>{{title}}</h3>{{meta}}{{thumbnail}}{{excerpt}}{{more}}</div>', $a);
+		$inner_template = apply_filters('ccchildpages_inner_template','<div class="ccchildpage {{page_class}}"><h3{{title_class}}><i class="fa fa-chevron-right" aria-hidden="true"></i>{{title}}</h3>{{meta}}{{thumbnail}}{{excerpt}}{{more}}</div>', $a);
 		
 		$meta_template = apply_filters('ccchildpages_meta_template','<p class="small cc-meta-info">{{meta}}</p>', $a);
 
