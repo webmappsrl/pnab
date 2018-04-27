@@ -23,13 +23,13 @@ get_header();
                                 if ( ! empty( $custom_image_icon ) ): ?>
                                     <img src="<?php echo $custom_image_icon; ?>"
                                          width="40" height="40"/>
-                                <?php elseif ( empty( $terms ) && empty( $custom_image_icon ) ): ?>
-                                    <i class="fa fa-map-marker green"
-                                       aria-hidden="true"></i>
-                                <?php else :
+                                <?php elseif ( empty( $terms ) && empty( $custom_image_icon ) ):
+                                    echo '<span class="green wm-icon-generic"></span>';
+                                else :
 	                                foreach ( $terms as $term ) {
 		                                $icon_class = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $term->term_id );
-		                                echo '<span class="green ' . $icon_class . '"></span>';
+		                                $icon_color = get_field( 'wm_taxonomy_color', 'webmapp_category_' . $term->term_id );
+		                                echo '<span style="color:' . $icon_color . '" class="' . $icon_class . '"></span>';
 	                                }
                                 endif; ?>
 
