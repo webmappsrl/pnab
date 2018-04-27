@@ -579,14 +579,25 @@ footer#main-footer {
   max-width: 15%;
 }
 
-.footer_img{
+.footer_img {
+  width: 30%;
   padding: 30px 0 0 0;
   float: left;
 }
 
+.footer_img > span {
+  text-align: center;
+  padding: 0 5px;
+  display: block;
+}
+
+.footer_img > a > img {
+  margin-top: 10px;
+}
+
 #et-footer-nav {
   float: right;
-  width: 85%;
+  width: 70%;
   padding-top: 40px;
 }
 
@@ -1189,6 +1200,10 @@ body.single-project h1.entry-title {
     max-width: 100%!important;
     height: 350px!important;
     margin: 1px!important;
+  }
+
+  #main-footer .container > div {
+    width: 100%;
   }
 }
 
