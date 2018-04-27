@@ -143,10 +143,25 @@ get_header();
                                     </p>
 	                            <?php endif;
 	                            $prenotable = get_field('prenotabile');
-	                            if ($prenotable){ ?>
+	                            if ($prenotable) : ?>
                                     <a class="booking-button et_pb_button et_pb_custom_button_icon  et_pb_button_0 et_pb_module et_pb_bg_layout_light" data-icon="5" href="#">
                                         Richiedi una prenotazione</a>
-	                            <?php echo '<div id="modal-form"><i class="fa fa-times booking-close-button" aria-hidden="true"></i><div class="container">' . do_shortcode('[contact-form-7 id="1244" title="Prenotazione"]') . '</div></div>'; ?>
+                                        <?php
+                                        $logo_brenta = '<img src="' . et_get_option( 'divi_logo' ) . '">';
+                                        $logo_qp = '<img src="/wp-content/themes/brenta/img/club_QP.png">';
+                                        $output = '<div id="modal-form">';
+                                        $output .= '<i class="fa fa-times booking-close-button" aria-hidden="true"></i><div class="container">';
+                                        $output .= '<div class="modal_head">' . $logo_brenta . '<h3>Modulo di richiesta disponibilità</h3>' . $logo_qp . '</div>';
+                                        $output .= do_shortcode('[contact-form-7 id="1244" title="Prenotazione"]');
+                                        $policy = '<p>Trattamento dei dati personali<br />
+                                        (Privacy policy ai sensi dell’art. 13 del d.lgs. 196/2003)<br />
+                                        La informiamo che i dati che fornirà al gestore del presente sito al momento della compilazione del "form contatti" (detto anche form mail) del sito stesso, saranno trattati nel rispetto delle disposizioni di cui al d.lgs. 196/2003, Codice in materia di protezione dei dati personali.<br />
+                                        Il form contatti messo a disposizione sul sito ha il solo scopo di consentire ai visitatori del sito di contattare, qualora lo desiderino, le strutture Qualità Parco e il gestore del sito stesso, inviando tramite il suddetto form una e-mail.<br />
+                                        La presente informativa riguarda i dati personali inviati dall’utente visitatore al momento della compilazione del form contatti.<br />
+                                        La informiamo del fatto che i dati che conferirà volontariamente tramite il form verranno tramutati in una email che verrà inviata automaticamente alla struttura QP prescelta.<br />
+                                        Questi dati non verranno registrati su altri supporti o dispositivi, né verranno registrati altri dati derivanti dalla sua navigazione sul sito.</p>';
+                                        $output .= $policy . '</div></div>';
+                                        echo $output; ?>
                                     <script>
                                       (function($) {
 
@@ -159,9 +174,8 @@ get_header();
                                           $('#modal-form').fadeOut();
                                         })
 
-
                                       })( jQuery );</script>
-	                            <?php } ?>
+	                            <?php endif; ?>
                             </div>
                         </div>
                     </div>

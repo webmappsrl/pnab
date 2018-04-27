@@ -1320,10 +1320,31 @@ body #page-container .booking-button.et_pb_button_0:hover, body #page-container 
   -webkit-box-shadow: 0px 0px 80px 300px rgba(0,0,0,0.7);
   -moz-box-shadow: 0px 0px 80px 300px rgba(0,0,0,0.7);
   box-shadow: 0px 0px 80px 300px rgba(0,0,0,0.7);
+  overflow: scroll;
+}
+
+#modal-form .modal_head {
+  display: flex;
+  justify-content: space-around;
+}
+
+#modal-form .modal_head img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+#modal-form .modal_head h3 {
+  text-align: center;
+}
+
+#modal-form p {
+  text-align: center;
+  margin-bottom: 30px;
+
 }
 
 #modal-form .wpcf7 {
-  padding: 25px 50px;
+  padding: 0 50px;
 }
 
 #modal-form .booking-close-button {
