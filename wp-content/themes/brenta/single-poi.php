@@ -6,6 +6,8 @@ get_header();
         <div id="content-area" class="clearfix">
 			<?php while ( have_posts() ) : the_post();
     				$terms = get_the_terms(get_the_ID(), 'webmapp_category');
+    				$icon = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $terms[0]->term_id );;
+    				$color = get_field( 'wm_taxonomy_color', 'webmapp_category_' . $terms[0]->term_id );
 			?>
 
                 <article
@@ -24,7 +26,7 @@ get_header();
                                     <img src="<?php echo $custom_image_icon; ?>"
                                          width="40" height="40"/>
                                 <?php elseif ( empty( $terms ) && empty( $custom_image_icon ) ):
-                                    echo '<span class="green wm-icon-generic"></span>';
+                                    echo '<span class="green wm-icon-pin"></span>';
                                 else :
 	                                foreach ( $terms as $term ) {
 		                                $icon_class = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $term->term_id );
@@ -63,7 +65,7 @@ get_header();
                         <div class="iframe">
                             <?php $indirizzo = get_field('n7webmap_coord');
                             if(!empty($indirizzo)):?>
-                                <div id="custom-poi-map" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng']; ?>" data-id="<?php echo get_the_ID(); ?>"></div>
+                                <div id="custom-poi-map" data-icon="<?php echo $icon; ?>" data-icon-color="<?php echo $color; ?>" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng']; ?>" data-id="<?php echo get_the_ID(); ?>"></div>
                             <?php endif; ?>
                         </div>
                     </div>
