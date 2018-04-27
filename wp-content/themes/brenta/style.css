@@ -1355,9 +1355,6 @@ form#brenta_login {
   padding: 0;
 }
 
-.ccchildpage:nth-child(3n){
-  margin-right: 0;
-}
 
 .ccpages_excerpt, .ccpages_more {
   font-size: 95%;
