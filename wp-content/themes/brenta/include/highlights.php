@@ -93,6 +93,7 @@ if( function_exists('acf_add_local_field_group') ):
 					3 => 'map',
 					4 => 'route',
 					5 => 'project',
+					6 => 'page',
 				),
 				'taxonomy' => array(
 				),
