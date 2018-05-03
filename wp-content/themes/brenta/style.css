@@ -108,7 +108,7 @@ body.et_header_style_left #et-top-navigation {
 
 #top-menu li .menu-item-has-children>a:first-child:after {
   top: -2px;
-  right: 20px;
+  right: 0px;
 }
 
 #top-menu, .fullwidth-menu, nav#top-menu-nav, nav.fullwidth-menu-nav {
