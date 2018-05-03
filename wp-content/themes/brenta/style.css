@@ -95,6 +95,17 @@ body.et_header_style_left #et-top-navigation {
   text-align: center;
 }
 
+#top-menu li li a {
+  padding-top: 0px!important;
+  padding-bottom: 0px!important;
+  line-height: 1.4;
+  margin: 5px 0;
+}
+#top-menu li .menu-item-has-children>a:first-child:after {
+  top: -2px;
+  right: 20px;
+}
+
 #top-menu, .fullwidth-menu, nav#top-menu-nav, nav.fullwidth-menu-nav {
   width: 95%;
 }
