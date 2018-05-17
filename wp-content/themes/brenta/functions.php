@@ -999,7 +999,7 @@ function br_display_catfiles($catslug, $catname = NULL, $personal = false, $regi
       'posts_per_page' => -1,
       'date_query' => array(
         array(
-          'after' => '-10 days',
+          'after' => '-15 days',
           'column' => 'post_date',
         ),
       ),
@@ -1042,7 +1042,7 @@ function br_display_catfiles($catslug, $catname = NULL, $personal = false, $regi
       'posts_per_page' => -1,
       'date_query' => array(
         array(
-          'after' => '-10 days',
+          'after' => '-15 days',
           'column' => 'post_date',
         ),
       ),
@@ -1067,7 +1067,7 @@ function br_display_catfiles($catslug, $catname = NULL, $personal = false, $regi
       'posts_per_page' => -1,
       'date_query' => array(
         array(
-          'after' => '-10 days',
+          'after' => '-15 days',
           'column' => 'post_date',
         ),
       ),
