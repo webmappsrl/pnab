@@ -1490,3 +1490,8 @@ h3.ccpage_linked_title a.ccpage_title_link {
   cursor: default;
   text-decoration: none;
 }
+
+.et_pb_widget.widget_ccchildpages_widget .current_page_item a {
+  color: #1f8656;
+  font-weight: 600;
+}

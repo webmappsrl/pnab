@@ -944,3 +944,186 @@ function et_builder_include_webmapp_categories_option( $args = array() ) {
 
 	return apply_filters( 'et_builder_include_categories_option_html', $output );
 }
+
+
+// Single Category
+add_shortcode( 'br_single_category', 'br_single_category' );
+
+function br_single_category($atts) {
+
+  // Attributes
+  extract( shortcode_atts(
+      array(
+        'id' => 0
+      ), $atts )
+  );
+
+  if (empty($id)) {
+
+    return __('You need to enter an ID for the category', 'mvafsp');
+
+  }else{
+
+    $mv_single_cat_id = $id;
+    // Include multiverso-category.php template
+    return include('include/brenta-doc-category.php');
+
+  }
+
+}
+
+//***********************************************//
+//             DISPLAY CATEGORY FILES            //
+//***********************************************//
+
+function br_display_catfiles($catslug, $catname = NULL, $personal = false, $registered = false) {
+
+  $html = '';
+
+  if ( $personal == true ) {
+
+    // Check current user logged
+    global $current_user;
+    $mv_logged = $current_user->user_login;
+
+
+    // Personal Query Args
+    $args = array(
+      'post_type'	 =>	'multiverso',
+      'post_status' => 'publish',
+      'meta_key' => 'mv_user',
+      'meta_value' => $mv_logged,
+      'meta_compare' => '==',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'posts_per_page' => -1,
+      'date_query' => array(
+        array(
+          'after' => '-10 days',
+          'column' => 'post_date',
+        ),
+      ),
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'multiverso-categories',
+          'terms' => $catslug,
+          'field' => 'slug',
+          'include_children' => false
+        )
+      )
+    );
+
+  }elseif ( $registered == true ) {
+
+    // Check current user logged
+    global $current_user;
+    $mv_logged = $current_user->user_login;
+
+
+    // Personal Query Args
+    $args = array(
+      'post_type'	 =>	'multiverso',
+      'post_status' => 'publish',
+      'meta_query' => array(
+        'relation' => 'OR',
+        array(
+          'key' => 'mv_access',
+          'value' => 'registered',
+          'compare' => '=='
+        ),
+        array(
+          'key' => 'mv_access',
+          'value' => 'public',
+          'compare' => '=='
+        ),
+      ),
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'posts_per_page' => -1,
+      'date_query' => array(
+        array(
+          'after' => '-10 days',
+          'column' => 'post_date',
+        ),
+      ),
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'multiverso-categories',
+          'terms' => $catslug,
+          'field' => 'slug',
+          'include_children' => false
+        )
+      )
+    );
+
+  }else{
+
+    // Standard Query Args
+    $args = array(
+      'post_type'	 =>	'multiverso',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'posts_per_page' => -1,
+      'date_query' => array(
+        array(
+          'after' => '-10 days',
+          'column' => 'post_date',
+        ),
+      ),
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'multiverso-categories',
+          'terms' => $catslug,
+          'field' => 'slug',
+          'include_children' => false
+        )
+      )
+    );
+
+  }
+
+
+  // Start Query
+  $files = new WP_Query( $args  );
+
+
+  // Object security Check
+  if ($files) {
+    $fcount = 0;
+    // Loop
+    while ( $files->have_posts() ) {
+
+      // Set Post Data
+      $files->the_post();
+
+      // Check the Access for the file
+      if(mv_user_can_view_file( get_the_ID() )) {
+
+        // FCount incrementation
+        $fcount++;
+
+        // Display the File
+        $html .= mv_file_details_html( get_the_ID() );
+
+      }
+
+      // Reset Post Data
+      wp_reset_postdata();
+
+    }
+
+    // IF Cat is empty
+    if ( !$files->have_posts() || $fcount == 0 ) {
+
+      //echo '<div class="mv-no-files">'. __('No files found in ', 'mvafsp').$catname.'</div>';
+
+    }
+
+
+  }
+
+  // Return HTML
+  return $html;
+
+}
