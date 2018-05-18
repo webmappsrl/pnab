@@ -17,7 +17,9 @@ header#main-header.et-fixed-header, body:not(.home) header#main-header {
   background: #fff;
 }
 
-
+header#main-header:not(.et-fixed-header) {
+  min-height: 170px;
+}
 
 .et_pb_section.et_section_regular:not(.et_pb_fullwidth_section) {
   padding: 10px 0;
