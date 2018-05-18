@@ -13,9 +13,11 @@ body, html {
   font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
 }
 
-header#main-header.et-fixed-header {
+header#main-header.et-fixed-header, body:not(.home) header#main-header {
   background: #fff;
 }
+
+
 
 .et_pb_section.et_section_regular:not(.et_pb_fullwidth_section) {
   padding: 10px 0;
@@ -1214,6 +1216,60 @@ body.single-project h1.entry-title {
 
 @media screen and (max-width: 480px) {
 
+  .home #page-container-brenta {
+      padding-top: 100px!important;
+  }
+
+  span.logo_helper {
+    display: none;
+  }
+
+  .newsletter {
+    display: inline-table;
+  }
+
+  .footer-banner .et_pb_module.et-waypoint.et_pb_image h1 {
+    font-size: 16px;
+    bottom: 42px;
+    left: 29%;
+  }
+
+  .footer-banner .et_pb_module.et-waypoint.et_pb_image h2 {
+    left: 29%;
+    bottom: 5px;
+    font-size: 15px;
+  }
+
+  .et_header_style_left .logo_container {
+    min-width: inherit;
+  }
+
+  .et_header_style_left #logo {
+    max-width: 70px;
+  }
+
+  #custom-portfolio .et_pb_row_1.et_pb_row {
+    padding-bottom: 0!important;
+  }
+
+  #custom-portfolio .et_pb_row_1.et_pb_row .et_pb_column {
+    margin-bottom: 0;
+  }
+
+  .et_pb_filterable_portfolio .et_pb_portfolio_filters {
+    margin: 0;
+  }
+
+  body.et_header_style_left #et-top-navigation {
+    padding: 0;
+    margin-bottom: 0;
+    background: transparent;
+  }
+
+  #et_top_search {
+    display: none;
+  }
+
   .container.photogallery div.et_pb_gallery_item {
     width: 49.6%;
   }
@@ -1239,9 +1295,14 @@ body.single-project h1.entry-title {
   #main-footer .container > div {
     width: 100%;
   }
+
+  .entry-content .ccchildpages .ccchildpage {
+    width: 98%!important;
+    float: none;
+  }
 }
 
-body #page-container .booking-button.et_pb_button_0:hover, body #page-container .booking-button.et_pb_button_0 {
+body #page-container-brenta .booking-button.et_pb_button_0:hover, body #page-container-brenta .booking-button.et_pb_button_0 {
   background: #007757 !important;
   text-align: center;
   margin: 0 auto;

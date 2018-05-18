@@ -33,7 +33,7 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-	<div id="page-container">
+	<div id="page-container-brenta">
 <?php
 	if ( is_page_template( 'page-template-blank.php' ) ) {
 		return;
