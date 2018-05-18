@@ -1226,6 +1226,10 @@ body.single-project h1.entry-title {
     display: none;
   }
 
+  header#main-header:not(.et-fixed-header) {
+    min-height: 0!important;
+  }
+
   .newsletter {
     display: inline-table;
   }
