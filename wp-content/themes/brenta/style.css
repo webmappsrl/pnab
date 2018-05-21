@@ -1562,3 +1562,26 @@ h3.ccpage_linked_title a.ccpage_title_link {
   color: #1f8656;
   font-weight: 600;
 }
+
+.br-file-excerpt {
+  margin-left: 20px;
+
+}
+
+.file-dw-button {
+  margin: 0;
+}
+
+.file-data {
+  height: auto;
+  margin: 0;
+}
+
+#left-area ul.file-data-list {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.file-details .file-dw-button a.mv-btn.mv-btn-success{
+  margin-top: 0;
+}

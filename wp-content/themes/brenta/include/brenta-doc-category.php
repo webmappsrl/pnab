@@ -60,7 +60,7 @@ if(isset($_GET['catid'])) {
   //$html .= mv_display_subcategories($cat->term_id);
 
   // Files
-  $html .= br_display_catfiles($cat->slug, $cat->name);
+  $html .= br_display_catfiles($cat->slug, $cat->name, $last_days);
 
   $html .= '</div>';
 
