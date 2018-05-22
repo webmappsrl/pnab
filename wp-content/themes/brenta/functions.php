@@ -995,7 +995,7 @@ function br_display_catfiles($catslug, $catname = NULL, $last_days, $personal = 
       'meta_key' => 'mv_user',
       'meta_value' => $mv_logged,
       'meta_compare' => '==',
-      'orderby' => 'slug',
+      'orderby' => 'name',
       'order' => 'DESC',
       'posts_per_page' => -1,
       'tax_query' => array(
@@ -1032,7 +1032,7 @@ function br_display_catfiles($catslug, $catname = NULL, $last_days, $personal = 
           'compare' => '=='
         ),
       ),
-      'orderby' => 'slug',
+      'orderby' => 'name',
       'order' => 'DESC',
       'posts_per_page' => -1,
       'tax_query' => array(
@@ -1051,7 +1051,7 @@ function br_display_catfiles($catslug, $catname = NULL, $last_days, $personal = 
     $args = array(
       'post_type'	 =>	'multiverso',
       'post_status' => 'publish',
-      'orderby' => 'slug',
+      'orderby' => 'name',
       'order' => 'DESC',
       'posts_per_page' => -1,
       'tax_query' => array(
