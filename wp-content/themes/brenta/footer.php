@@ -136,9 +136,9 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
         <div class="container">
             <div class="footer_img">
                 <span>
-                    <a href="/footer-1/progetti-speciali/psr-2014-2020/" alt="progetti speciali PSR 2014-2020">Il Parco Naturale Adamello Brenta usufruisce del sostegno del Fondo Europeo Agricolo per lo Sviluppo Rurale</a>
+                    <a href="/info/progetti-speciali/psr-2014-2020/" alt="progetti speciali PSR 2014-2020">Il Parco Naturale Adamello Brenta usufruisce del sostegno del Fondo Europeo Agricolo per lo Sviluppo Rurale</a>
                 </span>
-                <a href="/footer-1/progetti-speciali/psr-2014-2020/" alt="progetti speciali PSR 2014-2020">
+                <a href="/info/progetti-speciali/psr-2014-2020/" alt="progetti speciali PSR 2014-2020">
                     <img src="/wp-content/themes/brenta/img/loghi_footer.png" alt="Fondo Europeo Agricolo per lo Sviluppo Rurale">
                 </a>
             </div>
