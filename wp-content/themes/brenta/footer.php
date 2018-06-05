@@ -106,12 +106,13 @@ if ( empty( $terms ) || ! containsTerm( $terms, 'marchio-qualita-parco' ) ): ?>
                     <h3><i class="fa fa-envelope-open-o"
                            aria-hidden="true"></i>
                         NEWSLETTER</h3>
-                    <p><input
+                    <!-- <p><input
                             style="width: 98%; height: 46px; border: none; background: white; font-size: 20px;"
-                            type="text"></p>
+                            type="text"></p> -->
                     <p><?php echo __( 'Iscriviti per essere sempre aggiornato sulle novità e le
                     iniziative del Parco! Non ti disturberemo con più di una
-                    email ogni 2 settimane ?', 'brenta' ); ?></p>
+                    email ogni 2 settimane', 'brenta' ); ?><div class="et_pb_button_wrapper">
+<a href="http://eepurl.com/dspQh5" target="_blank" class="et_pb_more_button et_pb_button">Iscriviti</a></div></p>
 
                 </div> <!-- .et_pb_text -->
             </div> <!-- .et_pb_column -->
@@ -186,12 +187,12 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
 					<?php
 					if ( FALSE !== et_get_option( 'show_footer_social_icons', TRUE ) ) { ?>
                         <ul class="et-social-icons">
-                            <li class="et-social-icon et-social-email">
+                            <!-- <li class="et-social-icon et-social-email">
                                 <a href="#" class="">
                                     <i class="fa fa-envelope-open-o"
                                        aria-hidden="true"></i>
                                 </a>
-                            </li>
+                            </li> -->
 							<?php if ( 'on' === et_get_option( 'divi_show_facebook_icon', 'on' ) ) : ?>
                                 <li class="et-social-icon et-social-facebook">
                                     <a href="<?php echo esc_url( et_get_option( 'divi_facebook_url', '#' ) ); ?>"

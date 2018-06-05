@@ -2,7 +2,7 @@
 /*
 	===============================================================================
 
-	Copyright 2012  Richard Ashby  (email : wordpress@mediacreek.com)
+	Copyright 2018  Markwt
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -49,9 +49,18 @@ function cookielawinfo_get_default_settings() {
 		'button_2_as_button'			=> false,
 		'button_2_button_colour' 		=> '#333',
 		'button_2_button_size' 			=> 'medium',
+                'button_3_text'					=> 'Reject',
+		'button_3_url' 					=> '#',
+		'button_3_action' 				=> '#cookie_action_close_header_reject',
+		'button_3_link_colour' 			=> '#fff',
+		'button_3_new_win' 				=> false,
+		'button_3_as_button' 			=> true,
+		'button_3_button_colour' 		=> '#000',
+		'button_3_button_size' 			=> 'medium',
 		'font_family' 					=> 'inherit', // Pick the family, not the easy name (see helper function below)
 		'header_fix'                    => false,
-		'is_on' 						=> true,
+		'is_on' 		=> true,
+                'is_reject_on' 		=> false,
 		'notify_animate_hide'			=> true,
 		'notify_animate_show'			=> false,
 		'notify_div_id' 				=> '#cookie-law-info-bar',
@@ -60,6 +69,7 @@ function cookielawinfo_get_default_settings() {
 		'notify_message'				=> addslashes ( 'This website uses cookies to improve your experience. We\'ll assume you\'re ok with this, but you can opt-out if you wish.[cookie_button] [cookie_link]' ),
 		'scroll_close'                  => false,
 		'scroll_close_reload'           => false,
+		'accept_close_reload'           => false,            
 		'showagain_background' 			=> '#fff',
 		'showagain_border' 				=> '#000',
 		'showagain_text'	 			=> addslashes ( 'Privacy & Cookies Policy' ),
@@ -113,6 +123,7 @@ function cookielawinfo_get_admin_settings() {
 	}
 	update_option( CLI_SETTINGS_FIELD, $settings );
 	return $settings;
+	
 }
 
 
@@ -265,6 +276,7 @@ function cookielawinfo_sanitise($key, $value) {
 	switch ($key) {
 		// Convert all boolean values from text to bool:
 		case 'is_on':
+                case 'is_reject_on':
 		case 'border_on':
 		case 'notify_animate_show':
 		case 'notify_animate_hide':
@@ -274,8 +286,11 @@ function cookielawinfo_sanitise($key, $value) {
 		case 'button_1_as_button':
 		case 'button_2_new_win':
 		case 'button_2_as_button':
+                case 'button_3_new_win':
+		case 'button_3_as_button':
 		case 'scroll_close':
 		case 'scroll_close_reload':
+		case 'accept_close_reload':                    
 		case 'show_once_yn':
 		case 'header_fix':
 			if ( $value == 'true' || $value === true ) {
@@ -300,6 +315,8 @@ function cookielawinfo_sanitise($key, $value) {
 		case 'button_1_button_colour':
 		case 'button_2_link_colour':
 		case 'button_2_button_colour':
+                case 'button_3_link_colour':
+		case 'button_3_button_colour':    
 			if ( preg_match( '/^#[a-f0-9]{6}|#[a-f0-9]{3}$/i', $value ) ) {
 				// Was: '/^#([0-9a-fA-F]{1,2}){3}$/i' which allowed e.g. '#00dd' (error)
 				$ret =  $value;
@@ -316,6 +333,7 @@ function cookielawinfo_sanitise($key, $value) {
 		// URLs only:
 		case 'button_1_url':
 		case 'button_2_url':
+                case 'button_3_url':
 			$ret = esc_url( $value );
 			break;
 		// Basic sanitisation for all the rest:
@@ -323,6 +341,7 @@ function cookielawinfo_sanitise($key, $value) {
 			$ret = sanitize_text_field( $value );
 			break;
 	}
+        if('is_reject_on' === $key && 'fffffff' === $ret) $ret = false;
 	return $ret;
 }
 
@@ -339,6 +358,14 @@ function cookielawinfo_register_custom_menu_page() {
 		'manage_options',
 		'cookie-law-info',
 		'cookielawinfo_print_admin_page'
+	);
+        add_submenu_page(
+		'edit.php?post_type=cookielawinfo',
+		'Non-necessary Cookie',
+		'Non-necessary Cookie',
+		'manage_options',
+		'cookie-law-info-thirdparty',
+		'cookielawinfo_print_thirdparty_page'
 	);
 }
 

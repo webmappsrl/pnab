@@ -72,6 +72,13 @@ get_header();
                     <div class="back-green">
                         <div class="container clearfix">
                             <div class="single-left text">
+                                <?php 
+                                   $cf = get_field('content_from');
+                                   if ($cf !== null ) {
+                                    $obj = $cf[0];
+                                    echo nl2br($obj->post_content);
+                                   } 
+                                ?>
 				                <?php the_content(); ?>
                             </div>
                             <div class="single-right">

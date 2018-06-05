@@ -11,7 +11,7 @@ function getfilesize($file_url, $opt_size) {
 	$file_path = str_replace(get_bloginfo('url'), $_SERVER['DOCUMENT_ROOT'], $file_url);
 	
 	// Format the file size
-	$size = filesize($file_path) / 1024; 
+	//$size = filesize($file_path) / 1024; 
     if($size < 1024) { 
         $size = number_format($size, 2); 
         $size .= ' KB'; 
@@ -26,7 +26,7 @@ function getfilesize($file_url, $opt_size) {
    } 
   // Check to see is the widget should display the file size.
 		if($opt_size == '1'):
-			return $size; 
+			//return $size; 
 		endif;
 }
 
