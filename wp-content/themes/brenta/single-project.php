@@ -87,8 +87,13 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
 								<?php
 								if ( get_post_type( $related[0]->ID ) == 'poi' ) {
 									$indirizzo = get_field( 'n7webmap_coord', $related[0]->ID );
+									$terms = get_the_terms($related[0]->ID, 'webmapp_category');
+									$icon = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $terms[0]->term_id );;
+									$color = get_field( 'wm_taxonomy_color', 'webmapp_category_' . $terms[0]->term_id );
 									if ( ! empty( $indirizzo ) ):?>
                                         <div id="custom-poi-map"
+                                             data-icon="<?php echo $icon; ?>"
+                                             data-icon-color="<?php echo $color; ?>"
                                              data-lat="<?php echo $indirizzo['lat']; ?>"
                                              data-lng="<?php echo $indirizzo['lng']; ?>"></div>
 									<?php endif;
