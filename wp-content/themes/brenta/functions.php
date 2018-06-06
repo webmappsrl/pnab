@@ -1322,14 +1322,14 @@ function brenta_events( $atts ){
 	if (empty($response)){
 		return $output;
 	}
-	
+
 
 	setlocale(LC_ALL, 'it_IT');
     $output .= '<h4 class="br_event_title">Prosssimi Eventi</h4><div class="br_event_row owl-carousel owl-theme">';
 	foreach ($response->features as $feature){
 		$date = strtotime(str_replace('/','-',$feature->properties->algo->day));
 		$d = strftime('%d', $date);
-		$A = strftime('%A', $date);
+		$A = strftime('%a', $date);
 		$B = strftime('%B', $date);
 		$output .= <<<EOT
 		<div id="{$feature->properties->id}" class="brenta_events_columns">
