@@ -117,7 +117,10 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
                         <div class="container">
 							<?php
 							if ( count( $related ) == 1 ) :
-								echo '<div class="text" style="margin-top: 40px">' . $related[0]->post_content . '</div>';
+                                setup_postdata($related[0]);
+							$content = get_the_content();
+								echo '<div class="text" style="margin-top: 40px">' . get_the_content() . '</div>';
+								wp_reset_postdata();
 							else : ?>
                                 <div class="single-left text">
 									<?php the_content(); ?>

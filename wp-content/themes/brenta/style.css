@@ -961,7 +961,8 @@ span.entry-date {
 }
 
 .single-route .text,
-.single-project .text
+.single-project .text,
+.single-project .text p
 {
   line-height: 1.8;
   font-size: 16px;
