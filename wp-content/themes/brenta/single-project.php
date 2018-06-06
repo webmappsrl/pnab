@@ -82,55 +82,55 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
                              style="background-image: url('<?php print $thumb; ?>');"></div>
                     </div>
                     <div class="single-right">
-						<?php if ( count( $related ) == 1 ): ?>
-                            <div class="iframe">
-								<?php
-								if ( get_post_type( $related[0]->ID ) == 'poi' ) {
-									$indirizzo = get_field( 'n7webmap_coord', $related[0]->ID );
-									$terms = get_the_terms($related[0]->ID, 'webmapp_category');
-									$icon = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $terms[0]->term_id );;
-									$color = get_field( 'wm_taxonomy_color', 'webmapp_category_' . $terms[0]->term_id );
-									if ( ! empty( $indirizzo ) ):?>
+                        <div class="iframe">
+			                <?php if ( count( $related ) == 1 ):
+				                if ( get_post_type( $related[0]->ID ) == 'poi' ) {
+					                $indirizzo = get_field( 'n7webmap_coord', $related[0]->ID );
+					                $terms     = get_the_terms( $related[0]->ID, 'webmapp_category' );
+					                $icon      = get_field( 'wm_taxonomy_icon', 'webmapp_category_' . $terms[0]->term_id );;
+					                $color = get_field( 'wm_taxonomy_color', 'webmapp_category_' . $terms[0]->term_id );
+					                if ( ! empty( $indirizzo ) ):?>
                                         <div id="custom-poi-map"
                                              data-icon="<?php echo $icon; ?>"
                                              data-icon-color="<?php echo $color; ?>"
                                              data-lat="<?php echo $indirizzo['lat']; ?>"
                                              data-lng="<?php echo $indirizzo['lng']; ?>"></div>
-									<?php endif;
-								}
-								if ( get_post_type( $related[0]->ID ) == 'track' ) {
-									$geojson = get_field( 'n7webmap_geojson', $related[0]->ID );
-									if ( ! empty( $geojson ) ):?>
+					                <?php endif;
+				                }
+				                if ( get_post_type( $related[0]->ID ) == 'track' ) {
+					                $geojson = get_field( 'n7webmap_geojson', $related[0]->ID );
+					                if ( ! empty( $geojson ) ):?>
                                         <div id="custom-track-map"
                                              data-geojson='<?php echo json_encode( $geojson ); ?>'></div>
-									<?php endif;
-								} ?>
+					                <?php endif;
+				                } ?>
 
-                            </div>
-						<?php else :
-                            foreach($related as $rel){
-						        if ( $rel->post_type == 'track' ){
-							        $geojson = get_field( 'n7webmap_geojson', $rel->ID );
-							        if ( ! empty( $geojson ) ):?>
-                                        <div id="custom-track-map"
-                                             data-geojson='<?php echo json_encode( $geojson ); ?>'>
-	                                        <?php
-	                                        if (!empty($pois)):
-		                                        foreach( $pois as $poi):
-			                                        $indirizzo = get_field('n7webmap_coord', $poi->ID);
-			                                        if (!empty($indirizzo)) :
-				                                        ?>
-                                                        <div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-title="<?php echo $poi->post_title; ?>" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
-			                                        <?php endif;
-		                                        endforeach;
-	                                        endif;
-	                                        ?>
-                                        </div>
-							        <?php endif;
-                                break;
-                                }
-                            }
-						endif; ?>
+
+			                <?php else :
+				                foreach ( $related as $rel ) {
+					                if ( $rel->post_type == 'track' ) {
+						                $geojson = get_field( 'n7webmap_geojson', $rel->ID );
+						                if ( ! empty( $geojson ) ):?>
+                                            <div id="custom-track-map"
+                                                 data-geojson='<?php echo json_encode( $geojson ); ?>'>
+								                <?php
+								                if (!empty($pois)):
+													foreach( $pois as $poi):
+														$indirizzo = get_field('n7webmap_coord', $poi->ID);
+														if (!empty($indirizzo)) :
+															?>
+															<div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-title="<?php echo $poi->post_title; ?>" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
+														<?php endif;
+													endforeach;
+												endif;
+								                ?>
+                                            </div>
+						                <?php endif;
+						                break;
+					                }
+				                }
+			                endif; ?>
+                        </div>
                     </div>
                     <div class="brenta-content">
                         <div class="container">
