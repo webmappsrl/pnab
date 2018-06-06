@@ -127,6 +127,7 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
 	                                        ?>
                                         </div>
 							        <?php endif;
+                                break;
                                 }
                             }
 						endif; ?>
