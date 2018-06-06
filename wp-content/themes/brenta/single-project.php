@@ -107,18 +107,35 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
 								} ?>
 
                             </div>
-						<?php else : ?>
-                            <div class="mappa"
-                                 style="background: url('/wp-content/themes/brenta/img/mappa.jpg')">
-                            </div>
-						<?php endif; ?>
+						<?php else :
+                            foreach($related as $rel){
+						        if ( $rel->post_type == 'track' ){
+							        $geojson = get_field( 'n7webmap_geojson', $rel->ID );
+							        if ( ! empty( $geojson ) ):?>
+                                        <div id="custom-track-map"
+                                             data-geojson='<?php echo json_encode( $geojson ); ?>'>
+	                                        <?php
+	                                        if (!empty($pois)):
+		                                        foreach( $pois as $poi):
+			                                        $indirizzo = get_field('n7webmap_coord', $poi->ID);
+			                                        if (!empty($indirizzo)) :
+				                                        ?>
+                                                        <div id="related_poi_<?php echo $poi->ID; ?>" class="related_poi" data-title="<?php echo $poi->post_title; ?>" data-lat="<?php echo $indirizzo['lat']; ?>" data-lng="<?php echo $indirizzo['lng'];?>"></div>
+			                                        <?php endif;
+		                                        endforeach;
+	                                        endif;
+	                                        ?>
+                                        </div>
+							        <?php endif;
+                                }
+                            }
+						endif; ?>
                     </div>
                     <div class="brenta-content">
                         <div class="container">
 							<?php
 							if ( count( $related ) == 1 ) :
                                 setup_postdata($related[0]);
-							$content = get_the_content();
 								echo '<div class="text" style="margin-top: 40px">' . get_the_content() . '</div>';
 								wp_reset_postdata();
 							else : ?>
