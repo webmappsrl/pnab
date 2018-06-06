@@ -1322,6 +1322,7 @@ function brenta_events( $atts ){
 	if (empty($response)){
 		return $output;
 	}
+	
 
 	setlocale(LC_ALL, 'it_IT');
     $output .= '<h4 class="br_event_title">Prosssimi Eventi</h4><div class="br_event_row owl-carousel owl-theme">';
