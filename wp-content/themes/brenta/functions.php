@@ -1312,15 +1312,20 @@ function brenta_events( $atts ){
 
 	$output = '';
 
-	$events_data = json_decode(file_get_contents('https://api.webmapp.it/j/pnab.j.webmapp.it/geojson/eventi.geojson'));
+	//$events_data = json_decode(file_get_contents('https://api.webmapp.it/j/pnab.j.webmapp.it/geojson/eventi.geojson'));
 
-	if (empty($events_data->features)){
+	$request  = wp_remote_get( 'https://api.webmapp.it/j/pnab.j.webmapp.it/geojson/eventi.geojson' );
+	$response = wp_remote_retrieve_body( $request );
+	if ( 'OK' !== wp_remote_retrieve_response_message( $response ) OR 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		$response = json_decode(wp_remote_retrieve_body( $request ));
+	}
+	if (empty($response)){
 		return $output;
 	}
 
 	setlocale(LC_ALL, 'it_IT');
     $output .= '<h4 class="br_event_title">Prosssimi Eventi</h4><div class="br_event_row owl-carousel owl-theme">';
-	foreach ($events_data->features as $feature){
+	foreach ($response->features as $feature){
 		$date = strtotime(str_replace('/','-',$feature->properties->algo->day));
 		$d = strftime('%d', $date);
 		$A = strftime('%A', $date);
