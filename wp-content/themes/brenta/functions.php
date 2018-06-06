@@ -10,6 +10,12 @@ function Divi_parent_theme_enqueue_styles() {
 
 	wp_enqueue_script( 'brenta_functions', get_stylesheet_directory_uri() . '/js/functions.js', [ 'jquery' ], '.1', TRUE );
 	wp_localize_script( 'brenta_functions', 'ajax_object', [ 'ajax_url' => admin_url( 'admin-ajax.php' ) ] );
+
+	if( is_front_page() || is_home() ) {
+		wp_enqueue_script( 'owl_carousel_js', get_stylesheet_directory_uri() . '/js/owl.carousel.min.js', [ 'jquery' ], '2.3.4', TRUE );
+		wp_enqueue_style( 'owl_carousel_css', get_stylesheet_directory_uri() . '/css/owl.carousel.min.css', [ 'brenta-style' ], '2.3.4' );
+		wp_enqueue_style( 'owl_carousel_theme_css', get_stylesheet_directory_uri() . '/css/owl.theme.default.css', [ 'owl_carousel_css' ], '2.3.4' );
+	}
 }
 
 function DS_Custom_Modules() {
@@ -1299,3 +1305,50 @@ function br_file_details_html( $fileID ) {
   return $html;
 
 }
+
+add_shortcode('brenta_events', 'brenta_events');
+
+function brenta_events( $atts ){
+
+	$output = '';
+
+	$events_data = json_decode(file_get_contents('https://api.webmapp.it/j/pnab.j.webmapp.it/geojson/eventi.geojson'));
+
+	if (empty($events_data->features)){
+		return $output;
+	}
+
+	setlocale(LC_ALL, 'it_IT');
+    $output .= '<h4 class="br_event_title">Prosssimi Eventi</h4><div class="br_event_row owl-carousel owl-theme">';
+	foreach ($events_data->features as $feature){
+		$date = strtotime(str_replace('/','-',$feature->properties->algo->day));
+		$d = strftime('%d', $date);
+		$A = strftime('%A', $date);
+		$B = strftime('%B', $date);
+		$output .= <<<EOT
+		<div id="{$feature->properties->id}" class="brenta_events_columns">
+			<div class="et_pb_blurb et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_blurb_0 et_pb_blurb_position_left">
+				<div class="et_pb_blurb_content">
+					<div class="br_et_pb_main_date">
+					<a href="#">
+						<span class="br_et_date br_et_date_d">{$d}</span><span class="br_et_date br_et_date_day">{$A}</span><span class="br_et_date br_et_date_month">{$B}</span>
+					</a></div>
+						<div class="et_pb_blurb_container_event">
+							<h4 class="et_pb_module_header"><a href="#">{$feature->properties->name}</a></h4>
+							<div class="et_brenta_location">
+								<a href="#" style="color:#2586a8;"><i class="fa fa-map-marker" aria-hidden="true"></i> {$feature->properties->algo->place}</a>
+						</div>
+					</div>
+				</div> 
+			</div> 
+		</div> 
+EOT;
+	}
+
+	$output .= '</div>';
+
+
+
+	return $output;
+}
+
