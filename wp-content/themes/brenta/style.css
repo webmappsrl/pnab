@@ -1683,5 +1683,5 @@ div#full-blog {
 }
 
 .et_pb_row.banner_footer.et_pb_row_3.et_pb_row_fullwidth .et_pb_column_3 {
-  width: 64.833%;
+  width: 64.833%!important;
 }
