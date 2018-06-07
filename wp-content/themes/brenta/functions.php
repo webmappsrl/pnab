@@ -1325,7 +1325,7 @@ function brenta_events( $atts ){
 
 
 	setlocale(LC_ALL, 'it_IT');
-    $output .= '<h4 class="br_event_title">Prosssimi Eventi</h4><div class="br_event_row owl-carousel owl-theme">';
+    $output .= '<h4 class="br_event_title">Prossimi Eventi</h4><div class="br_event_row owl-carousel owl-theme">';
 	foreach ($response->features as $feature){
 		$date = strtotime(str_replace('/','-',$feature->properties->algo->day));
 		$d = strftime('%d', $date);
