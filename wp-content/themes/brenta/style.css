@@ -1685,3 +1685,34 @@ div#full-blog {
 .et_pb_row.banner_footer.et_pb_row_3.et_pb_row_fullwidth .et_pb_column_3 {
   width: 64.833%!important;
 }
+
+#brenta_banner .et_pb_row.et_pb_row_fullwidth {
+  display: block;
+}
+
+#brenta_banner .et_pb_row.et_pb_row_fullwidth .et_pb_column_1_3 {
+  width: 33%;
+}
+
+@media (max-width: 980px) {
+  .et_pb_row.banner_footer.et_pb_row_3.et_pb_row_fullwidth .et_pb_column_3 {
+    width: 100%!important;
+  }
+  #brenta_banner .et_pb_row.et_pb_row_fullwidth .et_pb_column_1_3 {
+    width: 33%!important;
+  }
+
+  #brenta_banner, #brenta_banner .et_pb_row, #brenta_banner .et_pb_row .et_pb_column {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #brenta_banner .et_pb_row.et_pb_row_fullwidth .et_pb_column_1_3 {
+    width: 100%!important;
+    margin: 0 0 5px 0;
+  }
+}
+
