@@ -101,6 +101,7 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
 					                $geojson = get_field( 'n7webmap_geojson', $related[0]->ID );
 					                if ( ! empty( $geojson ) ):?>
                                         <div id="custom-track-map"
+                                             data-id="<?php echo $related[0]->ID; ?>"
                                              data-geojson='<?php echo json_encode( $geojson ); ?>'></div>
 					                <?php endif;
 				                } ?>
@@ -112,6 +113,7 @@ $related = array_merge_recursive( $routes, $tracks, $pois );
 						                $geojson = get_field( 'n7webmap_geojson', $rel->ID );
 						                if ( ! empty( $geojson ) ):?>
                                             <div id="custom-track-map"
+                                                 data-id="<?php echo $rel->ID; ?>"
                                                  data-geojson='<?php echo json_encode( $geojson ); ?>'>
 								                <?php
 								                if (!empty($pois)):
