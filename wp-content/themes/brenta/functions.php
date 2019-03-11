@@ -1376,7 +1376,7 @@ function webmapp_filter_post_thumbnail_html( $html ) {
 	// Return a default image
 	if (!is_single()){
     if ( '' == $html ) {
-        return '<img src="http://localhost/pnab/wp-content/uploads/2019/03/logo-pnab.png" width="220px" height="154px" class="cc-child-pages-thumb wp-post-image" />';
+        return '<img src="http://www.pnab.it/wp-content/uploads/2019/03/logo-pnab-220x154.png" width="220px" height="154px" class="cc-child-pages-thumb wp-post-image" />';
     }}
     // Else, return the post thumbnail
     return $html;
