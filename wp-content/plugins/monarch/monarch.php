@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Monarch Plugin
  * Plugin URI: http://www.elegantthemes.com
- * Version: 1.4.1
+ * Version: 1.4.8
  * Description: Social Media Plugin
  * Author: Elegant Themes
  * Author URI: http://www.elegantthemes.com
@@ -17,7 +17,7 @@ define( 'ET_MONARCH_PLUGIN_DIR', trailingslashit( dirname(__FILE__) ) );
 define( 'ET_MONARCH_PLUGIN_URI', plugins_url('', __FILE__) );
 
 class ET_Monarch {
-	var $plugin_version = '1.4.1';
+	var $plugin_version = '1.4.8';
 	var $db_version = '1.3';
 	var $monarch_options;
 	var $_options_pagename = 'et_monarch_options';
@@ -92,7 +92,7 @@ class ET_Monarch {
 		add_action( 'wp_ajax_ajax_save_settings', array( $this, 'ajax_save_settings' ) );
 
 		add_action( 'wp_ajax_monarch_save_updates_settings', array( $this, 'save_updates_settings' ) );
-		
+
 		add_action( 'wp_ajax_monarch_save_google_settings', array( $this, 'save_google_settings' ) );
 
 		// Exports/imports settings. Add them with low priority to make sure include_options() fired before them
@@ -135,6 +135,9 @@ class ET_Monarch {
 		add_action( 'admin_init', array( $this, 'include_options' ) );
 
 		$this->maybe_load_core();
+		// Create stats table if needed
+		$this->db_install( false );
+
 		et_core_enable_automatic_updates( ET_MONARCH_PLUGIN_URI, $this->plugin_version );
 	}
 
@@ -219,7 +222,7 @@ class ET_Monarch {
 
 		die();
 	}
-	
+
 	/**
 	 * Saves the Updates Settings
 	 */
@@ -227,11 +230,11 @@ class ET_Monarch {
 		et_core_security_check( 'manage_options', 'google_settings' );
 
 		$google_fonts_value = ! empty( $_POST['et_monarch_use_google_fonts'] ) ? sanitize_text_field( $_POST['et_monarch_use_google_fonts'] ) : '';
-		
+
 		if ( '' !== $google_fonts_value ) {
 			$google_api_settings = get_option( 'et_google_api_settings' );
 			$google_api_settings['use_google_fonts'] = $google_fonts_value;
-			
+
 			update_option( 'et_google_api_settings', $google_api_settings );
 		}
 
@@ -727,10 +730,15 @@ class ET_Monarch {
 		global $wpdb;
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			die( -1 );
+			return;
 		}
 
 		$table_name = sanitize_text_field( $wpdb->prefix ) . 'et_social_stats';
+
+		// Table already exist and upgrade is not needed
+		if ( ! $need_upgrade && $table_name === $wpdb->get_var("SHOW TABLES LIKE '$table_name'" ) ) {
+			return;
+		}
 
 		/*
 		 * We'll set the default character set and collation for this table.
@@ -2286,7 +2294,7 @@ class ET_Monarch {
 
 				break;
 			case 'facebook':
-				$authorization_url = 'https://www.facebook.com/dialog/oauth?response_type=code&scope=public_profile&state=%1$s&client_id=%2$s&redirect_uri=%3$s';
+				$authorization_url = 'https://www.facebook.com/dialog/oauth?response_type=code&scope=public_profile,manage_pages&state=%1$s&client_id=%2$s&redirect_uri=%3$s';
 
 				break;
 		}
@@ -2442,7 +2450,7 @@ class ET_Monarch {
 
 					break;
 				case 'facebook':
-					$access_token_url = 'https://graph.facebook.com/v2.9/oauth/access_token';
+					$access_token_url = 'https://graph.facebook.com/v3.1/oauth/access_token';
 
 					break;
 			}
@@ -3629,7 +3637,7 @@ class ET_Monarch {
 			switch ( $social_network ) {
 				case 'facebook' :
 					if ( isset( $monarch_options['access_tokens']['facebook'] ) ) {
-						$request_url = sprintf( 'https://graph.facebook.com/v2.9/?access_token=%1$s&fields=engagement&id=', esc_attr( $monarch_options['access_tokens']['facebook'] ) );
+						$request_url = sprintf( 'https://graph.facebook.com/v3.1/?access_token=%1$s&fields=engagement&id=', esc_attr( $monarch_options['access_tokens']['facebook'] ) );
 					}
 
 					break;
@@ -3836,18 +3844,18 @@ class ET_Monarch {
 			die( -1 );
 		}
 
-		$post_id   = $_POST[ 'all_networks_page_id' ];
-		$link      = $_POST[ 'all_networks_link' ];
-		$title     = $_POST[ 'all_networks_title' ];
-		$media     = isset( $_POST[ 'all_networks_media' ] ) ? $_POST[ 'all_networks_media' ] : '';
+		$post_id   = (int) $_POST[ 'all_networks_page_id' ];
+		$link_url  = sanitize_text_field( $_POST[ 'all_networks_link' ] );
+		$title     = sanitize_text_field( $_POST[ 'all_networks_title' ] );
+		$media_url = isset( $_POST[ 'all_networks_media' ] ) ? sanitize_text_field( $_POST[ 'all_networks_media' ] ) : '';
 		$for_popup = isset( $_POST[ 'is_popup' ] ) ? $_POST[ 'is_popup' ] : false;
 
 		if ( 'true' == $for_popup ) {
 			$monarch_options   = $this->monarch_options;
 			$selected_networks = $monarch_options[ 'sharing_networks_networks_sorting' ][ 'class' ];
-			$result            = $this->get_icons_list( 'popup', '', false, false, true, $post_id, $link, $title, $selected_networks );
+			$result            = $this->get_icons_list( 'popup', '', false, false, true, $post_id, $link_url, $title, $selected_networks );
 		} else {
-			$result = $this->generate_popup_content( true, $post_id, $link, $title, $media );
+			$result = $this->generate_popup_content( true, $post_id, $link_url, $title, $media_url );
 		}
 
 		die( $result );
@@ -4676,7 +4684,7 @@ class ET_Monarch {
 			case 'facebook' :
 				if ( isset( $settings['access_tokens']['facebook'] ) && isset( $settings['follow_networks_networks_sorting']['client_id'][ $index ] ) ) {
 					$url = sprintf(
-						'https://graph.facebook.com/v2.9/?id=%1$s&access_token=%2$s&fields=fan_count',
+						'https://graph.facebook.com/v3.1/%1$s/?access_token=%2$s&fields=fan_count',
 						esc_attr( $settings['follow_networks_networks_sorting']['client_id'][ $index ] ),
 						esc_attr( $settings['access_tokens']['facebook'] )
 					);
@@ -5149,7 +5157,7 @@ class ET_Monarch {
 			'generate_all_window_nonce' => wp_create_nonce( 'generate_all_window' ),
 			'no_img_message'            => esc_html__( 'No images available for sharing on this page', 'Monarch' ),
 		) );
-		
+
 		if ( et_core_use_google_fonts() ) {
 			wp_enqueue_style( 'et-gf-open-sans', esc_url_raw( "{$this->protocol}://fonts.googleapis.com/css?family=Open+Sans:400,700" ), array(), null );
 		}

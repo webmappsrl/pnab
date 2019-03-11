@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_DatePicker extends ACP_Filtering_Model_MetaDate {
+use ACP;
+
+class DatePicker extends ACP\Filtering\Model\MetaDate {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );

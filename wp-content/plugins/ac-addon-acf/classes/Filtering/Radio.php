@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Radio extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class Radio extends Filtering {
 
 	public function get_filtering_data() {
 		$options = array();
@@ -19,7 +19,7 @@ class ACA_ACF_Filtering_Radio extends ACA_ACF_Filtering {
 
 		return array(
 			'empty_option' => true,
-			'options'       => $options,
+			'options'      => $options,
 		);
 	}
 

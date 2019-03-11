@@ -1,13 +1,16 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting;
+
+use AC;
+use AC\View;
+use ACA\ACF\API;
+use ACA\ACF\Column;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Setting_Subfield extends AC_Settings_Column {
+class Subfield extends AC\Settings\Column {
 
 	/**
 	 * @var string
@@ -26,7 +29,7 @@ class ACA_ACF_Setting_Subfield extends AC_Settings_Column {
 			->set_attribute( 'data-refresh', 'column' )
 			->set_options( $this->get_sub_fields() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Subfield', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Select a repeater sub field.', 'codepress-admin-columns' ),
 			'setting' => $setting,
@@ -38,7 +41,9 @@ class ACA_ACF_Setting_Subfield extends AC_Settings_Column {
 	public function get_sub_fields() {
 		$fields = array();
 
-		if ( $sub_fields = $this->column->get_field()->get( 'sub_fields' ) ) {
+		$sub_fields = $this->column->get_field()->get( 'sub_fields' );
+
+		if ( $sub_fields ) {
 			foreach ( $sub_fields as $sub_field ) {
 				if ( 'repeater' == $sub_field['type'] ) {
 					continue;
@@ -53,7 +58,21 @@ class ACA_ACF_Setting_Subfield extends AC_Settings_Column {
 		return $fields;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function get_first_sub_field() {
+		$fields = $this->get_sub_fields();
+		reset( $fields );
+
+		return key( $fields );
+	}
+
 	public function get_sub_field() {
+		if ( null === $this->sub_field ) {
+			$this->sub_field = $this->get_first_sub_field();
+		}
+
 		return $this->sub_field;
 	}
 
@@ -64,7 +83,7 @@ class ACA_ACF_Setting_Subfield extends AC_Settings_Column {
 	}
 
 	public function get_dependent_settings() {
-		$acf_field = ACA_ACF_API::get_field( $this->sub_field );
+		$acf_field = API::get_field( $this->get_sub_field() );
 
 		if ( ! $acf_field ) {
 			return array();

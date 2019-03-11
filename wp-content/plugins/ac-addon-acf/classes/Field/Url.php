@@ -1,10 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Url extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Sorting;
+use ACP;
+
+class Url extends Field {
 
 	public function get_value( $id ) {
 		$url = parent::get_value( $id );
@@ -12,18 +16,20 @@ class ACA_ACF_Field_Url extends ACA_ACF_Field {
 		return ac_helper()->html->link( $url, str_replace( array( 'http://', 'https://' ), '', $url ) );
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_Url( $this->column );
-	}
-
-	public function sorting() {
-		return new ACA_ACF_Sorting( $this->column );
+		return new Editing\Url( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering( $this->column );
+		return new Filtering( $this->column );
+	}
+
+	public function sorting() {
+		return new Sorting( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 }

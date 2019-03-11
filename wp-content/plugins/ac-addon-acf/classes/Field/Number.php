@@ -1,24 +1,31 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Number extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACP;
+
+class Number extends Field {
 
 	public function editing() {
-		return new ACA_ACF_Editing_Number( $this->column );
+		return new Editing\Number( $this->column );
 	}
 
 	public function sorting() {
-		$model = new ACP_Sorting_Model_Meta( $this->column );
+		$model = new ACP\Sorting\Model\Meta( $this->column );
 		$model->set_data_type( 'numeric' );
 
 		return $model;
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_Number( $this->column );
+		return new Filtering\Number( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Numeric( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 }

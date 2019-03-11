@@ -1,17 +1,18 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_PageLink extends ACA_ACF_Field_PostObject {
+use ACA\ACF\Editing;
+use ACP;
+
+class PageLink extends PostObject {
 
 	public function editing() {
-		return new ACA_ACF_Editing_PageLink( $this->column );
+		return new Editing\PostObject( $this->column );
 	}
 
 	public function sorting() {
-		return new ACP_Sorting_Model_Value( $this->column );
+		return new ACP\Sorting\Model\Value( $this->column );
 	}
 
 }

@@ -1,15 +1,15 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF;
+
+use ACP;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Sorting extends ACP_Sorting_Model_Meta {
+class Sorting extends ACP\Sorting\Model\Meta {
 
-	public function __construct( ACA_ACF_Column $column ) {
+	public function __construct( Column $column ) {
 		parent::__construct( $column );
 	}
 

@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Column;
 
-class ACA_ACF_Column_Media extends ACA_ACF_Column {
+use ACA\ACF;
+
+class Media extends ACF\Column {
 
 	public function register_settings() {
 		$this->register_settings_by_type( 'Media' );

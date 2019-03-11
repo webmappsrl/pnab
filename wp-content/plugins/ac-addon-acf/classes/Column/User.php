@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Column;
 
-class ACA_ACF_Column_User extends ACA_ACF_Column {
+use ACA\ACF;
+
+class User extends ACF\Column {
 
 	public function get_formatted_id( $id ) {
 		return 'user_' . $id;

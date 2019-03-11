@@ -1,31 +1,36 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Text extends ACA_ACF_Field {
+use AC;
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Sorting;
+use ACP;
 
-	// Settings
+class Text extends Field {
 
 	public function get_dependent_settings() {
 		return array(
-			new AC_Settings_Column_CharacterLimit( $this->column ),
+			new AC\Settings\Column\CharacterLimit( $this->column ),
 		);
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_Text( $this->column );
+		return new Editing\Text( $this->column );
 	}
 
 	public function sorting() {
-		return new ACA_ACF_Sorting( $this->column );
+		return new Sorting( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering( $this->column );
+		return new Filtering( $this->column );
 	}
 
 }

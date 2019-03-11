@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting\Field;
 
-class ACA_ACF_Setting_Field_Comment extends ACA_ACF_Setting_Field {
+use ACA\ACF\Setting;
+
+class Comment extends Setting\Field    {
 
 	public function get_grouped_field_options() {
 

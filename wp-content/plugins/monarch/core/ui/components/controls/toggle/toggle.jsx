@@ -48,10 +48,15 @@ class ETCoreControlToggle extends PureComponent {
 
     return (
       <div className={classes} onClick={onClick || this._onChange} {...additional_attrs}>
-        <div className="et-core-control-toggle__label et-core-control-toggle__label--on">{this.props.options.on}</div>
-        <div className="et-core-control-toggle__label et-core-control-toggle__label--off">{this.props.options.off}</div>
-        <div className="et-core-control-toggle__handle"/>
-        <input type="hidden" id={id} name={name} value={value} />
+        <div className="et-core-control-toggle__label et-core-control-toggle__label--on">
+          <div className="et-core-control-toggle__text">{this.props.options.on}</div>
+          <div className="et-core-control-toggle__handle"/>
+        </div>
+        <div className="et-core-control-toggle__label et-core-control-toggle__label--off">
+          <div className="et-core-control-toggle__text">{this.props.options.off}</div>
+          <div className="et-core-control-toggle__handle"/>
+        </div>
+        <input type="hidden" id={id} name={name} value={value}/>
       </div>
     );
   }

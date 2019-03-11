@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Taxonomy extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class Taxonomy extends Filtering {
 
 	public function get_filtering_data() {
 
@@ -14,6 +14,7 @@ class ACA_ACF_Filtering_Taxonomy extends ACA_ACF_Filtering {
 			$values = $this->get_meta_values();
 		}
 
+		// todo: ajax?
 		return array(
 			'empty_option' => true,
 			'options'      => acp_filtering()->helper()->get_term_names( $values, $this->get_taxonomy() ),

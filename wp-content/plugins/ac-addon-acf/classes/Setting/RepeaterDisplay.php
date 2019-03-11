@@ -1,13 +1,15 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting;
+
+use AC;
+use AC\View;
+use ACA\ACF\Column;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Setting_RepeaterDisplay extends AC_Settings_Column {
+class RepeaterDisplay extends AC\Settings\Column {
 
 	/**
 	 * @var string
@@ -22,9 +24,9 @@ class ACA_ACF_Setting_RepeaterDisplay extends AC_Settings_Column {
 		$settings = array();
 
 		if ( 'subfield' === $this->get_repeater_display() ) {
-			$settings[] = new ACA_ACF_Setting_Subfield( $this->column );
-			$settings[] = new AC_Settings_Column_BeforeAfter( $this->column );
-			$settings[] = new AC_Settings_Column_Separator( $this->column );
+			$settings[] = new Subfield( $this->column );
+			$settings[] = new AC\Settings\Column\BeforeAfter( $this->column );
+			$settings[] = new AC\Settings\Column\Separator( $this->column );
 		}
 
 		return $settings;
@@ -40,7 +42,7 @@ class ACA_ACF_Setting_RepeaterDisplay extends AC_Settings_Column {
 				'count'    => __( 'Number of Rows', 'codepress-admin-columns' ),
 			) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );

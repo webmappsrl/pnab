@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Pagina di sistema SiteGround presto disponibile</title>
+<link rel="stylesheet" type="text/css" href="//www.siteground.com/css/systempages.css" media="screen, handheld" />	
+</head>
+<body>
+<div id="wrapper">
+<img src="//www.siteground.com/img/systempages/sandglass.png" alt="Tra poco un sito straordinario sarà disponibile a questo indirizzo!" />
+<h1>Un sito straordinario sarà presto disponibile a questo indirizzo!</h1>
+<h2>Il servizio di web hosting per questa pagina web è offerto da <a href="https://www.siteground.it">SiteGround.it</a>. Il nostro cliente sta ancora effettuando la manutenzione del sito, torna a trovarci tra poco!</h2>
+<div class="sep"></div>
+<p>Se sei il proprietario di questo dominio e desideri rimuovere questa pagina, ti preghiamo di caricare il tuo sito web all'interno della cartella /public_html del tuo account di hosting su SiteGround. <a href="https://ua.siteground.it/account.htm">Accedi qui</a>.</p>
+<a href="https://www.siteground.it"><img id="logosg" src="https://www.siteground.com/img/systempages/logo.png" alt="SiteGround" /></a>
+</div>
+</body>
+</html>

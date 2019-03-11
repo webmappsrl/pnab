@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_GoogleMap extends ACA_ACF_Field {
+use ACA\ACF\Field;
+
+class GoogleMap extends Field {
 
 	public function get_value( $id ) {
 		$value = parent::get_value( $id );

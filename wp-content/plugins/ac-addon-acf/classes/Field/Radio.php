@@ -1,17 +1,18 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Radio extends ACA_ACF_Field_Select {
+use ACA\ACF\Editing;
+use ACA\ACF\Filtering;
+
+class Radio extends Select {
 
 	public function editing() {
-		return new ACA_ACF_Editing_Radio( $this->column );
+		return new Editing\Radio( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_Radio( $this->column );
+		return new Filtering\Radio( $this->column );
 	}
 
 }

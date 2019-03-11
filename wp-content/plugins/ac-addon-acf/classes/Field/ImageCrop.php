@@ -1,18 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
+
+use AC;
+use ACA\ACF\Field;
 
 /**
  * Third party field
  */
-class ACA_ACF_Field_ImageCrop extends ACA_ACF_Field {
-
-	// Display
+class ImageCrop extends Field {
 
 	public function get_value( $id ) {
-		$value = get_field( $this->column->get_meta_key(), $this->column->get_formatted_id( $id ), true );
+		$value = get_field( $this->get_meta_key(), $this->column->get_formatted_id( $id ), true );
 
 		if ( 'object' == $this->column->get_acf_field_option( 'save_format' ) ) {
 			$value = $value['url'];
@@ -21,11 +20,9 @@ class ACA_ACF_Field_ImageCrop extends ACA_ACF_Field {
 		return $this->column->get_formatted_value( $value );
 	}
 
-	// Settings
-
 	public function get_dependent_settings() {
 		return array(
-			new AC_Settings_Column_Image( $this->column ),
+			new AC\Settings\Column\Image( $this->column ),
 		);
 	}
 

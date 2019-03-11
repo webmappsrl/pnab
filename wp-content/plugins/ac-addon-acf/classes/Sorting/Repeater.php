@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Sorting;
 
-class ACA_ACF_Sorting_Repeater extends ACA_ACF_Sorting {
+use ACA\ACF\Sorting;
+
+class Repeater extends Sorting {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );

@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Sorting;
 
-class ACA_ACF_Sorting_Gallery extends ACA_ACF_Sorting {
+use ACA\ACF\Sorting;
+
+class Gallery extends Sorting {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );
@@ -20,7 +20,7 @@ class ACA_ACF_Sorting_Gallery extends ACA_ACF_Sorting {
 		}
 
 		return array(
-			'ids' => $this->sort( $values )
+			'ids' => $this->sort( $values ),
 		);
 	}
 

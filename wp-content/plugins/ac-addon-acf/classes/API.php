@@ -1,15 +1,13 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF;
 
 /**
  * Class ACA_ACF_API
  *
  * Interface to the ACF API that works across the free and pro version
  */
-class ACA_ACF_API {
+class API {
 
 	/**
 	 * @var string
@@ -43,7 +41,7 @@ class ACA_ACF_API {
 	/**
 	 * @param string $field_hash
 	 *
-	 * @return mixed
+	 * @return array|false
 	 */
 	public static function get_field( $field_hash ) {
 		if ( ! $field_hash ) {

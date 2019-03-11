@@ -1,11 +1,12 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting;
 
-class ACA_ACF_Setting_Oembed extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+use AC;
+use AC\View;
+
+class Oembed extends AC\Settings\Column
+	implements AC\Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -34,7 +35,7 @@ class ACA_ACF_Setting_Oembed extends AC_Settings_Column
 			'video' => __( 'Video' ),
 		) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Display format', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );

@@ -1,10 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Relationship extends ACA_ACF_Filtering_PostObject {
+class Relationship extends PostObject {
 
 	public function get_filtering_data() {
 		return array(

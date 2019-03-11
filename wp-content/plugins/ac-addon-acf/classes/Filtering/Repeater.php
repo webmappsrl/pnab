@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Repeater extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class Repeater extends Filtering {
 
 	public function get_data_type() {
 		return 'numeric';

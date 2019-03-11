@@ -1,30 +1,35 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_DateTimePicker extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Search;
+use ACA\ACF\Setting;
+use ACP;
 
-	// Pro
+class DateTimePicker extends Field {
 
 	public function sorting() {
-		return new ACP_Sorting_Model_Meta( $this->column );
+		return new ACP\Sorting\Model\Meta( $this->column );
+	}
+
+	public function search() {
+		return new Search\DateTimePicker( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_DateTimePicker( $this->column );
+		return new Filtering\DateTimePicker( $this->column );
 	}
 
 	public function editing() {
-		return new ACA_ACF_Editing_DateTimePicker( $this->column );
+		return new Editing\DateTimePicker( $this->column );
 	}
-
-	// Settings
 
 	public function get_dependent_settings() {
 		return array(
-			new ACA_ACF_Setting_Date( $this->column ),
+			new Setting\Date( $this->column ),
 		);
 	}
 

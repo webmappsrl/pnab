@@ -1,10 +1,11 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Relationship extends ACA_ACF_Field_PostObject {
+use ACA\ACF\Editing;
+use ACA\ACF\Filtering;
+
+class Relationship extends PostObject {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );
@@ -12,14 +13,12 @@ class ACA_ACF_Field_Relationship extends ACA_ACF_Field_PostObject {
 		$this->column->set_serialized( true );
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_Relationship( $this->column );
+		return new Editing\Relationship( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_PostObject( $this->column );
+		return new Filtering\PostObject( $this->column );
 	}
 
 }

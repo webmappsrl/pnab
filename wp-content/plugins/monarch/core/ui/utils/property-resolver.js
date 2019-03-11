@@ -14,7 +14,7 @@ class PropertyResolver {
    * For example, if the source object was 'module', the prefix was 'props.attrs.', and the
    * path being looked up was 'provider', it would be looked up using path: 'module.props.attrs.provider'.
    *
-   * @since ??
+   * @since 3.10
    *
    * @type {string}
    */
@@ -23,7 +23,7 @@ class PropertyResolver {
   /**
    * Regex Patterns
    *
-   * @since ??
+   * @since 3.10
    *
    * @type {{scope: RegExp, variable: RegExp}}
    */
@@ -36,7 +36,7 @@ class PropertyResolver {
   /**
    * Used to lookup default values for properties.
    *
-   * @since ??
+   * @since 3.10
    *
    * @type {object}
    */
@@ -45,7 +45,7 @@ class PropertyResolver {
   /**
    * The object used to lookup property values.
    *
-   * @since ??
+   * @since 3.10
    *
    * @type {object}
    */
@@ -54,7 +54,7 @@ class PropertyResolver {
   /**
    * PropertyResolver constructor.
    *
-   * @since ??
+   * @since 3.10
    *
    * @param {object} source_object
    * @param {object} property_definitions
@@ -69,7 +69,7 @@ class PropertyResolver {
   /**
    * Resolves variables in a path string to values of properties in the source object.
    *
-   * @since ??
+   * @since 3.10
    * @private
    *
    * @param {string} path
@@ -112,7 +112,7 @@ class PropertyResolver {
   /**
    * Whether or not a string matches a regex pattern located in {@see this.patterns}.
    *
-   * @since ??
+   * @since 3.10
    *
    * @param {string} string  The string to test.
    * @param {string} pattern The name of the pattern to test against.
@@ -124,7 +124,7 @@ class PropertyResolver {
   /**
    * Whether or not a Provider/List has predefined Custom Fields
    *
-   * @since ??
+   * @since 3.10
    *
    * @return {string}
    */
@@ -162,7 +162,7 @@ class PropertyResolver {
   /**
    * Resolves a property value using the provided path.
    *
-   * @since ??
+   * @since 3.10
    *
    * @param {string} path
    *

@@ -1032,15 +1032,19 @@ jQuery(document).ready(function($) {
 		if ( attrName != 'class' ){
 			return;
 		}
-	
-		// Blur report shown
-		jQuery( "#monsterinsights-reports-pages" ).addClass( "monsterinsights-mega-blur" );
 
 		// Which report?
 		var reportname = jQuery("#monsterinsights-reports-pages").find( "div.monsterinsights-main-nav-tab.monsterinsights-active" ).attr("id").replace("monsterinsights-main-tab-", "" );
 		var reportid   = jQuery("#monsterinsights-reports-pages").find( "div.monsterinsights-main-nav-tab.monsterinsights-active" ).attr("id");
 		var start      = moment( moment().subtract(30, 'days') ).tz(monsterinsights_admin.timezone).format('YYYY-MM-DD');
 		var end        = moment( moment().subtract( 1, 'days' ) ).tz(monsterinsights_admin.timezone).format('YYYY-MM-DD');
+
+		if ( reportname === 'realtime' ) {
+			return;
+		}
+
+		// Blur report shown
+		jQuery( "#monsterinsights-reports-pages" ).addClass( "monsterinsights-mega-blur" );
 
 		swal({
 		  type: 'info',
@@ -1060,7 +1064,7 @@ jQuery(document).ready(function($) {
 				'end'      :  end,
 				'report'   :  reportname,
 			};
-			
+
 			jQuery.post(ajaxurl, data, function( response ) {
 
 				if ( response.success && response.data.html ) {
@@ -1071,11 +1075,15 @@ jQuery(document).ready(function($) {
 					monsterinsights_equalheight2column();
 					swal.close();
 				} else {
-					swal({
+					var swal_settings = {
 						type: 'error',
-						  title: monsterinsights_admin.refresh_report_failure_title,
-						  text: response.data.message,
-					  }).catch(swal.noop);
+						title: monsterinsights_admin.refresh_report_failure_title,
+						html: response.data.message,
+					};
+					if ( response.data.data && response.data.data.footer ) {
+						swal_settings.footer = response.data.data.footer;
+					}
+					swal(swal_settings).catch(swal.noop);
 				}
 			}).then(function (result) {
 				// Unblur reports

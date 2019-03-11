@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Editing;
 
-class ACA_ACF_Editing_Options extends ACA_ACF_Editing {
+use ACA\ACF\Editing;
+
+class Options extends Editing {
 
 	public function get_view_settings() {
 		$data = parent::get_view_settings();
@@ -28,4 +28,3 @@ class ACA_ACF_Editing_Options extends ACA_ACF_Editing {
 	}
 
 }
-//4016860268

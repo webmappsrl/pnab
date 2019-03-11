@@ -1,12 +1,12 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting\Field;
 
-class ACA_ACF_Setting_Field_Post extends ACA_ACF_Setting_Field {
+use ACA\ACF\Setting;
 
-	public function get_grouped_field_options( ) {
+class Post extends Setting\Field {
+
+	public function get_grouped_field_options() {
 		add_filter( 'acf/location/rule_match/user_type', '__return_true', 16 );
 		add_filter( 'acf/location/rule_match/page_type', '__return_true', 16 );
 

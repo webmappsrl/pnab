@@ -1,10 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Checkbox extends ACA_ACF_Filtering_Options {
+class Checkbox extends Options {
 
 	public function get_filtering_data() {
 		$options = array();

@@ -1,18 +1,29 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_File extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Formattable;
+use ACP;
+
+class File extends Field
+	implements Formattable {
 
 	public function get_value( $id ) {
 		$attachment_id = parent::get_value( $id );
 
+		return $this->format( $attachment_id );
+	}
+
+	public function format( $attachment_id ) {
 		$value = false;
 
 		if ( $attachment_id ) {
-			if ( $attachment = get_attached_file( $attachment_id ) ) {
+			$attachment = get_attached_file( $attachment_id );
+
+			if ( $attachment ) {
 				$value = ac_helper()->html->link( wp_get_attachment_url( $attachment_id ), esc_html( basename( $attachment ) ), array( 'target' => '_blank' ) );
 			} else {
 				$value = '<em>' . __( 'Invalid attachment', 'codepress-admin-columns' ) . '</em>';
@@ -22,18 +33,20 @@ class ACA_ACF_Field_File extends ACA_ACF_Field {
 		return $value;
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_File( $this->column );
+		return new Editing\File( $this->column );
 	}
 
 	public function sorting() {
-		return new ACP_Sorting_Model( $this->column );
+		return new ACP\Sorting\Model( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_File( $this->column );
+		return new Filtering\File( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Media( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 }

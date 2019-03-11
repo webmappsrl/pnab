@@ -1,29 +1,39 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_TrueFalse extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Formattable;
+use ACA\ACF\Sorting;
+use ACP;
+
+class TrueFalse extends Field
+	implements Formattable {
 
 	public function get_value( $id ) {
-		$value = parent::get_value( $id );
+		return $this->format( parent::get_value( $id ) );
+	}
 
+	public function format( $value ) {
 		return ac_helper()->icon->yes_or_no( '1' == $value );
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_TrueFalse( $this->column );
-	}
-
-	public function sorting() {
-		return new ACA_ACF_Sorting( $this->column );
+		return new Editing\TrueFalse( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_TrueFalse( $this->column );
+		return new Filtering\TrueFalse( $this->column );
+	}
+
+	public function sorting() {
+		return new Sorting( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Checkmark( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 }

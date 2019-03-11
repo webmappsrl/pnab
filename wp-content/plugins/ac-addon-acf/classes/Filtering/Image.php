@@ -1,14 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Image extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class Image extends Filtering {
 
 	public function get_filtering_data() {
 		return array(
-			'options' => acp_filtering()->helper()->get_post_titles( $this->get_meta_values() ),
+			'options'      => acp_filtering()->helper()->get_post_titles( $this->get_meta_values() ),
 			'empty_option' => true,
 		);
 	}

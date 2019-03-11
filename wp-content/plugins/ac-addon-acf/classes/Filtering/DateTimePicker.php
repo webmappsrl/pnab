@@ -1,10 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_DateTimePicker extends ACA_ACF_Filtering_DatePicker {
+class DateTimePicker extends DatePicker {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );

@@ -1,12 +1,18 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Repeater extends ACA_ACF_Field {
+use AC\Collection;
+use ACA\ACF\API;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Formattable;
+use ACA\ACF\Setting;
+use ACA\ACF\Sorting;
+use ACP;
 
-	// Display
+class Repeater extends Field {
+
 	public function get_value( $id ) {
 		if ( 'count' === $this->get_repeater_display() ) {
 			$count = $this->get_row_count( $id );
@@ -34,22 +40,27 @@ class ACA_ACF_Field_Repeater extends ACA_ACF_Field {
 			return $this->column->get_empty_char();
 		}
 
-		$values = new AC_Collection();
+		$values = new Collection();
+		$field = $this->column->get_field_by_type( $sub_field['type'] );
 
 		foreach ( $raw_values as $raw_value ) {
 			if ( isset( $raw_value[ $sub_field['key'] ] ) ) {
-				$values->push( $raw_value[ $sub_field['key'] ] );
+				$value = $raw_value[ $sub_field['key'] ];
+
+				if ( $field instanceof Formattable ) {
+					$value = $field->format( $value );
+				}
+
+				$values->push( $value );
 			}
 		}
 
 		return $this->column->get_formatted_value( $values );
 	}
 
-	// Settings
-
 	public function get_dependent_settings() {
 		return array(
-			new ACA_ACF_Setting_RepeaterDisplay( $this->column ),
+			new Setting\RepeaterDisplay( $this->column ),
 		);
 	}
 
@@ -59,40 +70,38 @@ class ACA_ACF_Field_Repeater extends ACA_ACF_Field {
 	private function get_repeater_display() {
 		$setting = $this->column->get_setting( 'repeater_display' );
 
-		if ( ! $setting instanceof ACA_ACF_Setting_RepeaterDisplay ) {
+		if ( ! $setting instanceof Setting\RepeaterDisplay ) {
 			return false;
 		}
 
 		return $setting->get_repeater_display();
 	}
 
-	// Helpers
-
 	private function get_acf_sub_field() {
 		if ( 'count' === $this->get_repeater_display() ) {
 			return false;
 		}
 
-		return ACA_ACF_API::get_field( $this->column->get_setting( 'sub_field' )->get_value() );
+		return API::get_field( $this->column->get_setting( 'sub_field' )->get_value() );
 	}
 
 	public function export() {
-		return new ACP_Export_Model_StrippedValue( $this->column );
+		return new ACP\Export\Model\StrippedValue( $this->column );
 	}
 
 	public function sorting() {
 		if ( 'count' === $this->get_repeater_display() ) {
-			return new ACA_ACF_Sorting_Repeater( $this->column );
+			return new Sorting\Repeater( $this->column );
 		}
 
-		return new ACP_Sorting_Model_Disabled( $this->column );
+		return new ACP\Sorting\Model\Disabled( $this->column );
 	}
 
 	public function filtering() {
 		if ( 'count' === $this->get_repeater_display() ) {
-			return new ACA_ACF_Filtering_Repeater( $this->column );
+			return new Filtering\Repeater( $this->column );
 		}
 
-		return new ACP_Filtering_Model_Disabled( $this->column );
+		return new ACP\Filtering\Model\Disabled( $this->column );
 	}
 }

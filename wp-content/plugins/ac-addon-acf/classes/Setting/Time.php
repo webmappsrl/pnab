@@ -1,16 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting;
+
+use AC;
+use ACA\ACF\Column;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Setting_Time extends AC_Settings_Column_Time
-	implements AC_Settings_FormatValueInterface {
+class Time extends AC\Settings\Column\Time
+	implements AC\Settings\FormatValue {
 
-	public function __construct( ACA_ACF_Column $column ) {
+	public function __construct( Column $column ) {
 		parent::__construct( $column );
 
 		$this->set_default( 'acf' );

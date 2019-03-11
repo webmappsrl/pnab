@@ -1,13 +1,13 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Export;
+
+use ACP;
 
 /**
  * @since 2.2
  */
-class ACA_ACF_Export_Date extends ACP_Export_Model {
+class Date extends ACP\Export\Model {
 
 	public function get_value( $id ) {
 		$value = $this->column->get_raw_value( $id );

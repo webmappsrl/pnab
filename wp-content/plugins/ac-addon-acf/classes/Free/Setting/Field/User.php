@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Free\Setting\Field;
 
-class ACA_ACF_Free_Setting_Field_User extends ACA_ACF_Free_Setting_Field {
+use ACA\ACF\Free\Setting\Field;
+
+class User extends Field {
 
 	public function get_grouped_field_options() {
 

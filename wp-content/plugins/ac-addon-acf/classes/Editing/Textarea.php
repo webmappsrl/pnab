@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Editing;
 
-class ACA_ACF_Editing_Textarea extends ACA_ACF_Editing {
+use ACA\ACF\Editing;
+
+class Textarea extends Editing {
 
 	public function get_view_settings() {
 		$data = parent::get_view_settings();

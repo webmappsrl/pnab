@@ -1,31 +1,35 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Password extends ACA_ACF_Field {
+use AC;
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACP;
 
-	// Settings
+class Password extends Field {
 
 	public function get_dependent_settings() {
 		return array(
-			new AC_Settings_Column_Password( $this->column ),
+			new AC\Settings\Column\Password( $this->column ),
 		);
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_Password( $this->column );
+		return new Editing\Password( $this->column );
 	}
 
-	public function filtering() {
-		return new ACA_ACF_Filtering_Password( $this->column );
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 	public function sorting() {
-		return new ACP_Sorting_Model_Meta( $this->column );
+		return new ACP\Sorting\Model\Meta( $this->column );
+	}
+
+	public function filtering() {
+		return new Filtering\Password( $this->column );
 	}
 
 }

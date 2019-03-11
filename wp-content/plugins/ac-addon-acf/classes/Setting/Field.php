@@ -1,13 +1,15 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting;
+
+use AC;
+use AC\View;
+use ACA\ACF\Column;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-abstract class ACA_ACF_Setting_Field extends AC_Settings_Column {
+abstract class Field extends AC\Settings\Column {
 
 	/**
 	 * @var string
@@ -34,7 +36,7 @@ abstract class ACA_ACF_Setting_Field extends AC_Settings_Column {
 
 		$this->check_errors( $setting );
 
-		$view = new AC_View();
+		$view = new View();
 		$view->set( 'label', __( 'Field', 'codepress-admin-columns' ) )
 		     ->set( 'setting', $setting );
 
@@ -59,7 +61,7 @@ abstract class ACA_ACF_Setting_Field extends AC_Settings_Column {
 	/**
 	 * Checks if selected value still exists in the options. If not, it will show an error message.
 	 *
-	 * @param AC_Settings_Form_Element_Select $setting
+	 * @param AC\Form\Element\Select $setting
 	 */
 	private function check_errors( $setting ) {
 		$value = $setting->get_value();
@@ -141,7 +143,7 @@ abstract class ACA_ACF_Setting_Field extends AC_Settings_Column {
 				}
 
 				// Clone is not supported
-				if ( isset( $field['_clone' ] ) ) {
+				if ( isset( $field['_clone'] ) ) {
 					continue;
 				}
 

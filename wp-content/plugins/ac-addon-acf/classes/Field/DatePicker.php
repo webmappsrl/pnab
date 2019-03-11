@@ -1,37 +1,43 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_DatePicker extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Export\Date;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Search;
+use ACA\ACF\Setting;
+use ACP;
 
-	// Pro
+class DatePicker extends Field {
 
 	public function editing() {
-		return new ACA_ACF_Editing_DatePicker( $this->column );
+		return new Editing\DatePicker( $this->column );
 	}
 
 	public function sorting() {
-		$model = new ACP_Sorting_Model_Meta( $this->column );
+		$model = new ACP\Sorting\Model\Meta( $this->column );
 		$model->set_data_type( 'numeric' );
 
 		return $model;
 	}
 
-	public function filtering() {
-		return new ACA_ACF_Filtering_DatePicker( $this->column );
-	}
-
 	public function export() {
-		return new ACA_ACF_Export_Date( $this->column );
+		return new Date( $this->column );
 	}
 
-	// Settings
+	public function filtering() {
+		return new Filtering\DatePicker( $this->column );
+	}
+
+	public function search() {
+		return new Search\Datepicker( $this->get_meta_key(), $this->get_meta_type() );
+	}
 
 	public function get_dependent_settings() {
 		return array(
-			new ACA_ACF_Setting_Date( $this->column )
+			new Setting\Date( $this->column ),
 		);
 	}
 

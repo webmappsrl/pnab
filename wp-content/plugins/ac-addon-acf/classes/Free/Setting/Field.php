@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Free\Setting;
 
-abstract class ACA_ACF_Free_Setting_Field extends ACA_ACF_Setting_Field {
+use ACA\ACF\Setting;
+
+abstract class Field extends Setting\Field {
 
 	/**
 	 * @param int[] $group_ids ACF (version 4) field group ID's

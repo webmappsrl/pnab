@@ -1,13 +1,15 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Setting;
+
+use AC;
+use AC\View;
+use ACA\ACF\Column;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Setting_FlexibleContent extends AC_Settings_Column {
+class FlexibleContent extends AC\Settings\Column {
 
 	/**
 	 * @var string
@@ -26,7 +28,7 @@ class ACA_ACF_Setting_FlexibleContent extends AC_Settings_Column {
 			'structure' => __( 'Layout Structure', 'codepress-admin-columns' ),
 		) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );

@@ -1,10 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Link extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Formattable;
+
+class Link extends Field
+	implements Formattable {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );
@@ -16,9 +20,13 @@ class ACA_ACF_Field_Link extends ACA_ACF_Field {
 		$link = parent::get_value( $id );
 
 		if ( empty( $link ) ) {
-			return $link;
+			return $this->column->get_empty_char();
 		}
 
+		return $this->format( $link );
+	}
+
+	public function format( $link ) {
 		$label = $link['title'];
 
 		if ( ! $label ) {
@@ -32,13 +40,12 @@ class ACA_ACF_Field_Link extends ACA_ACF_Field {
 		return ac_helper()->html->link( $link['url'], $label );
 	}
 
-	// Pro
+	public function filtering() {
+		return new Filtering\Link( $this->column );
+	}
 
 	public function editing() {
-		return new ACA_ACF_Editing_Link( $this->column );
+		return new Editing\Link( $this->column );
 	}
 
-	public function filtering() {
-		return new ACA_ACF_Filtering_Link( $this->column );
-	}
 }

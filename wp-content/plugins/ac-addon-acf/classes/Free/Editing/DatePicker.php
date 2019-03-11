@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Free\Editing;
 
-class ACA_ACF_Free_Editing_DatePicker extends ACA_ACF_Editing_DatePicker {
+use ACA\ACF\Editing;
+
+class DatePicker extends Editing\DatePicker {
 
 	public function save( $id, $value ) {
 		$acf_save_format = $this->column->get_field()->get( 'date_format' );

@@ -1,10 +1,12 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_FlexibleContent extends ACA_ACF_Field {
+use ACA\ACF\Field;
+use ACA\ACF\Setting;
+use ACP;
+
+class FlexibleContent extends Field {
 
 	public function get_ajax_value( $id ) {
 		$results = array();
@@ -87,12 +89,12 @@ class ACA_ACF_Field_FlexibleContent extends ACA_ACF_Field {
 
 	public function get_dependent_settings() {
 		return array(
-			new ACA_ACF_Setting_FlexibleContent( $this->column ),
+			new Setting\FlexibleContent( $this->column ),
 		);
 	}
 
 	public function export() {
-		return new ACP_Export_Model_Disabled( $this->column );
+		return new ACP\Export\Model\Disabled( $this->column );
 	}
 
 	/**

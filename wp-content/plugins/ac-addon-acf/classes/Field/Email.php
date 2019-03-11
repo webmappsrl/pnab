@@ -1,33 +1,38 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Email extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACP;
+
+class Email extends Field {
 
 	public function get_value( $id ) {
 		$email = parent::get_value( $id );
 
 		if ( ! $email ) {
-			 return false;
+			return false;
 		}
 
 		return ac_helper()->html->link( 'mailto:' . $email, $email );
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_Email( $this->column );
+		return new Editing\Email( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering( $this->column );
+		return new Filtering( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 	public function sorting() {
-		return new ACP_Sorting_Model_Meta( $this->column );
+		return new ACP\Sorting\Model\Meta( $this->column );
 	}
 
 }

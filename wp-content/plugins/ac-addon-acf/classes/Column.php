@@ -1,17 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF;
+
+use AC;
+use ACP;
 
 /**
  * ACF Field for Advanced Custom Fields
- *
  * @since 1.1
  * @abstract
  */
-abstract class ACA_ACF_Column extends AC_Column_Meta
-	implements ACP_Column_EditingInterface, ACP_Column_FilteringInterface, ACP_Column_SortingInterface, ACP_Export_Column, AC_Column_AjaxValue {
+abstract class Column extends AC\Column\Meta
+	implements ACP\Editing\Editable, ACP\Filtering\Filterable, ACP\Sorting\Sortable, ACP\Export\Exportable, ACP\Search\Searchable, AC\Column\AjaxValue {
 
 	public function __construct() {
 		$this
@@ -20,13 +20,9 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 			->set_group( 'acf' );
 	}
 
-	// Meta
-
 	public function get_meta_key() {
 		return $this->get_field()->get( 'name' );
 	}
-
-	// Display
 
 	public function get_ajax_value( $id ) {
 		return $this->get_field()->get_ajax_value( $id );
@@ -35,7 +31,7 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 	public function get_value( $id ) {
 		$value = $this->get_field()->get_value( $id );
 
-		if ( $value instanceof AC_Collection ) {
+		if ( $value instanceof AC\Collection ) {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 
@@ -51,6 +47,10 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 			$value = $prepend . $value . $append;
 		}
 
+		if ( ! $value ) {
+			return $this->get_empty_char();
+		}
+
 		return $value;
 	}
 
@@ -58,20 +58,15 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 		return $this->get_field()->get_raw_value( $id );
 	}
 
-	// Settings
-
 	/**
 	 * @param string $type Comment, Post, Taxonomy, User or Media
 	 */
 	protected function register_settings_by_type( $type ) {
-		$setting = 'Setting_Field_' . $type;
-
-		// Default version
-		$class = ac_addon_acf()->get_prefix() . $setting;
+		$class = 'ACA\ACF\Setting\Field\\' . $type;
 
 		// Free version specific
-		if ( ACA_ACF_API::is_free() ) {
-			$free_class = ac_addon_acf()->get_prefix() . 'Free_' . $setting;
+		if ( API::is_free() ) {
+			$free_class = 'ACA\ACF\Free\Setting\Field\\' . $type;
 
 			if ( class_exists( $free_class ) ) {
 				$class = $free_class;
@@ -80,14 +75,12 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 
 		if ( class_exists( $class ) ) {
 
-			/* @var ACA_ACF_Setting_Field $setting */
+			/* @var Setting\Field $setting */
 			$setting = new $class( $this );
 
 			$this->add_setting( $setting );
 		}
 	}
-
-	// Pro
 
 	public function editing() {
 		return $this->get_field()->editing();
@@ -95,6 +88,10 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 
 	public function filtering() {
 		return $this->get_field()->filtering();
+	}
+
+	public function search() {
+		return $this->get_field()->search();
 	}
 
 	public function sorting() {
@@ -105,13 +102,11 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 		return $this->get_field()->export();
 	}
 
-	// Field
-
 	/**
 	 * @return array|false ACF Field settings
 	 */
 	public function get_acf_field() {
-		return ACA_ACF_API::get_field( $this->get_field_hash() );
+		return API::get_field( $this->get_field_hash() );
 	}
 
 	/**
@@ -122,11 +117,15 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 	public function get_acf_field_option( $property ) {
 		$field = $this->get_acf_field();
 
-		return $field && isset( $field[ $property ] ) ? $field[ $property ] : false;
+		if ( ! $field || ! array_key_exists( $property, $field ) ) {
+			return false;
+		}
+
+		return $field[ $property ];
 	}
 
 	/**
-	 * @return ACA_ACF_Field
+	 * @return Field
 	 */
 	public function get_field() {
 		return $this->get_field_by_type( $this->get_acf_field_option( 'type' ) );
@@ -135,37 +134,41 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 	/**
 	 * Returns Field. By default it will return a Pro version Field, but when available this returns a Free version Field.
 	 *
-	 * @param string $type ACF field type
+	 * @param string $field_type ACF field type
 	 *
-	 * @return ACA_ACF_Field|false
+	 * @return Field|false
 	 */
 	public function get_field_by_type( $field_type ) {
-		$class = ac_addon_acf()->get_prefix() . 'Field';
-
-		// Specific field types
-		$type = $class . '_' . AC_Autoloader::string_to_classname( $field_type );
-
-		if ( class_exists( $type ) ) {
-			$class = $type;
+		if ( empty( $field_type ) ) {
+			return new Field( $this );
 		}
 
-		// Free version specific
-		if ( ACA_ACF_API::is_free() ) {
-			$type = ac_addon_acf()->get_prefix() . 'Free_Field_' . AC_Autoloader::string_to_classname( $field_type );
+		// Convert field type to field class name
+		$field_class_name = implode( array_map( 'ucfirst', explode( '_', str_replace( '-', '_', $field_type ) ) ) );
+
+		if ( API::is_free() ) {
+
+			// Free version specific
+			$type = 'ACA\ACF\Free\Field\\' . $field_class_name;
 
 			if ( class_exists( $type ) ) {
-				$class = $type;
+				return new $type( $this );
 			}
 		}
 
-		return new $class( $this );
+		// Specific field types
+		$type = 'ACA\ACF\Field\\' . $field_class_name;
+
+		if ( class_exists( $type ) ) {
+			return new $type( $this );
+		}
+
+		return new Field\Unsupported( $this );
 	}
 
 	/**
 	 * Get Field hash
-	 *
 	 * @since 1.1
-	 *
 	 * @return string ACF field Hash (key)
 	 */
 	public function get_field_hash() {
@@ -178,6 +181,8 @@ abstract class ACA_ACF_Column extends AC_Column_Meta
 
 	/**
 	 * Get formatted ID for ACF
+	 *
+	 * @param int $id
 	 *
 	 * @since 1.2.2
 	 */

@@ -1,14 +1,16 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Free\Setting;
+
+use AC;
+use ACA\ACF;
+use ACA\ACF\Column;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Free_Setting_Date extends ACA_ACF_Setting_Date
-	implements AC_Settings_FormatValueInterface {
+class Date extends ACF\Setting\Date
+	implements AC\Settings\FormatValue {
 
 	protected function get_acf_date_format() {
 		return ac_helper()->date->parse_jquery_dateformat( $this->column->get_field()->get( 'display_format' ) );

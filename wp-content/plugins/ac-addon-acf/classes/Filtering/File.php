@@ -1,22 +1,24 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_File extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class File extends Filtering {
 
 	public function get_filtering_data() {
 		$options = array();
 
-		if ( $ids = $this->get_meta_values() ) {
+		$ids = $this->get_meta_values();
+
+		if ( $ids ) {
 			foreach ( $ids as $post_id ) {
 				$options[ $post_id ] = basename( get_attached_file( $post_id ) );
 			}
 		}
 
 		return array(
-			'options' => $options,
+			'options'      => $options,
 			'empty_option' => true,
 		);
 	}

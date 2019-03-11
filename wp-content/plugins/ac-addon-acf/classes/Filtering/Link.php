@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_Link extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class Link extends Filtering {
 
 	public function get_filtering_data() {
 		$options = array();

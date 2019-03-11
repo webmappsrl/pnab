@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Free\Setting\Field;
 
-class ACA_ACF_Free_Setting_Field_Comment extends ACA_ACF_Free_Setting_Field {
+use ACA\ACF\Free\Setting\Field;
+
+class Comment extends Field {
 
 	public function get_grouped_field_options() {
 		add_filter( 'acf/location/rule_match/user_type', '__return_true', 16 );

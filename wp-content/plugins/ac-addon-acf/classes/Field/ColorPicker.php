@@ -1,27 +1,38 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_ColorPicker extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Formattable;
+use ACP;
+
+class ColorPicker extends Field
+	implements Formattable {
 
 	public function get_value( $id ) {
-		return ac_helper()->string->get_color_block( parent::get_value( $id ) );
+		return $this->format( parent::get_value( $id ) );
 	}
 
-	// Pro
+	public function format( $value ) {
+		return ac_helper()->string->get_color_block( $value );
+	}
 
 	public function editing() {
-		return new ACA_ACF_Editing_ColorPicker( $this->column );
+		return new Editing\ColorPicker( $this->column );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering( $this->column );
+		return new Filtering( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\Text( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 	public function sorting() {
-		return new ACP_Sorting_Model_Meta( $this->column );
+		return new ACP\Sorting\Model\Meta( $this->column );
 	}
 
 }

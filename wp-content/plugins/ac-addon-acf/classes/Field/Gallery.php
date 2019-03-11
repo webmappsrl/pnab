@@ -1,22 +1,30 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Gallery extends ACA_ACF_Field {
+use AC;
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Sorting;
+use ACP;
+
+class Gallery extends Field {
 
 	public function editing() {
-		return new ACA_ACF_Editing_Gallery( $this->column );
+		return new Editing\Gallery( $this->column );
 	}
 
 	public function sorting() {
-		return new ACA_ACF_Sorting_Gallery( $this->column );
+		return new Sorting\Gallery( $this->column );
+	}
+
+	public function search() {
+		return new ACP\Search\Comparison\Meta\EmptyNotEmpty( $this->get_meta_key(), $this->get_meta_type() );
 	}
 
 	public function get_dependent_settings() {
 		return array(
-			new AC_Settings_Column_Images( $this->column )
+			new AC\Settings\Column\Images( $this->column ),
 		);
 	}
 

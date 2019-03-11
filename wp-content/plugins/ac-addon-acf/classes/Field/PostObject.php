@@ -1,10 +1,16 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_PostObject extends ACA_ACF_Field {
+use AC;
+use AC\Collection;
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Search;
+use ACP;
+
+class PostObject extends Field {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );
@@ -12,10 +18,8 @@ class ACA_ACF_Field_PostObject extends ACA_ACF_Field {
 		$this->column->set_serialized( $this->column->get_acf_field_option( 'multiple' ) );
 	}
 
-	// Display
-
 	public function get_value( $id ) {
-		return $this->column->get_formatted_value( new AC_Collection( $this->get_raw_value( $id ) ) );
+		return $this->column->get_formatted_value( new Collection( $this->get_raw_value( $id ) ) );
 	}
 
 	/**
@@ -27,29 +31,56 @@ class ACA_ACF_Field_PostObject extends ACA_ACF_Field {
 		return array_filter( (array) parent::get_raw_value( $id ) );
 	}
 
-	// Pro
-
 	public function editing() {
-		return new ACA_ACF_Editing_PostObject( $this->column );
+		return new Editing\PostObject( $this->column );
 	}
 
 	public function sorting() {
-		return new ACP_Sorting_Model_Value( $this->column );
+		return new ACP\Sorting\Model\Value( $this->column );
+	}
+
+	private function get_post_type() {
+		return $this->column->get_acf_field_option( 'post_type' );
+	}
+
+	private function get_terms() {
+		$taxonomy = $this->column->get_acf_field_option( 'taxonomy' );
+
+		$array_terms = acf_decode_taxonomy_terms( $taxonomy );
+
+		if ( ! $array_terms ) {
+			return array();
+		}
+
+		$terms = array();
+		foreach ( $array_terms as $taxonomy => $term_slugs ) {
+			foreach ( $term_slugs as $term_slug ) {
+				$terms[] = get_term_by( 'slug', $term_slug, $taxonomy );
+			}
+		}
+
+		return array_filter( $terms );
+	}
+
+	public function search() {
+		if ( $this->is_serialized() ) {
+			return new Search\PostObjects( $this->get_meta_key(), $this->get_meta_type(), $this->get_post_type(), $this->get_terms() );
+		}
+
+		return new Search\PostObject( $this->get_meta_key(), $this->get_meta_type(), $this->get_post_type(), $this->get_terms() );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_PostObject( $this->column );
+		return new Filtering\PostObject( $this->column );
 	}
 
 	public function export() {
-		return new ACP_Export_Model_StrippedValue( $this->column );
+		return new ACP\Export\Model\StrippedValue( $this->column );
 	}
-
-	// Settings
 
 	public function get_dependent_settings() {
 		return array(
-			new AC_Settings_Column_Post( $this->column ),
+			new AC\Settings\Column\Post( $this->column ),
 		);
 	}
 

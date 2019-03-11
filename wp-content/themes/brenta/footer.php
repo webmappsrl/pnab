@@ -103,16 +103,14 @@ if ( empty( $terms ) || ! containsTerm( $terms, 'marchio-qualita-parco' ) ): ?>
                 class="newsletter et_pb_column et_pb_column_1_3  et_pb_column_4">
                 <div
                     class="et_pb_text et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_text_1">
-                    <h3><i class="fa fa-envelope-open-o"
-                           aria-hidden="true"></i>
-                        NEWSLETTER</h3>
+                    <h3><!--<i class="fa fa-envelope-open-o"
+                           aria-hidden="true"></i> -->
+                        </h3>
                     <!-- <p><input
                             style="width: 98%; height: 46px; border: none; background: white; font-size: 20px;"
                             type="text"></p> -->
-                    <p><?php echo __( 'Iscriviti per essere sempre aggiornato sulle novità e le
-                    iniziative del Parco! Non ti disturberemo con più di una
-                    email ogni 2 settimane', 'brenta' ); ?><div class="et_pb_button_wrapper">
-<a href="http://eepurl.com/dspQh5" target="_blank" class="et_pb_more_button et_pb_button">Iscriviti</a></div></p>
+                    <p><?php echo __( 'Vuoi entrare nel mondo Qualità Parco?  Visita la sezione Marchio di Qualità', 'brenta' ); ?><div class="et_pb_button_wrapper" style="text-align: center;">
+<a href="/principale/marchio-di-qualita/" target="_blank" class="et_pb_more_button et_pb_button">Maggiori Info</a></div></p>
 
                 </div> <!-- .et_pb_text -->
             </div> <!-- .et_pb_column -->

@@ -1,16 +1,23 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Field;
 
-class ACA_ACF_Field_Taxonomy extends ACA_ACF_Field {
+use ACA\ACF\Editing;
+use ACA\ACF\Field;
+use ACA\ACF\Filtering;
+use ACA\ACF\Formattable;
+use ACA\ACF\Search;
+use ACA\ACF\Sorting;
+use ACP;
+
+class Taxonomy extends Field
+	implements Formattable {
 
 	public function __construct( $column ) {
 		parent::__construct( $column );
 
-		// Checkbox and Multiselect are stored serialized
-		$column->set_serialized( in_array( $this->get( 'field_type' ), array( 'checkbox', 'multi_select' ) ) );
+		// Checkbox and Multi select are stored serialized
+		$this->column->set_serialized( in_array( $this->get( 'field_type' ), array( 'checkbox', 'multi_select' ) ) );
 	}
 
 	public function get_value( $id ) {
@@ -19,32 +26,48 @@ class ACA_ACF_Field_Taxonomy extends ACA_ACF_Field {
 		$values = array();
 
 		foreach ( ac_helper()->taxonomy->get_terms_by_ids( $term_ids, $this->get( 'taxonomy' ) ) as $term ) {
-			$values[] = ac_helper()->html->link( get_edit_term_link( $term->term_id, $term->taxonomy ), $term->name );
+			$values[] = $this->get_term_link( $term );
 		}
 
 		return implode( ', ', $values );
 	}
 
-	// Pro
+	public function get_term_link( $term ) {
+		return ac_helper()->html->link( get_edit_term_link( $term->term_id, $term->taxonomy ), $term->name );
+	}
 
-	public function editing() {
-		return new ACA_ACF_Editing_Taxonomy( $this->column );
+	public function format( $term_id ) {
+		$term = get_term( $term_id );
+
+		return $this->get_term_link( $term );
 	}
 
 	public function filtering() {
-		return new ACA_ACF_Filtering_Taxonomy( $this->column );
+		return new Filtering\Taxonomy( $this->column );
+	}
+
+	public function editing() {
+		return new Editing\Taxonomy( $this->column );
+	}
+
+	public function search() {
+		if ( $this->is_serialized() ) {
+			return new Search\Taxonomies( $this->get_meta_key(), $this->get_meta_type(), $this->get( 'taxonomy' ) );
+		}
+
+		return new Search\Taxonomy( $this->get_meta_key(), $this->get_meta_type(), $this->get( 'taxonomy' ) );
 	}
 
 	public function sorting() {
-		if ( $this->column->get_field()->get( 'multiple' ) ) {
-			return new ACP_Sorting_Model_Value( $this->column );
+		if ( $this->get( 'multiple' ) ) {
+			return new ACP\Sorting\Model\Value( $this->column );
 		}
 
-		return new ACA_ACF_Sorting( $this->column );
+		return new Sorting( $this->column );
 	}
 
 	public function export() {
-		return new ACP_Export_Model_StrippedValue( $this->column );
+		return new ACP\Export\Model\StrippedValue( $this->column );
 	}
 
 }

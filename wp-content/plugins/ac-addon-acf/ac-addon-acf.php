@@ -1,13 +1,17 @@
 <?php
 /*
-Plugin Name: 		Admin Columns Pro - Advanced Custom Fields (ACF)
-Version: 			2.2.3
-Description: 		Supercharges Admin Columns Pro with very cool ACF columns.
-Author: 			Admin Columns
-Author URI: 		https://www.admincolumns.com
-Plugin URI: 		https://www.admincolumns.com
-Text Domain: 		codepress-admin-columns
+Plugin Name: 	Admin Columns Pro - Advanced Custom Fields (ACF)
+Version: 		2.4
+Description: 	Supercharges Admin Columns Pro with very cool ACF columns.
+Author: 		Admin Columns
+Author URI: 	https://www.admincolumns.com
+Plugin URI: 	https://www.admincolumns.com
+Text Domain: 	codepress-admin-columns
 */
+
+use ACA\ACF\AdvancedCustomFields;
+use ACA\ACF\Dependencies;
+use AC\Autoloader;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,28 +21,30 @@ if ( ! is_admin() ) {
 	return;
 }
 
-require_once 'classes/Dependencies.php';
+require_once __DIR__ . '/classes/Dependencies.php';
 
-function aca_acf_loader() {
-	$dependencies = new ACA_ACF_Dependencies( plugin_basename( __FILE__ ) );
+add_action( 'after_setup_theme', function () {
+	$dependencies = new Dependencies( plugin_basename( __FILE__ ), '2.4' );
+	$dependencies->requires_acp( '4.4' );
+	$dependencies->requires_php( '5.3.6' );
 
 	if ( ! class_exists( 'acf', false ) ) {
-		$dependencies->add_missing( __( 'Advanced Custom Fields' ), $dependencies->get_search_url( 'Advanced Custom Fields' ) );
+		$dependencies->add_missing_plugin( 'Advanced Custom Fields', 'https://www.advancedcustomfields.com/' );
+	}
 
+	if ( $dependencies->has_missing() ) {
 		return;
 	}
 
-	if ( $dependencies->is_missing_acp( '4.2.4' ) ) {
-		return;
-	}
+	Autoloader::instance()->register_prefix( 'ACA\ACF', __DIR__ . '/classes/' );
+	Autoloader\Underscore::instance()
+	                        ->add_alias( 'ACA\ACF\Column', 'ACA_ACF_Column' )
+	                        ->add_alias( 'ACA\ACF\Field', 'ACA_ACF_Field' );
 
-	AC()->autoloader()->register_prefix( 'ACA_ACF_', plugin_dir_path( __FILE__ ) . 'classes/' );
-
-	ac_addon_acf()->register();
-}
-
-add_action( 'after_setup_theme', 'aca_acf_loader' );
+	$addon = new AdvancedCustomFields( __FILE__ );
+	$addon->register();
+} );
 
 function ac_addon_acf() {
-	return new ACA_ACF_Plugin( __FILE__ );
+	return new AdvancedCustomFields( __FILE__ );
 }

@@ -1,15 +1,16 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF;
+
+use ACP;
+use WP_Error;
 
 /**
- * @property ACA_ACF_Column $column
+ * @property Column $column
  */
-class ACA_ACF_Editing extends ACP_Editing_Model {
+class Editing extends ACP\Editing\Model {
 
-	public function __construct( ACA_ACF_Column $column ) {
+	public function __construct( Column $column ) {
 		parent::__construct( $column );
 	}
 
@@ -75,7 +76,7 @@ class ACA_ACF_Editing extends ACP_Editing_Model {
 	}
 
 	public function save( $id, $value ) {
-		if ( ! ACA_ACF_API::is_free() ) {
+		if ( ! API::is_free() ) {
 			$valid = $this->validate( $value );
 
 			if ( is_wp_error( $valid ) ) {
@@ -95,36 +96,6 @@ class ACA_ACF_Editing extends ACP_Editing_Model {
 		}
 
 		return $value;
-	}
-
-	/**
-	 * @param array $ajax_query ACF ajax query [ 'results' => array() ]
-	 *
-	 * @return array
-	 */
-	protected function format_choices( $ajax_query ) {
-		$options = array();
-
-		if ( empty( $ajax_query['results'] ) ) {
-			return array();
-		}
-
-		foreach ( $ajax_query['results'] as $choice ) {
-			if ( ! isset( $choice['id'] ) ) {
-				$options[ $choice['text'] ] = array(
-					'label'   => $choice['text'],
-					'options' => array(),
-				);
-
-				foreach ( $choice['children'] as $subchoice ) {
-					$options[ $choice['text'] ]['options'][ $subchoice['id'] ] = htmlspecialchars_decode( $subchoice['text'] );
-				}
-			} else {
-				$options[ $choice['id'] ] = htmlspecialchars_decode( $choice['text'] );
-			}
-		}
-
-		return $options;
 	}
 
 }

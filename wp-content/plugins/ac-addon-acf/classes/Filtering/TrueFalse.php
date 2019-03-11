@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace ACA\ACF\Filtering;
 
-class ACA_ACF_Filtering_TrueFalse extends ACA_ACF_Filtering {
+use ACA\ACF\Filtering;
+
+class TrueFalse extends Filtering {
 
 	public function get_filtering_vars( $vars ) {
 
@@ -15,8 +15,7 @@ class ACA_ACF_Filtering_TrueFalse extends ACA_ACF_Filtering {
 				'key'   => $this->column->get_meta_key(),
 				'value' => $value,
 			);
-		}
-		else {
+		} else {
 			$vars['meta_query'][] = array(
 				'relation' => 'OR',
 				array(
