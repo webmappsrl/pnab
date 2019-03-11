@@ -1721,3 +1721,42 @@ div#full-blog {
   }
 }
 
+/* ccchildpages css*/
+.ccchildpage {
+	display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+.ccchildpagetable tr td{
+  border: none!important;
+  border-top: none!important;
+}
+.ccchildpagetable tr{
+  padding:0;
+}
+.ccchildpagetable{
+  margin: 0!important;
+  border: none!important;
+  border-top: none!important;
+}
+.thumbstd {
+	width: 30%;
+	padding: 0;
+}
+.cc-child-pages-thumb{
+	margin: 0!important;
+}
+.ccchildpageinfo{
+	padding-left: 10px;
+}
+@media screen and (max-width: 900px) {
+.twocol .ccchildpage {
+    width: 100%!important;
+	}}
+@media screen and (max-width: 700px) {
+.cc-child-pages-thumb {
+    width: 100%;
+    margin: 0px auto 10px auto!important;
+}
+.ccchildpage {
+	display: flex;
+}}

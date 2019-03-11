@@ -1358,3 +1358,27 @@ EOT;
 	return $output;
 }
 
+/** changes the order of child page's title thumbs excerpt */
+function custom_ccchildpage_inner_template($template) {
+	
+	$template = '<div class="ccchildpage {{page_class}}"><div class="ccchildpagethumbs">{{thumbnail}}</div><div class="ccchildpageinfo"><h3{{title_class}}>{{title}}</h3>{{excerpt}}</div></div>';
+	return $template;
+	}
+	add_filter( 'ccchildpages_inner_template' ,'custom_ccchildpage_inner_template' );
+	
+
+	add_image_size( 'category_thumbs', 220, 180 ); // 220 pixels wide by 180 pixels tall, soft proportional crop mode
+
+	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) ); 
+	
+function webmapp_filter_post_thumbnail_html( $html ) {
+    // If there is no post thumbnail,
+	// Return a default image
+	if (!is_single()){
+    if ( '' == $html ) {
+        return '<img src="http://localhost/pnab/wp-content/uploads/2019/03/logo-pnab.png" width="220px" height="154px" class="cc-child-pages-thumb wp-post-image" />';
+    }}
+    // Else, return the post thumbnail
+    return $html;
+}
+add_filter( 'post_thumbnail_html', 'webmapp_filter_post_thumbnail_html' );
