@@ -43,7 +43,8 @@ get_header();
 							$file_url = get_home_url().'/wp-content/uploads/pdf-imprese/'.get_the_ID().'_'.$impresa.'.pdf';
 							?>
 
-                            <p><h4>Scarica il documento: <a href="<?php echo $file_url; ?>" title="<?php echo $impresa; ?>"><?php echo $impresa.'.pdf'; ?></a></h4></p>
+                            <h4>Scarica il documento, firmalo e ricaricalo firmato qui sotto (in formato .p7m) : </h4>
+                            <h3><a href="<?php echo $file_url; ?>" title="<?php echo $impresa; ?>" target="_blank"><?php echo $impresa.'.pdf'; ?></a></h3>
                             <form id="post" class="acf-form" action=""
                                   method="post">
                             <input id="impresa-update" type="hidden" name="impresa-update" value="update">
@@ -54,7 +55,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_5a69f69ab22b8',
@@ -76,7 +77,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_5a5882d72ed62',
@@ -97,7 +98,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_5a5883220de1f',
@@ -126,7 +127,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_5a5885a30da4e',
@@ -150,7 +151,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_5a58976a176db',
@@ -169,7 +170,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_categorie_specializzate',
@@ -188,7 +189,7 @@ get_header();
 									'post_id'         => get_the_ID(),
 									'new_post'        => [
 										'post_type'   => 'imprese',
-										'post_status' => 'pending',
+										'post_status' => 'publish',
 									],
 									'field_groups'    => [
 										'group_5a5890680290a',

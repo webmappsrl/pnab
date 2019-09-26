@@ -95,6 +95,7 @@ body.et_header_style_left #et-top-navigation {
 }
 
 #top-menu > li {
+  vertical-align: top;
   max-width: 155px;
   text-align: center;
 }
@@ -311,7 +312,9 @@ body.home .facetwp-radio
   font-size: 12px;
   margin-top: 20px;
 }
-
+body.home h3.facet-label {
+  display: none;
+}
 body.single-project .facetwp-radio {
   min-width: 90px;
   height: 60px;
@@ -1452,10 +1455,68 @@ body #page-container-brenta .booking-button.et_pb_button_0:hover, body #page-con
   width: 87%;
 }
 
+@media (min-width: 981px){
+  body.single-post #breadcrumbs {
+    margin: 1.75% 0px 1% 0px;
+    /* width: 75%; */
+    float: left;
+    /* margin-right: auto; */
+  }
+  /* button archive news in single post page */
+  .button-archive-news {
+    float: right;
+    margin: 1.25% 0 0.5% 0;
+  }
+}
+@media (max-width: 980px){
+  .button-archive-news {
+  margin: 40px 0 0px 0;
+  }
+}
 #breadcrumbs {
-  margin-bottom: 18px;
+  margin: 1.75% 0 2.5% 0; 
 }
 
+#breadcrumbs a {
+  color: #1f8656;
+  font-weight: 600;
+}
+
+.navigation .navigation-link {
+  font-size: 18px;
+}
+.navigation .navigation-link a {
+  position: relative;
+}
+.navigation .navigation-link a:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+.navigation .navigation-link a:hover:after {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+.button-archive-news a{
+  border: 2px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+.button-archive-news a:hover {
+  background-color: #14241f;
+  color: #e4e4e4;
+  border-color: #14241f;
+}
 img#brenta_loader {
   display: none;
   margin: 40px auto;
@@ -1722,9 +1783,13 @@ div#full-blog {
 }
 
 /* ccchildpages css*/
+.poi-archive-ricerca .facetwp-template{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 .ccchildpage {
 	display: grid;
-    grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2fr;
 }
 .ccchildpagetable tr td{
   border: none!important;
@@ -1746,7 +1811,13 @@ div#full-blog {
 	margin: 0!important;
 }
 .ccchildpageinfo{
-	padding-left: 10px;
+  padding-left: 10px;
+}
+.ccchildpageinfo h3{
+  min-height: 54px;
+}
+.ccchildpage:last-child {
+  margin-bottom: 0px!important;
 }
 @media screen and (max-width: 900px) {
 .twocol .ccchildpage {
@@ -1757,6 +1828,138 @@ div#full-blog {
     width: 100%;
     margin: 0px auto 10px auto!important;
 }
+.poi-archive-ricerca .facetwp-template {
+  display: flex;
+}
 .ccchildpage {
 	display: flex;
 }}
+.facetwp-facet.facetwp-facet-poi_archive.facetwp-type-search {
+  min-height: auto;
+}
+.facetwp-facet.facetwp-facet-poi_archive.facetwp-type-search input[type=text]{
+  padding: 9px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  color: #4e4e4e;
+  background-color: #fff;
+}
+.back-green h4{
+	color: #fff;
+}
+@media screen and (max-width: 700px) {
+.cc-child-pages-thumb {
+    width: 100%;
+    margin: 0px auto 10px auto!important;
+}
+.ccchildpage {
+	display: flex;
+}}
+@media screen and (max-width: 899px) {
+.poi-archive-ricerca .facetwp-template {
+  grid-template-columns: 1fr!important;}
+  .campo-ricerca-facet {
+    grid-template-columns: 1fr!important;
+  }
+    .facetwp-facet.facetwp-facet-search_archive.facetwp-type-search input[type=text] {
+      width: 98%!important;}
+}
+.facetwp-facet.facetwp-facet-poi_archive.facetwp-type-search {
+  min-height: auto;
+}
+.facetwp-facet.facetwp-facet-poi_archive.facetwp-type-search input[type=text]{
+  padding: 9px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  color: #4e4e4e;
+  background-color: #fff;
+}
+.poi-archive-ricerca .facetwp-template{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media screen and (min-width: 900px) {
+.poi-archive-thumbs {
+	width:188px!important;
+	height:131px!important;
+  }}
+.facetwp-pager {
+  margin-top:30px;
+}
+.campo-ricerca-facet {
+	display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.facetwp-facet.facetwp-facet-search_archive.facetwp-type-search input[type=text] {
+    padding: 15px;
+    width: 75%;
+    border: 1px solid #efeded;
+    border-radius: 2px;
+    font-weight: bold;
+    color: #757575;
+    box-shadow: 2px 2px 14px -3px;
+    background-color: #fff;
+}
+.facetwp-facet.facetwp-facet-range_date_news.facetwp-type-date_range input[type=text] {
+    padding: 15px;
+    width: 49%;
+    border: 1px solid #efeded;
+    border-radius: 2px;
+    font-weight: bold;
+    color: #757575;
+    box-shadow: 2px 2px 14px -3px;
+    background-color: #fff;
+}
+ 
+.facetwp-facet.facetwp-facet-search_archive.facetwp-type-search input[type=text]::placeholder,.facetwp-facet.facetwp-facet-range_date_news.facetwp-type-date_range input[type=text]::placeholder {
+	color: #a5a5a5;
+}
+.facetwp-facet.facetwp-facet-range_date_news.facetwp-type-date_range,.facetwp-facet.facetwp-facet-search_archive.facetwp-type-search {
+	min-height: auto;}
+	
+/*Related POI Style*/	
+
+.cont-track {
+	background: transparent;
+	}
+	
+.cont-track p {
+	color: #FFFFFF;
+	}	
+
+.cont-track .exe-track a {
+	color: #4db5cf !important;
+	}	
+
+.exe-track h4 {
+	padding-bottom: 5px;
+	}
+
+.thumb-track img.attachment-thumbnail.size-thumbnail.wp-post-image {
+	border: solid 3px #FFFFFF;
+	}	
+	
+.thumb-track {
+	margin-left: 0;
+	}
+	
+/*WPML Top Menu Style*/
+
+
+ #et-secondary-nav li ul {
+width: auto;
+}
+
+
+li.menu-item.wpml-ls-slot-6.wpml-ls-item.wpml-ls-item-en.wpml-ls-menu-item.menu-item-type-wpml_ls_menu_item.menu-item-object-wpml_ls_menu_item.menu-item-wpml-ls-6-en, li.menu-item.wpml-ls-slot-6.wpml-ls-item.wpml-ls-item-de.wpml-ls-menu-item.wpml-ls-last-item.menu-item-type-wpml_ls_menu_item.menu-item-object-wpml_ls_menu_item.menu-item-wpml-ls-6-de, li.menu-item.wpml-ls-slot-6.wpml-ls-item.wpml-ls-item-it.wpml-ls-menu-item.wpml-ls-first-item.menu-item-type-wpml_ls_menu_item.menu-item-object-wpml_ls_menu_item.menu-item-wpml-ls-6-it {
+padding-left: 0 !important;
+padding-right: 0 !important;
+text-align: center !important;
+}	
+
+	/*WPML mobile*/
+
+li.menu-item.wpml-ls-slot-6.wpml-ls-item.wpml-ls-item-it.wpml-ls-current-language.wpml-ls-menu-item.wpml-ls-first-item.menu-item-type-wpml_ls_menu_item.menu-item-object-wpml_ls_menu_item.menu-item-has-children.menu-item-wpml-ls-6-it i.fa.fa-circle {
+    display: none;
+}

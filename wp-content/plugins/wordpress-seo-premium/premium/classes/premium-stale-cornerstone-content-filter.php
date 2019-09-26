@@ -35,24 +35,11 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Filter extends WPSEO_Abstract_Post
 
 		$where .= sprintf(
 			' AND ' . $wpdb->posts . '.ID IN( SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key = "%s" AND meta_value = "1" ) AND ' . $wpdb->posts . '.post_modified < "%s" ',
-			WPSEO_Meta::$meta_prefix . WPSEO_Cornerstone::META_NAME,
+			WPSEO_Meta::$meta_prefix . 'is_cornerstone',
 			$this->date_threshold()
 		);
 
 		return $where;
-	}
-
-	/**
-	 * Adds the filter links when necessary.
-	 *
-	 * @return void
-	 */
-	public function add_filter_links() {
-		if ( ! WPSEO_Recalibration_Beta::is_enabled() ) {
-			return;
-		}
-
-		parent::add_filter_links();
 	}
 
 	/**

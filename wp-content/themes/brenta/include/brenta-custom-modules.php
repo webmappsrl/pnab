@@ -855,7 +855,7 @@ class ET_Builder_Module_Custom_Filterable_Portfolio extends ET_Builder_Module {
 		}
 
 		$default_query_args = array(
-			'post_type'   => 'project',
+			'post_type'   => 'track',
 			'post_status' => 'publish',
             'orderby'     => 'rand',
 		);

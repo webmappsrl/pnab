@@ -25,11 +25,14 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
               <article
                   id="post-<?php the_ID(); ?>" <?php post_class('et_pb_post' . $additional_class); ?>>
                   <div class="container">
+                    <div>
                     <?php
                     if (function_exists('yoast_breadcrumb')) {
                       yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
                     }
                     ?>
+                      <div class="button-archive-news"><a href="https://www.pnab.it/news-archive/">Archivio News</a></div>
+                    </div>
                       <div class="et_post_meta_wrapper">
                           <div class="single-left text">
                             <h1 class="entry-title"><?php the_title(); ?> </h1>
@@ -93,6 +96,15 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
                         </div>
                     </div>
                 <?php endif; ?>
+                <div class="container navigation">
+                  <div class="navigation-link alignleft">
+                    <?php previous_post_link('&laquo; %link','Titolo news precedente',true); ?>
+                  </div>
+                  <div class="navigation-link alignright">
+                   <?php next_post_link('%link &raquo;', 'Titolo news successiva',true); ?>
+                  </div>
+                </div> <!-- end navigation -->
+                
               </article> <!-- .et_pb_post -->
 
           <?php endwhile; ?>

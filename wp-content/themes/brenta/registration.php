@@ -22,7 +22,7 @@ get_header();
 							'post_id'         => 'new_post',
 							'new_post'        => [
 								'post_type'   => 'imprese',
-								'post_status' => 'pending',
+								'post_status' => 'publish',
 							],
 							'field_groups'    => [
 								'group_5a5882d72ed62',
@@ -42,7 +42,7 @@ get_header();
 							'post_id'         => 'new_post',
 							'new_post'        => [
 								'post_type'   => 'imprese',
-								'post_status' => 'pending',
+								'post_status' => 'publish',
 							],
 							'field_groups'    => [
 								'group_5a5883220de1f',
@@ -63,7 +63,7 @@ get_header();
 							'post_id'         => 'new_post',
 							'new_post'        => [
 								'post_type'   => 'imprese',
-								'post_status' => 'pending',
+								'post_status' => 'publish',
 							],
 							'field_groups'    => [
 								'group_5a5885a30da4e',
@@ -83,7 +83,7 @@ get_header();
 							'post_id'         => 'new_post',
 							'new_post'        => [
 								'post_type'   => 'imprese',
-								'post_status' => 'pending',
+								'post_status' => 'publish',
 							],
 							'field_groups'    => [
 								'group_5a58976a176db',
@@ -102,7 +102,7 @@ get_header();
 							'post_id'         => 'new_post',
 							'new_post'        => [
 								'post_type'   => 'imprese',
-								'post_status' => 'pending',
+								'post_status' => 'publish',
 							],
 							'field_groups'    => [
 								'group_categorie_specializzate',
@@ -121,7 +121,7 @@ get_header();
 							'post_id'         => 'new_post',
 							'new_post'        => [
 								'post_type'   => 'imprese',
-								'post_status' => 'pending',
+								'post_status' => 'publish',
 							],
 							'field_groups'    => [
 								'group_5a5890680290a',

@@ -194,6 +194,7 @@ if ( ! function_exists( 'location_taxonomy' ) ) {
 
 }
 
+
 add_filter( 'facetwp_facet_orderby', function ( $orderby, $facet ) {
 	if ( 'seasons' == $facet['name'] ) {
 		// to sort by raw value, use "f.facet_value" instead
@@ -208,10 +209,37 @@ add_filter( 'facetwp_facet_orderby', function ( $orderby, $facet ) {
 	if ( 'activity' == $facet['name'] ) {
 		// to sort by raw value, use "f.facet_value" instead
 		$orderby = 'FIELD(f.facet_display_value, "flora", "fauna", "geologia", "paesaggio", "trekking")';
+		// $orderby = 'FIELD(f.facet_display_value, "flora", "natura", "paesaggio", "trekking")';
 	}
 
 	return $orderby;
 }, 10, 2 );
+
+add_filter( 'facetwp_facet_render_args', function( $args ) {
+	if ( 'activity' == $args['facet']['name'] ) {
+		
+		$t = array(
+				'flora' ,
+				'natura' ,
+				'paesaggio' ,
+				'trekking'
+		);
+
+		$values = array();
+		if ( ! empty( $args['values'] ) ) {
+				foreach ( $args['values'] as $key => $val ) {
+						$facet_value = $val['facet_value'];
+						if ( in_array($facet_value,$t) ) {
+							array_push ($values, $val);
+						}
+				}
+				$args['values'] = $values;
+		}
+
+	}
+	return $args;
+});
+
 
 
 function et_divi_get_top_nav_items() {
@@ -354,12 +382,12 @@ if ( function_exists( 'acf_add_local_field_group' ) ):
 					'param'    => 'post_type',
 					'operator' => '==',
 					'value'    => 'poi',
-				],
-				[
-					'param'    => 'post_taxonomy',
-					'operator' => '==',
-					'value'    => 'webmapp_category:marchio-qualita-parco',
-				],
+				]
+				// [
+				// 	'param'    => 'post_taxonomy',
+				// 	'operator' => '==',
+				// 	'value'    => 'webmapp_category:marchio-qualita-parco',
+				// ],
 			],
 		],
 		'menu_order'            => 0,
@@ -700,19 +728,24 @@ function register_impresa( $post_id ) {
 
 	wp_update_post( $update_impresa );
 
-
-	setcookie( 'brenta_user', $username, time() + ( 86400 * 30 ), "/" ); // 86400 = 1 day
+	if( $_POST['impresa-update'] !== 'update'){
+		setcookie( 'brenta_user', $username, time() + ( 86400 * 30 ), "/" ); // 86400 = 1 day
+	}
 	setcookie( 'brenta_password', $password, time() + ( 86400 * 30 ), "/" ); // 86400 = 1 day
 
-	// email data
-	$to      = get_option( 'admin_email' );
-	$headers = 'From: ' . $name . ' ' . $lastname . ' <' . $pec . '>' . "\r\n";
-	$subject = 'Iscrizone impresa: ' . $impresa;
-	$body    = 'L\'impresa ' . $impresa . ' è stata registrata da ' . $name . ' ' . $lastname . '- email: ' . $pec;
-
-
+	if( $_POST['impresa-update'] !== 'update') {
+		// email data
+		$to      = get_option( 'admin_email' );
+		$headers = 'From: ' . $name . ' ' . $lastname . ' <' . $pec . '>' . "\r\n";
+		$subject = 'Iscrizone impresa: ' . $impresa;
+		$body    = 'L\'impresa ' . $impresa . ' è stata registrata da ' . $name . ' ' . $lastname . '- email: ' . $pec . '.<br />Vedi i dati inseriti qui: <a href="https://www.pnab.it/wp-admin/post.php?post=' . $post_id . '&action=edit">https://www.pnab.it/wp-admin/post.php?post=' . $post_id . '&action=edit</a>';
+	
+	add_filter( 'wp_mail_content_type', function ( $content_type ) {
+		return 'text/html';
+	} );
 	// send email
 	wp_mail( $to, $subject, $body, $headers );
+	}
 
 	brenta_create_pdf( $post_id );
 
@@ -961,7 +994,8 @@ function br_single_category($atts) {
   extract( shortcode_atts(
       array(
         'id' => 0,
-        'last_days' => 'false'
+				'last_days' => 'false',
+				'orderby' => 'date'
       ), $atts )
   );
 
@@ -1273,7 +1307,9 @@ function br_file_details_html( $fileID ) {
         <div class="file-data file-others">';
 
     if (get_option('mv_single_theme') == 1) {
-      $html .= '<div class="file-name"><a href="'.get_the_permalink($fileID).'" title="'.__('View details', 'mvafsp').'">'.get_the_title($fileID).'</a></div>';
+			$html .= '<div class="file-name"><a href="'.get_the_permalink($fileID).'" title="'.__('View details', 'mvafsp').'">'.get_the_title($fileID).'</a></div>';
+			//$html .= '<div class="br-file-excerpt">'. get_the_excerpt($fileID).'</div>';
+			
     }else{
       $html .= __('File: none', 'mvafsp');
     }
@@ -1282,9 +1318,8 @@ function br_file_details_html( $fileID ) {
                 <li class="file-publish"><i class="mvico-calendar"></i>'.get_post_time( 'F j, Y', false,  $fileID ).'</li>
                 <li class="file-access file-'.$mv_access.'"><i class="mvico-eye"></i>'.ucfirst($mv_access).'</li>
             </ul>
-        </div>
-		
-		<div class="file-dw-button disabled" title="'.__('No file uploaded yet', 'mvafsp').'">
+        </div>';
+		$html .= '<div class="file-dw-button disabled" title="'.__('No file uploaded yet', 'mvafsp').'">
         <span class="mv-btn mv-btn-success">'.__('Download', 'mvafsp').'</span>
         </div>';
 
@@ -1367,7 +1402,7 @@ function custom_ccchildpage_inner_template($template) {
 	add_filter( 'ccchildpages_inner_template' ,'custom_ccchildpage_inner_template' );
 	
 
-	add_image_size( 'category_thumbs', 220, 180 ); // 220 pixels wide by 180 pixels tall, soft proportional crop mode
+	add_image_size( 'category_thumbs', 220, 154 ); // 220 pixels wide by 180 pixels tall, soft proportional crop mode
 
 	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) ); 
 	
@@ -1376,9 +1411,68 @@ function webmapp_filter_post_thumbnail_html( $html ) {
 	// Return a default image
 	if (!is_single()){
     if ( '' == $html ) {
-        return '<img src="http://localhost/pnab/wp-content/uploads/2019/03/logo-pnab.png" width="220px" height="154px" class="cc-child-pages-thumb wp-post-image" />';
+        return '<img src="http://www.pnab.it/wp-content/uploads/2019/03/logo-pnab-220x154.png" width="220px" height="154px" class="cc-child-pages-thumb wp-post-image" />';
     }}
     // Else, return the post thumbnail
     return $html;
 }
 add_filter( 'post_thumbnail_html', 'webmapp_filter_post_thumbnail_html' );
+
+
+/**changes the breadcrumb link of POI in yoast */
+add_filter( 'wpseo_breadcrumb_links', 'yoast_seo_breadcrumb_append_link' );
+function yoast_seo_breadcrumb_append_link( $links ) {
+	global $post;
+	global $wp_taxonomies;
+	global $wp_query;
+	
+    if ( is_singular( 'poi' ) ) {
+        $breadcrumb[] = array(
+            'url' => site_url( '/poi-archive/' ),
+            'text' => 'POI',
+        );
+        array_splice( $links, 1, 1, $breadcrumb );
+    }
+	
+
+	if ( is_home() || is_singular( 'post' ) || is_archive() ) {
+        $breadcrumb[] = array(
+            'url' => site_url( '/news-archive/' ),
+            'text' => 'News',
+        );
+        array_splice( $links, 1, 1, $breadcrumb );
+    }
+    return $links;
+	
+}
+
+function fwp_add_facet_labels() {
+	?>
+	<script>
+	(function($) {
+		$(document).on('facetwp-loaded', function() {
+			$('.facetwp-facet').each(function() {
+				var $facet = $(this);
+				var facet_name = $facet.attr('data-name');
+				var facet_label = FWP.settings.labels[facet_name];
+	
+				if ($facet.closest('.facet-wrap').length < 1) {
+					$facet.wrap('<div class="facet-wrap"></div>');
+					$facet.before('<h3 class="facet-label">' + facet_label + '</h3>');
+				}
+			});
+		});
+	})(jQuery);
+	</script>
+	<?php
+	}
+	//add_action( 'wp_head', 'fwp_add_facet_labels', 100 );
+
+add_filter( 'upload_mimes', 'brenta_myme_types', 1, 1 );
+
+function brenta_myme_types( $mime_types ) {
+	$mime_types['p7m'] = 'application/pkcs7-mime';
+	$mime_types['p7m'] = 'application/x-pkcs7-mime';
+
+	return $mime_types;
+}

@@ -7,6 +7,8 @@
 
 /**
  * Represents the logic for showing the recalibration beta notice.
+ *
+ * @deprecated 10.0
  */
 class WPSEO_Premium_Stale_Cornerstone_Content_Notification implements WPSEO_WordPress_Integration {
 
@@ -18,11 +20,22 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Notification implements WPSEO_Word
 	protected $notification_identifier = 'stale-content-notification';
 
 	/**
-	 * Registers all hooks to WordPress
+	 * Class constructor.
+	 *
+	 * @deprecated 10.0
 	 *
 	 * @codeCoverageIgnore
+	 */
+	public function __construct() {
+		_deprecated_constructor( 'WPSEO_Premium_Stale_Cornerstone_Content_Notification', '10.0' );
+	}
+
+	/**
+	 * Registers all hooks to WordPress
 	 *
 	 * @return void
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function register_hooks() {
 		add_action( 'admin_init', array( $this, 'handle_notice' ), 15 );
@@ -32,9 +45,11 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Notification implements WPSEO_Word
 	 * Shows the notification when applicable.
 	 *
 	 * @return void.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function handle_notice() {
-		if ( $this->show_notice( WPSEO_Recalibration_Beta::is_enabled(), WPSEO_Options::get( 'enable_cornerstone_content' ) ) ) {
+		if ( $this->show_notice( WPSEO_Options::get( 'enable_cornerstone_content' ) ) ) {
 			$this->get_notification_center()->add_notification(
 				$this->get_notification()
 			);
@@ -81,6 +96,8 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Notification implements WPSEO_Word
 	 * @param array $post_types The accessible post types.
 	 *
 	 * @return string The notification message.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	protected function get_notification_message( array $post_types ) {
 		if ( array_key_exists( 'post', $post_types ) ) {
@@ -116,21 +133,22 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Notification implements WPSEO_Word
 	/**
 	 * Determines if the notice should be shown.
 	 *
-	 * @param bool $is_beta_enabled                Checks if the beta has been enabled.
 	 * @param bool $is_cornerstone_content_enabled Is the cornerstone content enabled.
 	 *
 	 * @return bool True when a notice should be shown.
+	 *
+	 * @codeCoverageIgnore
 	 */
-	protected function show_notice( $is_beta_enabled, $is_cornerstone_content_enabled ) {
-		return $is_cornerstone_content_enabled && $is_beta_enabled;
+	protected function show_notice( $is_cornerstone_content_enabled ) {
+		return $is_cornerstone_content_enabled;
 	}
 
 	/**
 	 * Retrieves an instance of the notification center.
 	 *
-	 * @codeCoverageIgnore
-	 *
 	 * @return Yoast_Notification_Center Instance of the notification center.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	protected function get_notification_center() {
 		return Yoast_Notification_Center::get();

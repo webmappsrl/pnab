@@ -159,6 +159,9 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
 						?>
                     </div>
                 </div> <!-- #et-footer-nav -->
+                <div id="et-footer-nav">
+                        <img style="float: right;" src="http://www.pnab.it/wp-content/uploads/2019/04/Audi-logo-4.png" alt="audi">
+                </div><!-- #et-footer-nav audi logo -->
 
 			<?php endif; ?>
 			<?php if ( has_nav_menu( 'footer-menu' ) ) : ?>
@@ -176,6 +179,8 @@ if ( ! is_page_template( 'page-template-blank.php' ) ) : ?>
 						?>
                     </div>
                 </div> <!-- #et-footer-nav -->
+
+               
 
 			<?php endif; ?>
 
