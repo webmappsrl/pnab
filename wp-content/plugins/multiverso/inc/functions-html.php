@@ -319,7 +319,7 @@ function mv_file_details_html( $fileID ) {
 		}else{
 			$html .= '<div class="file-name">'.__('File', 'mvafsp').' <a href="'.$filedownload.'" target="_blank" title="'.__('Download file', 'mvafsp').'">'.$filename.'</a></div>';
 		}
-		
+		$html .= '<div class="br-file-excerpt">'. get_the_excerpt($fileID).'</div>';
         $html .= '<ul class="file-data-list">
             	<li class="file-owner"><i class="mvico-user3" title="'.__('Owner', 'mvafsp').'"></i>'.ucfirst($mv_user).'</li>
                 <li class="file-publish"><i class="mvico-calendar"></i>'.get_post_time( 'F j, Y', false,  $fileID ).'</li>
